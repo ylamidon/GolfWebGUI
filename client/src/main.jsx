@@ -7,7 +7,7 @@ import "reactflow/dist/style.css";
 import "./style.css";
 
 const arcColors = ["#000000", "#0074D9", "#FF4136", "#2ECC40", "#FFDC00", "#AAAAAA", "#F012BE", "#FF851B", "#7FDBFF", "#870C25"];
-const ops = ["Input", "Output", "Constant", "Cast", "Identity", "Equal", "Greater", "Less", "Not", "And", "Add", "Sub", "Mul", "Div", "ReduceSum", "ArgMax", "Where"];
+const ops = ["Input", "Output", "Constant", "RowIndex", "ColIndex", "Cast", "Identity", "Equal", "Greater", "Less", "Not", "And", "Add", "Sub", "Mul", "Div", "ReduceSum", "ArgMax", "Where", "Slice", "Pad", "Concat", "Transpose", "Tile", "Resize", "Conv"];
 const saved = ["baseline-cast-equal", "argmax-mask-v2", "reduce-sum-probe"];
 const TASK_COUNT = 400;
 const TASK_PAGE_SIZE = 40;
@@ -17,6 +17,12 @@ const inputSlots = {
   Not: ["input"],
   ReduceSum: ["input"],
   ArgMax: ["input"],
+  Slice: ["input"],
+  Pad: ["input"],
+  Transpose: ["input"],
+  Tile: ["input"],
+  Resize: ["input"],
+  Conv: ["input"],
   Output: ["input"],
   Equal: ["a", "b"],
   Greater: ["a", "b"],
@@ -27,12 +33,20 @@ const inputSlots = {
   Mul: ["a", "b"],
   Div: ["a", "b"],
   Where: ["condition", "true", "false"],
+  Concat: ["a", "b"],
 };
 
 function defaultAttrs(opType) {
   if (opType === "Cast") return { to: "1" };
   if (opType === "ReduceSum") return { axes: [2, 3], keepdims: 1 };
   if (opType === "ArgMax") return { axis: 1, keepdims: 1 };
+  if (opType === "Slice") return { starts: [0, 0, 0, 0], ends: [1, 1, 30, 30], axes: [0, 1, 2, 3], steps: [1, 1, 1, 1] };
+  if (opType === "Pad") return { pads: [0, 0, 0, 0, 0, 0, 0, 0], value: 0 };
+  if (opType === "Concat") return { axis: 1 };
+  if (opType === "Transpose") return { perm: [0, 1, 3, 2] };
+  if (opType === "Tile") return { repeats: [1, 1, 1, 1] };
+  if (opType === "Resize") return { sizes: [1, 1, 30, 30], mode: "nearest" };
+  if (opType === "Conv") return { weight_shape: [1, 1, 3, 3], weights: [1, 1, 1, 1, 1, 1, 1, 1, 1], pads: [1, 1, 1, 1], strides: [1, 1] };
   return {};
 }
 

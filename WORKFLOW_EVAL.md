@@ -1,8 +1,8 @@
 # NeuroGolf Lab Workflow Evaluation
 
 Date: 2026-05-13
-Active project: `/root/webgui` on `root@96.3.252.118:20347`
-Local tunnel convention: `ssh -p 20347 root@96.3.252.118 -L 8080:localhost:8080`
+Active project during evaluation: remote deployment checkout.
+Local tunnel convention: use your private SSH or tunnel configuration; do not commit hostnames, IPs, or credentials.
 
 ## Verdict
 
@@ -108,16 +108,10 @@ Every change is tied to a blocker above.
 Representative commands:
 
 ```bash
-ssh -p 20347 root@96.3.252.118 "cd /root/webgui && python3 -m pytest -q"
-ssh -p 20347 root@96.3.252.118 "cd /root/webgui/client && npm run build"
-ssh -p 20347 root@96.3.252.118 "curl -s -o /tmp/appcheck -w '%{http_code} %{size_download}' http://127.0.0.1:8081/"
-ssh -p 20347 root@96.3.252.118 "cd /root/webgui && python3 -"
-ssh -p 20347 root@96.3.252.118 "pkill -f 'uvicorn server:app' || true"
-ssh -p 20347 root@96.3.252.118 "cd /root/webgui && nohup python3 -m uvicorn server:app --host 0.0.0.0 --port 8081 > server.log 2>&1 < /dev/null &"
-scp -P 20347 server.py root@96.3.252.118:/root/webgui/server.py
-scp -P 20347 client/src/main.jsx root@96.3.252.118:/root/webgui/client/src/main.jsx
-scp -P 20347 client/src/style.css root@96.3.252.118:/root/webgui/client/src/style.css
-scp -P 20347 tests/test_server.py root@96.3.252.118:/root/webgui/tests/test_server.py
+python3 -m pytest -q
+cd client && npm run build
+curl -s -o /tmp/appcheck -w '%{http_code} %{size_download}' http://127.0.0.1:8081/
+python3 scripts/agent_export.py --task task276 --color-remap '{"6":2}'
 ```
 
 Python one-off scripts were used over SSH to inspect task JSONs, post `/api/export` payloads, and validate candidate graphs locally through `compile_graph()` and `validate_model()`.

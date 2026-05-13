@@ -44,6 +44,15 @@ SUPPORTED_OPS = {
     "ReduceSum",
     "ArgMax",
     "Where",
+    "Slice",
+    "Pad",
+    "Concat",
+    "Transpose",
+    "Tile",
+    "Resize",
+    "Conv",
+    "RowIndex",
+    "ColIndex",
 }
 CANVAS_SHAPE = [1, 1, 30, 30]
 TASK_ID_RE = re.compile(r"^task\d{3}$")
@@ -53,6 +62,12 @@ INPUT_SLOT_ORDER = {
     "Not": ["input"],
     "ReduceSum": ["input"],
     "ArgMax": ["input"],
+    "Slice": ["input"],
+    "Pad": ["input"],
+    "Transpose": ["input"],
+    "Tile": ["input"],
+    "Resize": ["input"],
+    "Conv": ["input"],
     "Output": ["input"],
     "Equal": ["a", "b"],
     "Greater": ["a", "b"],
@@ -63,6 +78,7 @@ INPUT_SLOT_ORDER = {
     "Mul": ["a", "b"],
     "Div": ["a", "b"],
     "Where": ["condition", "true", "false"],
+    "Concat": ["a", "b"],
 }
 
 app = FastAPI(title="NeuroGolf Lab")
@@ -163,7 +179,43 @@ def _onnx_attrs(op: str, attrs: dict[str, Any]) -> dict[str, Any]:
         return {"axis": int(attrs.get("axis", 1)), "keepdims": int(attrs.get("keepdims", 1))}
     if op == "ReduceSum":
         return {"keepdims": int(attrs.get("keepdims", 1))}
+    if op == "Concat":
+        return {"axis": int(attrs.get("axis", 1))}
+    if op == "Transpose":
+        return {"perm": [int(item) for item in attrs.get("perm", [0, 1, 3, 2])]}
+    if op == "Pad":
+        return {"mode": str(attrs.get("mode", "constant"))}
+    if op == "Resize":
+        return {
+            "mode": str(attrs.get("mode", "nearest")),
+            "coordinate_transformation_mode": str(attrs.get("coordinate_transformation_mode", "asymmetric")),
+            "nearest_mode": str(attrs.get("nearest_mode", "floor")),
+        }
+    if op == "Conv":
+        result: dict[str, Any] = {}
+        if "pads" in attrs:
+            result["pads"] = [int(item) for item in attrs["pads"]]
+        if "strides" in attrs:
+            result["strides"] = [int(item) for item in attrs["strides"]]
+        if "dilations" in attrs:
+            result["dilations"] = [int(item) for item in attrs["dilations"]]
+        return result
     return {}
+
+
+def _int_list(value: Any, default: list[int]) -> list[int]:
+    parsed = _parse_literal(value) if value not in ("", None) else default
+    if isinstance(parsed, int):
+        parsed = [parsed]
+    if isinstance(parsed, str):
+        parsed = [int(part.strip()) for part in parsed.replace("x", ",").split(",") if part.strip()]
+    if not isinstance(parsed, list) or not all(isinstance(item, int) for item in parsed):
+        raise ValueError("expected an integer list")
+    return parsed
+
+
+def _axis(axis: int, rank: int) -> int:
+    return (axis + rank) % rank
 
 
 def _output_shape_for_reduction(input_shape: list[int], attrs: dict[str, Any]) -> list[int]:
@@ -186,6 +238,93 @@ def _output_shape_for_argmax(input_shape: list[int], attrs: dict[str, Any]) -> l
     if keepdims:
         return [1 if idx == axis else dim for idx, dim in enumerate(input_shape)]
     return [dim for idx, dim in enumerate(input_shape) if idx != axis] or [1]
+
+
+def _output_shape_for_slice(input_shape: list[int], attrs: dict[str, Any]) -> list[int]:
+    axes = _int_list(attrs.get("axes"), list(range(len(input_shape))))
+    starts = _int_list(attrs.get("starts"), [0 for _ in axes])
+    ends = _int_list(attrs.get("ends"), [input_shape[_axis(axis, len(input_shape))] for axis in axes])
+    steps = _int_list(attrs.get("steps"), [1 for _ in axes])
+    if not (len(starts) == len(ends) == len(axes) == len(steps)):
+        raise ValueError("Slice starts, ends, axes, and steps must have the same length")
+    shape = list(input_shape)
+    for start, end, axis, step in zip(starts, ends, axes, steps):
+        axis = _axis(axis, len(input_shape))
+        if step <= 0:
+            raise ValueError("Slice steps must be positive")
+        dim = input_shape[axis]
+        start = max(0, min(dim, start if start >= 0 else dim + start))
+        end = max(0, min(dim, end if end >= 0 else dim + end))
+        shape[axis] = max(0, (end - start + step - 1) // step)
+        if shape[axis] <= 0:
+            raise ValueError("Slice output dimensions must be positive")
+    return shape
+
+
+def _output_shape_for_pad(input_shape: list[int], attrs: dict[str, Any]) -> list[int]:
+    pads = _int_list(attrs.get("pads"), [0, 0, 0, 0, 0, 0, 0, 0])
+    if len(pads) != 2 * len(input_shape):
+        raise ValueError(f"Pad pads must have {2 * len(input_shape)} values")
+    return [dim + pads[idx] + pads[idx + len(input_shape)] for idx, dim in enumerate(input_shape)]
+
+
+def _output_shape_for_concat(input_shapes: list[list[int]], attrs: dict[str, Any]) -> list[int]:
+    axis = _axis(int(attrs.get("axis", 1)), len(input_shapes[0]))
+    shape = list(input_shapes[0])
+    shape[axis] = 0
+    for idx, input_shape in enumerate(input_shapes, start=1):
+        if len(input_shape) != len(shape):
+            raise ValueError(f"Concat input {idx} rank does not match")
+        for dim_index, dim in enumerate(input_shape):
+            if dim_index != axis and dim != input_shapes[0][dim_index]:
+                raise ValueError(f"Concat input {idx} shape {input_shape} is incompatible on axis {axis}")
+        shape[axis] += input_shape[axis]
+    return shape
+
+
+def _output_shape_for_transpose(input_shape: list[int], attrs: dict[str, Any]) -> list[int]:
+    perm = _int_list(attrs.get("perm"), [0, 1, 3, 2])
+    if sorted(perm) != list(range(len(input_shape))):
+        raise ValueError("Transpose perm must contain every input axis exactly once")
+    return [input_shape[idx] for idx in perm]
+
+
+def _output_shape_for_tile(input_shape: list[int], attrs: dict[str, Any]) -> list[int]:
+    repeats = _int_list(attrs.get("repeats"), [1 for _ in input_shape])
+    if len(repeats) != len(input_shape) or any(item <= 0 for item in repeats):
+        raise ValueError("Tile repeats must be positive and match input rank")
+    return [dim * repeat for dim, repeat in zip(input_shape, repeats)]
+
+
+def _output_shape_for_resize(input_shape: list[int], attrs: dict[str, Any]) -> list[int]:
+    if "sizes" in attrs:
+        sizes = _int_list(attrs.get("sizes"), input_shape)
+        if len(sizes) != len(input_shape) or any(item <= 0 for item in sizes):
+            raise ValueError("Resize sizes must be positive and match input rank")
+        return sizes
+    scales = attrs.get("scales")
+    if scales is None:
+        return input_shape
+    parsed = _parse_literal(scales)
+    if not isinstance(parsed, list) or len(parsed) != len(input_shape):
+        raise ValueError("Resize scales must match input rank")
+    return [max(1, int(round(dim * float(scale)))) for dim, scale in zip(input_shape, parsed)]
+
+
+def _output_shape_for_conv(input_shape: list[int], attrs: dict[str, Any], weight_shape: list[int]) -> list[int]:
+    if len(input_shape) != 4 or len(weight_shape) != 4:
+        raise ValueError("Conv currently requires NCHW input and OIHW weights")
+    pads = _int_list(attrs.get("pads"), [0, 0, 0, 0])
+    strides = _int_list(attrs.get("strides"), [1, 1])
+    dilations = _int_list(attrs.get("dilations"), [1, 1])
+    out_channels, in_channels, kernel_h, kernel_w = weight_shape
+    if input_shape[1] != in_channels:
+        raise ValueError(f"Conv weight input channels {in_channels} do not match tensor channels {input_shape[1]}")
+    out_h = ((input_shape[2] + pads[0] + pads[2] - dilations[0] * (kernel_h - 1) - 1) // strides[0]) + 1
+    out_w = ((input_shape[3] + pads[1] + pads[3] - dilations[1] * (kernel_w - 1) - 1) // strides[1]) + 1
+    if out_h <= 0 or out_w <= 0:
+        raise ValueError("Conv output dimensions must be positive")
+    return [input_shape[0], out_channels, out_h, out_w]
 
 
 def _tensor_type_for_cast(attrs: dict[str, Any]) -> int:
@@ -280,6 +419,12 @@ def _expect_inputs(op: str, node_id: str, ids: list[str]) -> None:
         "Not": 1,
         "ReduceSum": 1,
         "ArgMax": 1,
+        "Slice": 1,
+        "Pad": 1,
+        "Transpose": 1,
+        "Tile": 1,
+        "Resize": 1,
+        "Conv": 1,
         "Equal": 2,
         "Greater": 2,
         "Less": 2,
@@ -294,6 +439,8 @@ def _expect_inputs(op: str, node_id: str, ids: list[str]) -> None:
     expected = required.get(op)
     if expected is not None and len(ids) != expected:
         raise ValueError(f"{op} node {node_id!r} requires {expected} input edge(s), got {len(ids)}")
+    if op == "Concat" and len(ids) < 2:
+        raise ValueError(f"Concat node {node_id!r} requires at least 2 input edge(s), got {len(ids)}")
 
 
 def _constant_array(data: dict[str, Any], shape: list[int]) -> np.ndarray:
@@ -307,6 +454,15 @@ def _constant_array(data: dict[str, Any], shape: list[int]) -> np.ndarray:
         return array.reshape(shape).astype(np.float32)
     except ValueError as exc:
         raise ValueError(f"Constant values cannot be reshaped to {shape}") from exc
+
+
+def _coordinate_array(kind: str, shape: list[int]) -> np.ndarray:
+    arr = np.zeros(shape, dtype=np.float32)
+    if kind == "row":
+        arr[:, :, :, :] = np.arange(shape[-2], dtype=np.float32).reshape(1, 1, shape[-2], 1)
+    else:
+        arr[:, :, :, :] = np.arange(shape[-1], dtype=np.float32).reshape(1, 1, 1, shape[-1])
+    return arr
 
 
 def compile_graph(payload: ExportPayload) -> onnx.ModelProto:
@@ -359,6 +515,17 @@ def compile_graph(payload: ExportPayload) -> onnx.ModelProto:
             value_infos.append(helper.make_tensor_value_info(output_name, TensorProto.FLOAT, shape))
             continue
 
+        if op in {"RowIndex", "ColIndex"}:
+            shape = _shape(data, CANVAS_SHAPE)
+            array = _coordinate_array("row" if op == "RowIndex" else "col", shape)
+            tensor = numpy_helper.from_array(array, name=f"{node_id}_value")
+            tensor_name[node_id] = output_name
+            tensor_shape[node_id] = shape
+            tensor_type[node_id] = TensorProto.FLOAT
+            onnx_nodes.append(helper.make_node("Constant", inputs=[], outputs=[output_name], name=node_id, value=tensor))
+            value_infos.append(helper.make_tensor_value_info(output_name, TensorProto.FLOAT, shape))
+            continue
+
         _expect_inputs(op, node_id, input_ids)
         inputs = [tensor_name[source_id] for source_id in input_ids]
         input_shapes = [tensor_shape[source_id] for source_id in input_ids]
@@ -394,6 +561,60 @@ def compile_graph(payload: ExportPayload) -> onnx.ModelProto:
         elif op == "ArgMax":
             shape = _output_shape_for_argmax(input_shapes[0], attrs)
             out_type = TensorProto.INT64
+        elif op == "Slice":
+            starts = _int_list(attrs.get("starts"), [0, 0, 0, 0])
+            ends = _int_list(attrs.get("ends"), input_shapes[0])
+            axes = _int_list(attrs.get("axes"), list(range(len(starts))))
+            steps = _int_list(attrs.get("steps"), [1 for _ in starts])
+            shape = _output_shape_for_slice(input_shapes[0], {"starts": starts, "ends": ends, "axes": axes, "steps": steps})
+            for suffix, values in {"starts": starts, "ends": ends, "axes": axes, "steps": steps}.items():
+                initializer_name = f"{node_id}_{suffix}"
+                initializers.append(helper.make_tensor(initializer_name, TensorProto.INT64, [len(values)], [int(item) for item in values]))
+                node_inputs.append(initializer_name)
+        elif op == "Pad":
+            pads = _int_list(attrs.get("pads"), [0 for _ in range(2 * len(input_shapes[0]))])
+            shape = _output_shape_for_pad(input_shapes[0], {"pads": pads})
+            pads_name = f"{node_id}_pads"
+            value_name = f"{node_id}_constant_value"
+            initializers.append(helper.make_tensor(pads_name, TensorProto.INT64, [len(pads)], [int(item) for item in pads]))
+            initializers.append(helper.make_tensor(value_name, TensorProto.FLOAT, [], [float(attrs.get("value", 0))]))
+            node_inputs = [inputs[0], pads_name, value_name]
+        elif op == "Concat":
+            shape = _output_shape_for_concat(input_shapes, attrs)
+        elif op == "Transpose":
+            shape = _output_shape_for_transpose(input_shapes[0], attrs)
+        elif op == "Tile":
+            repeats = _int_list(attrs.get("repeats"), [1 for _ in input_shapes[0]])
+            shape = _output_shape_for_tile(input_shapes[0], {"repeats": repeats})
+            repeats_name = f"{node_id}_repeats"
+            initializers.append(helper.make_tensor(repeats_name, TensorProto.INT64, [len(repeats)], [int(item) for item in repeats]))
+            node_inputs = [inputs[0], repeats_name]
+        elif op == "Resize":
+            shape = _output_shape_for_resize(input_shapes[0], attrs)
+            roi_name = f"{node_id}_roi"
+            scales_name = f"{node_id}_scales"
+            sizes_name = f"{node_id}_sizes"
+            initializers.append(helper.make_tensor(roi_name, TensorProto.FLOAT, [0], []))
+            initializers.append(helper.make_tensor(scales_name, TensorProto.FLOAT, [0], []))
+            initializers.append(helper.make_tensor(sizes_name, TensorProto.INT64, [len(shape)], [int(item) for item in shape]))
+            node_inputs = [inputs[0], roi_name, scales_name, sizes_name]
+        elif op == "Conv":
+            weights = attrs.get("weights", attrs.get("kernel", [1]))
+            weight_shape = _shape({"shape": attrs.get("weight_shape", attrs.get("kernel_shape", [1, input_shapes[0][1], 1, 1]))})
+            weight_array = np.asarray(_parse_literal(weights), dtype=np.float32)
+            if weight_array.size == 1 and int(np.prod(weight_shape)) != 1:
+                weight_array = np.full(weight_shape, float(weight_array.reshape(-1)[0]), dtype=np.float32)
+            else:
+                weight_array = weight_array.reshape(weight_shape).astype(np.float32)
+            weight_name = f"{node_id}_weights"
+            initializers.append(numpy_helper.from_array(weight_array, name=weight_name))
+            node_inputs = [inputs[0], weight_name]
+            if "bias" in attrs:
+                bias = np.asarray(_parse_literal(attrs["bias"]), dtype=np.float32).reshape([weight_shape[0]])
+                bias_name = f"{node_id}_bias"
+                initializers.append(numpy_helper.from_array(bias, name=bias_name))
+                node_inputs.append(bias_name)
+            shape = _output_shape_for_conv(input_shapes[0], attrs, weight_shape)
 
         tensor_name[node_id] = output_name
         tensor_shape[node_id] = shape

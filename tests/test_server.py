@@ -47,6 +47,26 @@ def color_remap_payload():
     )
 
 
+def single_op_payload(op_type, attrs=None, output_grid=None):
+    source = [[1, 2, 3], [4, 5, 6]]
+    nodes = [
+        {"id": "input_1", "type": "op", "data": {"opType": "Input", "shape": "1,1,30,30"}},
+        {"id": "op_1", "type": "op", "data": {"opType": op_type, "shape": "1,1,30,30", "attrs": attrs or {}}},
+        {"id": "output_1", "type": "op", "data": {"opType": "Output", "shape": "1,1,30,30"}},
+    ]
+    edges = [
+        {"source": "input_1", "target": "op_1", "targetHandle": "input"},
+        {"source": "op_1", "target": "output_1", "targetHandle": "input"},
+    ]
+    return ExportPayload(
+        projectName=f"test-{op_type.lower()}",
+        taskId="task001",
+        nodes=nodes,
+        edges=edges,
+        trainingPairs=[{"input": source, "output": output_grid or source}],
+    )
+
+
 class ServerCompilerTests(unittest.TestCase):
     def test_compile_and_validate_identity_graph(self):
         payload = identity_payload()
@@ -97,6 +117,63 @@ class ServerCompilerTests(unittest.TestCase):
         payload.edges[1]["targetHandle"] = "a"
         with self.assertRaisesRegex(ValueError, "multiple edges for input slot 'a'"):
             compile_graph(payload)
+
+    def test_slice_can_crop_output_window(self):
+        payload = single_op_payload(
+            "Slice",
+            attrs={"starts": [0, 0, 0, 0], "ends": [1, 1, 1, 2], "axes": [0, 1, 2, 3], "steps": [1, 1, 1, 1]},
+            output_grid=[[1, 2]],
+        )
+        model = compile_graph(payload)
+        result = validate_model(model, payload)
+        self.assertEqual(result["train"], "passed")
+
+    def test_transpose_can_swap_grid_axes(self):
+        payload = single_op_payload("Transpose", attrs={"perm": [0, 1, 3, 2]}, output_grid=[[1, 4], [2, 5], [3, 6]])
+        model = compile_graph(payload)
+        result = validate_model(model, payload)
+        self.assertEqual(result["train"], "passed")
+
+    def test_compile_spatial_and_coordinate_nodes(self):
+        cases = [
+            single_op_payload("Pad", attrs={"pads": [0, 0, 1, 1, 0, 0, 0, 0], "value": 0}),
+            single_op_payload("Tile", attrs={"repeats": [1, 1, 1, 1]}),
+            single_op_payload("Resize", attrs={"sizes": [1, 1, 30, 30], "mode": "nearest"}),
+            single_op_payload("Conv", attrs={"weight_shape": [1, 1, 3, 3], "weights": [1, 0, 0, 0, 0, 0, 0, 0, 0], "pads": [1, 1, 1, 1]}),
+            ExportPayload(
+                projectName="coords",
+                taskId="task001",
+                nodes=[
+                    {"id": "input_1", "type": "op", "data": {"opType": "Input", "shape": "1,1,30,30"}},
+                    {"id": "row_1", "type": "op", "data": {"opType": "RowIndex", "shape": "1,1,30,30"}},
+                    {"id": "output_1", "type": "op", "data": {"opType": "Output", "shape": "1,1,30,30"}},
+                ],
+                edges=[{"source": "row_1", "target": "output_1", "targetHandle": "input"}],
+                trainingPairs=[{"input": [[0]], "output": [[0]]}],
+            ),
+        ]
+        for payload in cases:
+            with self.subTest(op=payload.nodes[1]["data"]["opType"]):
+                compile_graph(payload)
+
+    def test_concat_compiles_two_inputs(self):
+        payload = ExportPayload(
+            projectName="concat",
+            taskId="task001",
+            nodes=[
+                {"id": "input_1", "type": "op", "data": {"opType": "Input", "shape": "1,1,30,30"}},
+                {"id": "const_1", "type": "op", "data": {"opType": "Constant", "shape": "1,1,30,30", "value": "0"}},
+                {"id": "concat_1", "type": "op", "data": {"opType": "Concat", "shape": "1,2,30,30", "attrs": {"axis": 1}}},
+                {"id": "output_1", "type": "op", "data": {"opType": "Output", "shape": "1,2,30,30"}},
+            ],
+            edges=[
+                {"source": "input_1", "target": "concat_1", "targetHandle": "a"},
+                {"source": "const_1", "target": "concat_1", "targetHandle": "b"},
+                {"source": "concat_1", "target": "output_1", "targetHandle": "input"},
+            ],
+            trainingPairs=[{"input": [[1]], "output": [[1]]}],
+        )
+        compile_graph(payload)
 
 
 if __name__ == "__main__":
