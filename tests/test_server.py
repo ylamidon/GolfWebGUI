@@ -21,6 +21,32 @@ def identity_payload(output_grid=None):
     )
 
 
+def color_remap_payload():
+    source = [[6, 6, 7, 6], [6, 6, 7, 7], [7, 7, 6, 7]]
+    target = [[2, 2, 7, 2], [2, 2, 7, 7], [7, 7, 2, 7]]
+    return ExportPayload(
+        projectName="color-remap",
+        taskId="task276",
+        nodes=[
+            {"id": "input_1", "type": "op", "data": {"opType": "Input", "shape": "1,1,30,30"}},
+            {"id": "const_6", "type": "op", "data": {"opType": "Constant", "shape": "1,1,30,30", "value": "6"}},
+            {"id": "const_2", "type": "op", "data": {"opType": "Constant", "shape": "1,1,30,30", "value": "2"}},
+            {"id": "equal_1", "type": "op", "data": {"opType": "Equal", "shape": "1,1,30,30"}},
+            {"id": "where_1", "type": "op", "data": {"opType": "Where", "shape": "1,1,30,30"}},
+            {"id": "output_1", "type": "op", "data": {"opType": "Output", "shape": "1,1,30,30"}},
+        ],
+        edges=[
+            {"source": "input_1", "target": "equal_1", "targetHandle": "a"},
+            {"source": "const_6", "target": "equal_1", "targetHandle": "b"},
+            {"source": "equal_1", "target": "where_1", "targetHandle": "condition"},
+            {"source": "const_2", "target": "where_1", "targetHandle": "true"},
+            {"source": "input_1", "target": "where_1", "targetHandle": "false"},
+            {"source": "where_1", "target": "output_1", "targetHandle": "input"},
+        ],
+        trainingPairs=[{"input": source, "output": target}],
+    )
+
+
 class ServerCompilerTests(unittest.TestCase):
     def test_compile_and_validate_identity_graph(self):
         payload = identity_payload()
@@ -59,6 +85,18 @@ class ServerCompilerTests(unittest.TestCase):
         model = compile_graph(payload)
         with self.assertRaisesRegex(ValidationError, "Strict Equivalence failed"):
             validate_model(model, payload)
+
+    def test_named_input_slots_compile_color_remap(self):
+        payload = color_remap_payload()
+        model = compile_graph(payload)
+        result = validate_model(model, payload)
+        self.assertEqual(result["train"], "passed")
+
+    def test_rejects_duplicate_named_input_slot(self):
+        payload = color_remap_payload()
+        payload.edges[1]["targetHandle"] = "a"
+        with self.assertRaisesRegex(ValueError, "multiple edges for input slot 'a'"):
+            compile_graph(payload)
 
 
 if __name__ == "__main__":

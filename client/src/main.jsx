@@ -11,6 +11,30 @@ const ops = ["Constant", "Cast", "Identity", "Equal", "Greater", "Less", "Not", 
 const saved = ["baseline-cast-equal", "argmax-mask-v2", "reduce-sum-probe"];
 const TASK_COUNT = 400;
 const TASK_PAGE_SIZE = 40;
+const inputSlots = {
+  Cast: ["input"],
+  Identity: ["input"],
+  Not: ["input"],
+  ReduceSum: ["input"],
+  ArgMax: ["input"],
+  Output: ["input"],
+  Equal: ["a", "b"],
+  Greater: ["a", "b"],
+  Less: ["a", "b"],
+  And: ["a", "b"],
+  Add: ["a", "b"],
+  Sub: ["a", "b"],
+  Mul: ["a", "b"],
+  Div: ["a", "b"],
+  Where: ["condition", "true", "false"],
+};
+
+function defaultAttrs(opType) {
+  if (opType === "Cast") return { to: "1" };
+  if (opType === "ReduceSum") return { axes: [2, 3], keepdims: 1 };
+  if (opType === "ArgMax") return { axis: 1, keepdims: 1 };
+  return {};
+}
 
 function clampTask(value) {
   const parsed = Number(value || 1);
@@ -23,9 +47,19 @@ function taskIdFor(taskNumber) {
 }
 
 function OpNode({ data, selected }) {
+  const slots = inputSlots[data.opType] || [];
   return (
     <div className={`node ${selected ? "nodeSelected" : ""}`}>
-      <Handle type="target" position={Position.Left} />
+      {slots.map((slot, index) => (
+        <Handle
+          key={slot}
+          id={slot}
+          type="target"
+          position={Position.Left}
+          style={{ top: `${((index + 1) / (slots.length + 1)) * 100}%` }}
+        />
+      ))}
+      {slots.length > 0 && <div className="nodeSlots">{slots.join(" / ")}</div>}
       <div className="nodeType">{data.opType}</div>
       <div className="nodeId">{data.label}</div>
       <Handle type="source" position={Position.Right} />
@@ -107,6 +141,8 @@ function App() {
   const [currentTask, setCurrentTask] = useState(null);
   const [taskLoadState, setTaskLoadState] = useState("loading");
   const [taskLoadError, setTaskLoadError] = useState("");
+  const [exampleHeight, setExampleHeight] = useState(330);
+  const [isResizingExamples, setIsResizingExamples] = useState(false);
   const example = currentTask?.train?.[0] || { input: [[0]], output: [[0]] };
   const trainingPairs = useMemo(() => currentTask?.train || [], [currentTask]);
   const stats = taskLoadState === "loaded"
@@ -119,17 +155,13 @@ function App() {
   const initialNodes = useMemo(
     () => [
       { id: "input_1", type: "op", position: { x: 70, y: 80 }, data: { label: "input_1", opType: "Input", shape: "1,1,30,30" } },
-      { id: "cast_11", type: "op", position: { x: 280, y: 80 }, data: { label: "cast_11", opType: "Cast", attrs: { to: "1" }, shape: "1,1,30,30" } },
-      { id: "equal_3", type: "op", position: { x: 500, y: 80 }, data: { label: "equal_3", opType: "Equal", shape: "1,1,30,30" } },
-      { id: "output_1", type: "op", position: { x: 720, y: 80 }, data: { label: "output_1", opType: "Output", shape: "1,1,30,30" } },
+      { id: "output_1", type: "op", position: { x: 310, y: 80 }, data: { label: "output_1", opType: "Output", shape: "1,1,30,30" } },
     ],
     []
   );
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([
-    { id: "e1", source: "input_1", target: "cast_11" },
-    { id: "e2", source: "cast_11", target: "equal_3" },
-    { id: "e3", source: "equal_3", target: "output_1" },
+    { id: "e1", source: "input_1", target: "output_1", targetHandle: "input" },
   ]);
   const selectedNode = nodes.find((node) => node.id === selectedId);
 
@@ -163,7 +195,9 @@ function App() {
 
   const addNode = (opType) => {
     const id = `${opType.toLowerCase()}_${nodes.length + 1}`;
-    setNodes((current) => [...current, { id, type: "op", position: { x: 140 + nodes.length * 35, y: 180 }, data: { label: id, opType, shape: "1,1,30,30", attrs: {} } }]);
+    const data = { label: id, opType, shape: "1,1,30,30", attrs: defaultAttrs(opType) };
+    if (opType === "Constant") data.value = "0";
+    setNodes((current) => [...current, { id, type: "op", position: { x: 140 + nodes.length * 35, y: 180 }, data }]);
   };
 
   const updateSelected = (patch) => {
@@ -198,7 +232,29 @@ function App() {
     }
   };
 
+  const payloadPreview = useMemo(
+    () => JSON.stringify({ projectName, taskId, nodes, edges, trainingPairs }, null, 2),
+    [projectName, taskId, nodes, edges, trainingPairs]
+  );
+
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
+
+  useEffect(() => {
+    if (!isResizingExamples) return;
+    const onMove = (event) => {
+      const topbar = document.querySelector(".topbar")?.getBoundingClientRect();
+      if (!topbar) return;
+      const nextHeight = event.clientY - topbar.bottom;
+      setExampleHeight(Math.min(560, Math.max(170, nextHeight)));
+    };
+    const onStop = () => setIsResizingExamples(false);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onStop);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onStop);
+    };
+  }, [isResizingExamples]);
 
   return (
     <div className="appShell">
@@ -231,7 +287,7 @@ function App() {
           <div className="opGrid">{ops.map((op) => <button key={op} onClick={() => addNode(op)}><Plus size={14} />{op}</button>)}</div>
         </section>
       </aside>
-      <main className="workspace">
+      <main className="workspace" style={{ "--example-height": `${exampleHeight}px` }}>
         <nav className="topbar">
           <div><strong>Task {String(task).padStart(3, "0")}</strong><span>{stats}</span></div>
           <div className="actions">
@@ -244,6 +300,16 @@ function App() {
           <ArcGrid title="INPUT" values={example.input} />
           <ArcGrid title="OUTPUT" values={example.output} />
         </section>
+        <div
+          className={`splitter ${isResizingExamples ? "active" : ""}`}
+          onMouseDown={(event) => {
+            event.preventDefault();
+            setIsResizingExamples(true);
+          }}
+          role="separator"
+          aria-orientation="horizontal"
+          aria-label="Resize task preview"
+        />
         <section className="graphPanel">
           <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onNodeClick={(_, node) => setSelectedId(node.id)} fitView>
             <Background gap={18} size={1} color="#cbd5e1" />
@@ -259,12 +325,18 @@ function App() {
           <div className="inspector">
             <label>Node type<input value={selectedNode.data.opType} onChange={(e) => updateSelected({ opType: e.target.value })} /></label>
             <label>ID<input value={selectedNode.id} readOnly /></label>
-            <label>Input source<select>{nodes.filter((node) => node.id !== selectedNode.id).map((node) => <option key={node.id}>{node.id}</option>)}</select></label>
             <label>Shape<textarea value={selectedNode.data.shape || ""} onChange={(e) => updateSelected({ shape: e.target.value })} /></label>
-            <label>Axes / Keepdims<textarea value={JSON.stringify(selectedNode.data.attrs || {}, null, 2)} onChange={(e) => updateSelected({ attrsText: e.target.value })} /></label>
+            {selectedNode.data.opType === "Constant" && (
+              <label>Constant value<textarea value={selectedNode.data.value || ""} onChange={(e) => updateSelected({ value: e.target.value })} /></label>
+            )}
+            <label>Attributes JSON<textarea value={selectedNode.data.attrsText || JSON.stringify(selectedNode.data.attrs || {}, null, 2)} onChange={(e) => updateSelected({ attrsText: e.target.value })} /></label>
             <button className="danger" onClick={deleteSelected}><Trash2 size={15} />Delete Node</button>
           </div>
         ) : <p className="muted">Select a node to inspect graph bindings and ONNX attributes.</p>}
+        <section>
+          <h2>EXPORT PAYLOAD</h2>
+          <textarea className="payloadPreview" value={payloadPreview} readOnly />
+        </section>
         <div className="status">{status}</div>
       </aside>
     </div>

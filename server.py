@@ -47,6 +47,23 @@ SUPPORTED_OPS = {
 }
 CANVAS_SHAPE = [1, 1, 30, 30]
 TASK_ID_RE = re.compile(r"^task\d{3}$")
+INPUT_SLOT_ORDER = {
+    "Cast": ["input"],
+    "Identity": ["input"],
+    "Not": ["input"],
+    "ReduceSum": ["input"],
+    "ArgMax": ["input"],
+    "Output": ["input"],
+    "Equal": ["a", "b"],
+    "Greater": ["a", "b"],
+    "Less": ["a", "b"],
+    "And": ["a", "b"],
+    "Add": ["a", "b"],
+    "Sub": ["a", "b"],
+    "Mul": ["a", "b"],
+    "Div": ["a", "b"],
+    "Where": ["condition", "true", "false"],
+}
 
 app = FastAPI(title="NeuroGolf Lab")
 app.add_middleware(
@@ -232,10 +249,26 @@ def _topological_sort(by_id: dict[str, dict[str, Any]], incoming: dict[str, list
     return [by_id[node_id] for node_id in ordered_ids]
 
 
-def _incoming_ids(node_id: str, incoming: dict[str, list[dict[str, Any]]]) -> list[str]:
+def _incoming_ids(node_id: str, op: str, incoming: dict[str, list[dict[str, Any]]]) -> list[str]:
+    slot_order = INPUT_SLOT_ORDER.get(op, [])
+    slot_index = {slot: index for index, slot in enumerate(slot_order)}
+    seen_slots: set[str] = set()
+    for edge in incoming.get(node_id, []):
+        slot = str(edge.get("targetHandle") or "").strip()
+        if not slot:
+            continue
+        if slot not in slot_index:
+            raise ValueError(f"{op} node {node_id!r} has unknown input slot {slot!r}")
+        if slot in seen_slots:
+            raise ValueError(f"{op} node {node_id!r} has multiple edges for input slot {slot!r}")
+        seen_slots.add(slot)
     edges = sorted(
         incoming.get(node_id, []),
-        key=lambda edge: (str(edge.get("targetHandle") or ""), str(edge.get("source") or ""), str(edge.get("id") or "")),
+        key=lambda edge: (
+            slot_index.get(str(edge.get("targetHandle") or "").strip(), len(slot_order)),
+            str(edge.get("source") or ""),
+            str(edge.get("id") or ""),
+        ),
     )
     return [str(edge["source"]) for edge in edges]
 
@@ -306,7 +339,7 @@ def compile_graph(payload: ExportPayload) -> onnx.ModelProto:
             graph_inputs.append(helper.make_tensor_value_info(output_name, TensorProto.FLOAT, shape))
             continue
 
-        input_ids = _incoming_ids(node_id, incoming)
+        input_ids = _incoming_ids(node_id, op, incoming)
 
         if op == "Output":
             _expect_inputs(op, node_id, input_ids)
@@ -509,7 +542,19 @@ def export_onnx(payload: ExportPayload):
             raise ValueError("HF_TOKEN and HF_REPO_ID are required")
         api = HfApi(token=token)
         remote_path = f"{task_id}.onnx"
-        api.upload_file(path_or_fileobj=str(artifact), path_in_repo=remote_path, repo_id=repo_id, repo_type="model")
+        try:
+            api.create_repo(repo_id=repo_id, repo_type="model", private=True, exist_ok=True)
+            api.upload_file(path_or_fileobj=str(artifact), path_in_repo=remote_path, repo_id=repo_id, repo_type="model")
+        except Exception as exc:
+            return JSONResponse(
+                status_code=502,
+                content={
+                    "status": "upload_failed",
+                    "reason": f"Validation passed, but artifact push failed: {exc}",
+                    "artifact": artifact.name,
+                    "validation": validation,
+                },
+            )
         return {"status": "passed", "artifact": artifact.name, "repo": repo_id, "path": remote_path, "validation": validation}
     except ValidationError as exc:
         return JSONResponse(status_code=400, content={"status": "failed", "reason": str(exc)})
