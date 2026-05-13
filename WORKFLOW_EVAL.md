@@ -161,3 +161,29 @@ Verification:
 - Live task JSON `GET http://127.0.0.1:8081/tasks/task010.json` returned 200.
 - Browser workflow validation clicked `Train`, `Test`, `Extra 10`, `Compile`, and `Run`; `Compile` reported success and `Run` displayed `RUN OUTPUT`.
 - Browser workflow validation also added a `Constant` node through the quick-add UI and deleted it with the keyboard `Delete` key.
+
+## Follow-up: Project Controls and Full Workflow E2E
+
+Date: 2026-05-13
+
+Issue found:
+
+- The `PROJECT` controls (`New`, `Save`, saved project dropdown, `Load Selected`) were still demo UI. The dropdown listed template-looking names, but no control actually created, saved, or restored graph state.
+
+Changes made:
+
+- Replaced the static project list with real built-in starter projects plus browser-local saved projects.
+- Wired `New` to reset the graph to the safe `Input -> Output` template for the current task.
+- Wired `Save` to persist the current project name, task id, nodes, and edges in `localStorage`.
+- Wired `Load Selected` to restore the selected project graph exactly.
+- Added accessible labels for project name and saved project selection.
+- Added permanent Playwright e2e coverage for project load, compile, run, new, save, reload, keyboard delete, and train/test/extra switching.
+- Added Playwright output folders to `.gitignore`.
+
+Verification:
+
+- `python3 -m pytest -q` passed: 12 tests and 5 subtests.
+- `cd client && npm run build` passed.
+- `cd client && NEUROGOLF_E2E_BASE_URL=http://127.0.0.1:8081 npm run test:e2e` passed: 1 test.
+- Live smoke checks for `/`, `/tasks/task001.json`, `/tasks/task010.json`, and `/tasks/task400.json` returned 200.
+- Headless agent export passed through `/api/export`: `task276.onnx` returned HTTP 200 with train/shape/colors validation passed.

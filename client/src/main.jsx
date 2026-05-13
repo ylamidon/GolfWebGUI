@@ -8,7 +8,7 @@ import "./style.css";
 
 const arcColors = ["#000000", "#0074D9", "#FF4136", "#2ECC40", "#FFDC00", "#AAAAAA", "#F012BE", "#FF851B", "#7FDBFF", "#870C25"];
 const ops = ["Input", "Output", "Constant", "RowIndex", "ColIndex", "Cast", "Identity", "Equal", "Greater", "Less", "Not", "And", "Add", "Sub", "Mul", "Div", "ReduceSum", "ArgMax", "Where", "Slice", "Pad", "Concat", "Transpose", "Tile", "Resize", "Conv"];
-const saved = ["baseline-cast-equal", "argmax-mask-v2", "reduce-sum-probe"];
+const PROJECT_STORAGE_KEY = "neurogolf-projects-v1";
 const TASK_COUNT = 400;
 const TASK_PAGE_SIZE = 40;
 const inputSlots = {
@@ -58,6 +58,87 @@ function clampTask(value) {
 
 function taskIdFor(taskNumber) {
   return `task${String(taskNumber).padStart(3, "0")}`;
+}
+
+function defaultNodes() {
+  return [
+    { id: "input_1", type: "op", position: { x: 70, y: 80 }, data: { label: "input_1", opType: "Input", shape: "1,1,30,30" } },
+    { id: "output_1", type: "op", position: { x: 310, y: 80 }, data: { label: "output_1", opType: "Output", shape: "1,1,30,30" } },
+  ];
+}
+
+function defaultEdges() {
+  return [{ id: "e1", source: "input_1", target: "output_1", targetHandle: "input" }];
+}
+
+function cloneGraph(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function builtinProjects() {
+  const input = { id: "input_1", type: "op", position: { x: 70, y: 80 }, data: { label: "input_1", opType: "Input", shape: "1,1,30,30" } };
+  const output = { id: "output_1", type: "op", position: { x: 760, y: 95 }, data: { label: "output_1", opType: "Output", shape: "1,1,30,30" } };
+  return [
+    {
+      name: "baseline-cast-equal",
+      taskId: "task010",
+      nodes: [
+        input,
+        { id: "const_0", type: "op", position: { x: 250, y: 165 }, data: { label: "const_0", opType: "Constant", shape: "1,1,30,30", value: "0" } },
+        { id: "equal_1", type: "op", position: { x: 430, y: 85 }, data: { label: "equal_1", opType: "Equal", shape: "1,1,30,30" } },
+        { id: "cast_1", type: "op", position: { x: 600, y: 95 }, data: { label: "cast_1", opType: "Cast", shape: "1,1,30,30", attrs: { to: "1" } } },
+        output,
+      ],
+      edges: [
+        { id: "eq_a", source: "input_1", target: "equal_1", targetHandle: "a" },
+        { id: "eq_b", source: "const_0", target: "equal_1", targetHandle: "b" },
+        { id: "cast_in", source: "equal_1", target: "cast_1", targetHandle: "input" },
+        { id: "out", source: "cast_1", target: "output_1", targetHandle: "input" },
+      ],
+    },
+    {
+      name: "argmax-mask-v2",
+      taskId: "task010",
+      nodes: [
+        input,
+        { id: "argmax_1", type: "op", position: { x: 300, y: 80 }, data: { label: "argmax_1", opType: "ArgMax", shape: "1,1,30,30", attrs: { axis: 1, keepdims: 1 } } },
+        { id: "cast_1", type: "op", position: { x: 520, y: 90 }, data: { label: "cast_1", opType: "Cast", shape: "1,1,30,30", attrs: { to: "1" } } },
+        output,
+      ],
+      edges: [
+        { id: "argmax_in", source: "input_1", target: "argmax_1", targetHandle: "input" },
+        { id: "cast_in", source: "argmax_1", target: "cast_1", targetHandle: "input" },
+        { id: "out", source: "cast_1", target: "output_1", targetHandle: "input" },
+      ],
+    },
+    {
+      name: "reduce-sum-probe",
+      taskId: "task010",
+      nodes: [
+        input,
+        { id: "reduce_1", type: "op", position: { x: 330, y: 80 }, data: { label: "reduce_1", opType: "ReduceSum", shape: "1,1,30,30", attrs: { axes: [1], keepdims: 1 } } },
+        output,
+      ],
+      edges: [
+        { id: "reduce_in", source: "input_1", target: "reduce_1", targetHandle: "input" },
+        { id: "out", source: "reduce_1", target: "output_1", targetHandle: "input" },
+      ],
+    },
+  ].map((project) => ({ ...project, nodes: cloneGraph(project.nodes), edges: cloneGraph(project.edges) }));
+}
+
+function loadStoredProjects() {
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(PROJECT_STORAGE_KEY) || "[]");
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((project) => project?.name && Array.isArray(project.nodes) && Array.isArray(project.edges));
+  } catch {
+    return [];
+  }
+}
+
+function persistStoredProjects(projects) {
+  window.localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(projects));
 }
 
 function OpNode({ data, selected }) {
@@ -149,6 +230,8 @@ function ValidationPanel({ validation, taskId }) {
 function App() {
   const [task, setTask] = useState(10);
   const [projectName, setProjectName] = useState("neurogolf-task010");
+  const [storedProjects, setStoredProjects] = useState(() => loadStoredProjects());
+  const [selectedProjectName, setSelectedProjectName] = useState("baseline-cast-equal");
   const [selectedId, setSelectedId] = useState(null);
   const [status, setStatus] = useState("Ready");
   const taskId = taskIdFor(task);
@@ -180,17 +263,14 @@ function App() {
   const taskPageStart = Math.floor((task - 1) / TASK_PAGE_SIZE) * TASK_PAGE_SIZE + 1;
   const taskPageEnd = Math.min(TASK_COUNT, taskPageStart + TASK_PAGE_SIZE - 1);
   const taskNumbers = Array.from({ length: taskPageEnd - taskPageStart + 1 }, (_, index) => taskPageStart + index);
-  const initialNodes = useMemo(
-    () => [
-      { id: "input_1", type: "op", position: { x: 70, y: 80 }, data: { label: "input_1", opType: "Input", shape: "1,1,30,30" } },
-      { id: "output_1", type: "op", position: { x: 310, y: 80 }, data: { label: "output_1", opType: "Output", shape: "1,1,30,30" } },
-    ],
-    []
-  );
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([
-    { id: "e1", source: "input_1", target: "output_1", targetHandle: "input" },
-  ]);
+  const templateProjects = useMemo(() => builtinProjects(), []);
+  const availableProjects = useMemo(() => {
+    const byName = new Map(templateProjects.map((project) => [project.name, { ...project, source: "template" }]));
+    for (const project of storedProjects) byName.set(project.name, { ...project, source: "saved" });
+    return Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name));
+  }, [storedProjects, templateProjects]);
+  const [nodes, setNodes, onNodesChange] = useNodesState(defaultNodes());
+  const [edges, setEdges, onEdgesChange] = useEdgesState(defaultEdges());
   const selectedNode = nodes.find((node) => node.id === selectedId);
   const selectedEdges = edges.filter((edge) => selectedEdgeIds.includes(edge.id));
 
@@ -233,6 +313,59 @@ function App() {
     setNodes((current) => [...current, { id, type: "op", position: { x: 160 + current.length * 28, y: 190 }, data }]);
     setSelectedId(id);
     setSelectedEdgeIds([]);
+  };
+
+  const resetTransientGraphState = () => {
+    setSelectedId(null);
+    setSelectedEdgeIds([]);
+    setRunOutput(null);
+    setValidation({ state: "idle" });
+  };
+
+  const newProject = () => {
+    const name = `neurogolf-${taskId}`;
+    setProjectName(name);
+    setNodes(cloneGraph(defaultNodes()));
+    setEdges(cloneGraph(defaultEdges()));
+    resetTransientGraphState();
+    setStatus(`New project ${name}`);
+  };
+
+  const saveProject = () => {
+    const name = projectName.trim();
+    if (!name) {
+      setStatus("Project name is required before save");
+      return;
+    }
+    const snapshot = {
+      name,
+      taskId,
+      savedAt: new Date().toISOString(),
+      nodes: cloneGraph(nodes),
+      edges: cloneGraph(edges),
+    };
+    setStoredProjects((current) => {
+      const next = [snapshot, ...current.filter((project) => project.name !== name)];
+      persistStoredProjects(next);
+      return next;
+    });
+    setSelectedProjectName(name);
+    setStatus(`Saved project ${name}`);
+  };
+
+  const loadProject = () => {
+    const project = availableProjects.find((item) => item.name === selectedProjectName);
+    if (!project) {
+      setStatus("Select a saved project to load");
+      return;
+    }
+    const nextTask = Number(project.taskId?.replace("task", "")) || task;
+    setTask(clampTask(nextTask));
+    setProjectName(project.name);
+    setNodes(cloneGraph(project.nodes));
+    setEdges(cloneGraph(project.edges));
+    resetTransientGraphState();
+    setStatus(`Loaded project ${project.name}`);
   };
 
   const updateSelected = (patch) => {
@@ -386,10 +519,12 @@ function App() {
         </section>
         <section>
           <h2>PROJECT</h2>
-          <input value={projectName} onChange={(e) => setProjectName(e.target.value)} />
-          <div className="twoCol"><button className="btn">New</button><button className="btn"><Save size={15} />Save</button></div>
-          <select>{saved.map((item) => <option key={item}>{item}</option>)}</select>
-          <button className="btn full">Load Selected</button>
+          <input aria-label="Project name" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
+          <div className="twoCol"><button className="btn" onClick={newProject}>New</button><button className="btn" onClick={saveProject}><Save size={15} />Save</button></div>
+          <select aria-label="Saved project" value={selectedProjectName} onChange={(event) => setSelectedProjectName(event.target.value)}>
+            {availableProjects.map((item) => <option key={item.name} value={item.name}>{item.name}{item.source === "template" ? " (template)" : ""}</option>)}
+          </select>
+          <button className="btn full" onClick={loadProject} disabled={availableProjects.length === 0}>Load Selected</button>
         </section>
         <section>
           <h2>ADD NODE</h2>
