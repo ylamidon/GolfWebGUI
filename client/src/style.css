@@ -28,6 +28,8 @@ textarea { min-height: 72px; resize: vertical; font-family: ui-monospace, SFMono
 .taskGrid button.active { background: #0f766e; color: #ecfeff; border-color: #14b8a6; }
 .twoCol, .opGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
 .opGrid button { font-size: 12px; justify-content: flex-start; }
+.quickAdd { display: grid; grid-template-columns: minmax(0, 1fr) 82px; gap: 8px; margin: 8px 0 10px; }
+.quickAdd .btn { width: 100%; }
 .workspace { display: grid; grid-template-rows: auto var(--example-height, 330px) 8px minmax(420px, 1fr); min-width: 0; min-height: 100vh; }
 .topbar { min-height: 58px; border-bottom: 1px solid #253044; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 8px 16px; background: #0d1320; min-width: 0; }
 .topbar span { color: #94a3b8; margin-left: 12px; font-size: 13px; }

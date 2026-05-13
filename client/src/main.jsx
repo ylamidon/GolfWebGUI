@@ -7,7 +7,7 @@ import "reactflow/dist/style.css";
 import "./style.css";
 
 const arcColors = ["#000000", "#0074D9", "#FF4136", "#2ECC40", "#FFDC00", "#AAAAAA", "#F012BE", "#FF851B", "#7FDBFF", "#870C25"];
-const ops = ["Constant", "Cast", "Identity", "Equal", "Greater", "Less", "Not", "And", "Add", "Sub", "Mul", "Div", "ReduceSum", "ArgMax", "Where"];
+const ops = ["Input", "Output", "Constant", "Cast", "Identity", "Equal", "Greater", "Less", "Not", "And", "Add", "Sub", "Mul", "Div", "ReduceSum", "ArgMax", "Where"];
 const saved = ["baseline-cast-equal", "argmax-mask-v2", "reduce-sum-probe"];
 const TASK_COUNT = 400;
 const TASK_PAGE_SIZE = 40;
@@ -143,6 +143,8 @@ function App() {
   const [taskLoadError, setTaskLoadError] = useState("");
   const [exampleHeight, setExampleHeight] = useState(330);
   const [isResizingExamples, setIsResizingExamples] = useState(false);
+  const [quickOp, setQuickOp] = useState("Constant");
+  const [selectedEdgeIds, setSelectedEdgeIds] = useState([]);
   const example = currentTask?.train?.[0] || { input: [[0]], output: [[0]] };
   const trainingPairs = useMemo(() => currentTask?.train || [], [currentTask]);
   const stats = taskLoadState === "loaded"
@@ -164,6 +166,7 @@ function App() {
     { id: "e1", source: "input_1", target: "output_1", targetHandle: "input" },
   ]);
   const selectedNode = nodes.find((node) => node.id === selectedId);
+  const selectedEdges = edges.filter((edge) => selectedEdgeIds.includes(edge.id));
 
   useEffect(() => {
     let cancelled = false;
@@ -194,10 +197,13 @@ function App() {
   }, [taskId]);
 
   const addNode = (opType) => {
-    const id = `${opType.toLowerCase()}_${nodes.length + 1}`;
+    const count = nodes.filter((node) => node.data?.opType === opType).length + 1;
+    const id = `${opType.toLowerCase()}_${count}`;
     const data = { label: id, opType, shape: "1,1,30,30", attrs: defaultAttrs(opType) };
     if (opType === "Constant") data.value = "0";
-    setNodes((current) => [...current, { id, type: "op", position: { x: 140 + nodes.length * 35, y: 180 }, data }]);
+    setNodes((current) => [...current, { id, type: "op", position: { x: 160 + current.length * 28, y: 190 }, data }]);
+    setSelectedId(id);
+    setSelectedEdgeIds([]);
   };
 
   const updateSelected = (patch) => {
@@ -205,10 +211,17 @@ function App() {
   };
 
   const deleteSelected = () => {
-    if (!selectedId) return;
-    setNodes((current) => current.filter((node) => node.id !== selectedId));
-    setEdges((current) => current.filter((edge) => edge.source !== selectedId && edge.target !== selectedId));
+    const nodeId = selectedId;
+    const edgeIds = new Set(selectedEdgeIds);
+    if (!nodeId && edgeIds.size === 0) return;
+    if (nodeId) {
+      setNodes((current) => current.filter((node) => node.id !== nodeId));
+    }
+    setEdges((current) =>
+      current.filter((edge) => !edgeIds.has(edge.id) && (!nodeId || (edge.source !== nodeId && edge.target !== nodeId)))
+    );
     setSelectedId(null);
+    setSelectedEdgeIds([]);
   };
 
   const exportOnnx = async () => {
@@ -237,7 +250,25 @@ function App() {
     [projectName, taskId, nodes, edges, trainingPairs]
   );
 
-  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
+  const onConnect = useCallback((params) => setEdges((eds) => addEdge({ ...params, id: `${params.source}-${params.target}-${params.targetHandle || "input"}-${eds.length + 1}` }, eds)), [setEdges]);
+
+  const onSelectionChange = useCallback(({ nodes: selectedNodes, edges: selectedGraphEdges }) => {
+    setSelectedId(selectedNodes[0]?.id || null);
+    setSelectedEdgeIds(selectedGraphEdges.map((edge) => edge.id));
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      const tag = event.target?.tagName?.toLowerCase();
+      if (tag === "input" || tag === "textarea" || tag === "select" || event.target?.isContentEditable) return;
+      if (event.key !== "Delete" && event.key !== "Backspace") return;
+      if (!selectedId && selectedEdgeIds.length === 0) return;
+      event.preventDefault();
+      deleteSelected();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [selectedId, selectedEdgeIds]);
 
   useEffect(() => {
     if (!isResizingExamples) return;
@@ -284,6 +315,12 @@ function App() {
         </section>
         <section>
           <h2>ADD NODE</h2>
+          <div className="quickAdd">
+            <select value={quickOp} onChange={(event) => setQuickOp(event.target.value)}>
+              {ops.map((op) => <option key={op}>{op}</option>)}
+            </select>
+            <button className="btn" onClick={() => addNode(quickOp)}><Plus size={14} />Add</button>
+          </div>
           <div className="opGrid">{ops.map((op) => <button key={op} onClick={() => addNode(op)}><Plus size={14} />{op}</button>)}</div>
         </section>
       </aside>
@@ -311,7 +348,24 @@ function App() {
           aria-label="Resize task preview"
         />
         <section className="graphPanel">
-          <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onNodeClick={(_, node) => setSelectedId(node.id)} fitView>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onSelectionChange={onSelectionChange}
+            onNodeClick={(_, node) => {
+              setSelectedId(node.id);
+              setSelectedEdgeIds([]);
+            }}
+            onEdgeClick={(_, edge) => {
+              setSelectedId(null);
+              setSelectedEdgeIds([edge.id]);
+            }}
+            fitView
+          >
             <Background gap={18} size={1} color="#cbd5e1" />
             <Controls />
           </ReactFlow>
@@ -332,7 +386,12 @@ function App() {
             <label>Attributes JSON<textarea value={selectedNode.data.attrsText || JSON.stringify(selectedNode.data.attrs || {}, null, 2)} onChange={(e) => updateSelected({ attrsText: e.target.value })} /></label>
             <button className="danger" onClick={deleteSelected}><Trash2 size={15} />Delete Node</button>
           </div>
-        ) : <p className="muted">Select a node to inspect graph bindings and ONNX attributes.</p>}
+        ) : selectedEdges.length > 0 ? (
+          <div className="inspector">
+            <label>Selected edge<input value={`${selectedEdges[0].source} -> ${selectedEdges[0].target}${selectedEdges[0].targetHandle ? `.${selectedEdges[0].targetHandle}` : ""}`} readOnly /></label>
+            <button className="danger" onClick={deleteSelected}><Trash2 size={15} />Delete Edge</button>
+          </div>
+        ) : <p className="muted">Select a node or edge to inspect graph bindings and ONNX attributes.</p>}
         <section>
           <h2>EXPORT PAYLOAD</h2>
           <textarea className="payloadPreview" value={payloadPreview} readOnly />
