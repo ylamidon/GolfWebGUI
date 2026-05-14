@@ -161,6 +161,24 @@ def _task_id(payload: ExportPayload) -> str:
     return task_id
 
 
+def _hf_token_username(api: HfApi) -> str:
+    info = api.whoami()
+    username = (info.get("name") or "").strip()
+    if not username:
+        raise ValueError("Could not verify Hugging Face token owner")
+    return username
+
+
+def _assert_hf_repo_matches_token(api: HfApi, repo_id: str) -> None:
+    username = _hf_token_username(api)
+    namespace = repo_id.split("/", 1)[0].strip()
+    if namespace != username:
+        raise ValueError(
+            f"HF_REPO_ID must be under your Hugging Face account ({username}/...), "
+            f"but it is set to {repo_id!r}"
+        )
+
+
 def _parse_literal(value: Any) -> Any:
     if not isinstance(value, str):
         return value
@@ -1142,6 +1160,7 @@ def export_onnx(payload: ExportPayload):
         if not token or not repo_id:
             raise ValueError("HF_TOKEN and HF_REPO_ID are required")
         api = HfApi(token=token)
+        _assert_hf_repo_matches_token(api, repo_id)
         remote_path = f"{task_id}.onnx"
         try:
             api.create_repo(repo_id=repo_id, repo_type="model", private=True, exist_ok=True)

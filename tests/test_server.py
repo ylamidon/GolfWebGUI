@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from server import ExportPayload, ValidationError, app, compile_graph, validate_model
+from server import ExportPayload, ValidationError, _assert_hf_repo_matches_token, app, compile_graph, validate_model
 
 
 client = TestClient(app)
@@ -102,6 +102,15 @@ def binary_op_payload(op_type, attrs=None):
 
 
 class ServerCompilerTests(unittest.TestCase):
+    def test_hf_repo_must_match_token_username(self):
+        class FakeApi:
+            def whoami(self):
+                return {"name": "alice"}
+
+        _assert_hf_repo_matches_token(FakeApi(), "alice/neurogolf-handcrafted")
+        with self.assertRaisesRegex(ValueError, "HF_REPO_ID must be under your Hugging Face account"):
+            _assert_hf_repo_matches_token(FakeApi(), "bob/neurogolf-handcrafted")
+
     def test_compile_and_validate_identity_graph(self):
         payload = identity_payload()
         model = compile_graph(payload)

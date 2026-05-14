@@ -49,6 +49,8 @@ HF_TOKEN="hf_..."
 HF_REPO_ID="your-hf-username/neurogolf-handcrafted"
 ```
 
+`HF_REPO_ID` must start with the Hugging Face username for `HF_TOKEN`. The server blocks export if those do not match, so a cloned setup cannot silently upload ONNX files to another user's repo.
+
 Runtime settings:
 
 ```bash
