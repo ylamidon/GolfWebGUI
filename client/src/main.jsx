@@ -7,7 +7,7 @@ import "reactflow/dist/style.css";
 import "./style.css";
 
 const arcColors = ["#000000", "#0074D9", "#FF4136", "#2ECC40", "#FFDC00", "#AAAAAA", "#F012BE", "#FF851B", "#7FDBFF", "#870C25"];
-const baseOps = ["Input", "Output", "Constant", "RowIndex", "ColIndex", "Cast", "Identity", "Equal", "Greater", "Less", "GreaterOrEqual", "LessOrEqual", "Not", "And", "Or", "Xor", "Add", "Sub", "Mul", "Div", "Mod", "Min", "Max", "Sum", "Relu", "Abs", "Neg", "Floor", "Clip", "Sign", "Sqrt", "ReduceSum", "ReduceMax", "ReduceMin", "ArgMax", "Where", "Slice", "Pad", "Concat", "Transpose", "Tile", "Resize", "Conv"];
+const baseOps = ["Input", "Output", "Constant", "RowIndex", "ColIndex", "Cast", "Identity", "Equal", "Greater", "Less", "GreaterOrEqual", "LessOrEqual", "Not", "And", "Or", "Xor", "Add", "Sub", "Mul", "Div", "Mod", "Min", "Max", "Sum", "Relu", "Abs", "Neg", "Floor", "Clip", "Sign", "Sqrt", "ReduceSum", "ReduceMax", "ReduceMin", "ArgMax", "Where", "Slice", "Pad", "Concat", "Transpose", "Tile", "Resize", "Conv", "Unsqueeze"];
 const PROJECT_STORAGE_KEY = "neurogolf-projects-v1";
 const TASK_COUNT = 400;
 const TASK_PAGE_SIZE = 40;
@@ -23,6 +23,7 @@ const inputSlots = {
   Tile: ["input"],
   Resize: ["input"],
   Conv: ["input"],
+  Unsqueeze: ["input"],
   Output: ["input"],
   Equal: ["a", "b"],
   Greater: ["a", "b"],
@@ -66,6 +67,7 @@ function defaultAttrs(opType) {
   if (opType === "Transpose") return { perm: [0, 1, 3, 2] };
   if (opType === "Tile") return { repeats: [1, 1, 1, 1] };
   if (opType === "Resize") return { sizes: [1, 1, 30, 30], mode: "nearest" };
+  if (opType === "Unsqueeze") return { axes: [0] };
   if (opType === "Conv") return { weight_shape: [1, 1, 3, 3], weights: [1, 1, 1, 1, 1, 1, 1, 1, 1], pads: [1, 1, 1, 1], strides: [1, 1] };
   return {};
 }

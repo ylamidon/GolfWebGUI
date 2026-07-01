@@ -183,6 +183,7 @@ class ServerCompilerTests(unittest.TestCase):
             single_op_payload("Tile", attrs={"repeats": [1, 1, 1, 1]}),
             single_op_payload("Resize", attrs={"sizes": [1, 1, 30, 30], "mode": "nearest"}),
             single_op_payload("Conv", attrs={"weight_shape": [1, 1, 3, 3], "weights": [1, 0, 0, 0, 0, 0, 0, 0, 0], "pads": [1, 1, 1, 1]}),
+            single_op_payload("Unsqueeze", attrs={"axes": [0]}),
             ExportPayload(
                 projectName="coords",
                 taskId="task001",

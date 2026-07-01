@@ -71,6 +71,7 @@ SUPPORTED_OPS = {
     "Conv",
     "RowIndex",
     "ColIndex",
+    "Unsqueeze",
 }
 CANVAS_SHAPE = [1, 1, 30, 30]
 TASK_ID_RE = re.compile(r"^task\d{3}$")
@@ -86,6 +87,7 @@ INPUT_SLOT_ORDER = {
     "Tile": ["input"],
     "Resize": ["input"],
     "Conv": ["input"],
+    "Unsqueeze": ["input"],
     "Output": ["input"],
     "Equal": ["a", "b"],
     "Greater": ["a", "b"],
@@ -361,6 +363,20 @@ def _output_shape_for_tile(input_shape: list[int], attrs: dict[str, Any]) -> lis
     return [dim * repeat for dim, repeat in zip(input_shape, repeats)]
 
 
+def _output_shape_for_unsqueeze(input_shape: list[int], attrs: dict[str, Any]) -> list[int]:
+    axes = _int_list(attrs.get("axes"), [])
+    if not axes:
+        raise ValueError("Unsqueeze requires at least one axis")
+    output_rank = len(input_shape) + len(axes)
+    normalized = sorted({(axis + output_rank) % output_rank for axis in axes})
+    if len(normalized) != len(axes):
+        raise ValueError("Unsqueeze axes must be unique")
+    shape = list(input_shape)
+    for axis in normalized:
+        shape.insert(axis, 1)
+    return shape
+
+
 def _output_shape_for_resize(input_shape: list[int], attrs: dict[str, Any]) -> list[int]:
     if "sizes" in attrs:
         sizes = _int_list(attrs.get("sizes"), input_shape)
@@ -500,6 +516,7 @@ def _expect_inputs(op: str, node_id: str, ids: list[str]) -> None:
         "Tile": 1,
         "Resize": 1,
         "Conv": 1,
+        "Unsqueeze": 1,
         "Equal": 2,
         "Greater": 2,
         "Less": 2,
@@ -704,6 +721,12 @@ def compile_graph(payload: ExportPayload) -> onnx.ModelProto:
             shape = _output_shape_for_concat(input_shapes, attrs)
         elif op == "Transpose":
             shape = _output_shape_for_transpose(input_shapes[0], attrs)
+        elif op == "Unsqueeze":
+            axes = _int_list(attrs.get("axes"), [])
+            shape = _output_shape_for_unsqueeze(input_shapes[0], {"axes": axes})
+            axes_name = f"{node_id}_axes"
+            initializers.append(helper.make_tensor(axes_name, TensorProto.INT64, [len(axes)], [int(axis) for axis in axes]))
+            node_inputs = [inputs[0], axes_name]
         elif op == "Tile":
             repeats = _int_list(attrs.get("repeats"), [1 for _ in input_shapes[0]])
             shape = _output_shape_for_tile(input_shapes[0], {"repeats": repeats})
