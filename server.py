@@ -72,6 +72,7 @@ SUPPORTED_OPS = {
     "RowIndex",
     "ColIndex",
     "Unsqueeze",
+    "Gather",
 }
 CANVAS_SHAPE = [1, 1, 30, 30]
 TASK_ID_RE = re.compile(r"^task\d{3}$")
@@ -88,6 +89,7 @@ INPUT_SLOT_ORDER = {
     "Resize": ["input"],
     "Conv": ["input"],
     "Unsqueeze": ["input"],
+    "Gather": ["data", "indices"],
     "Output": ["input"],
     "Equal": ["a", "b"],
     "Greater": ["a", "b"],
@@ -267,6 +269,8 @@ def _onnx_attrs(op: str, attrs: dict[str, Any]) -> dict[str, Any]:
         return result
     if op == "Mod":
         return {"fmod": int(attrs.get("fmod", 0))}
+    if op == "Gather":
+        return {"axis": int(attrs.get("axis", 0))}
     return {}
 
 
@@ -375,6 +379,11 @@ def _output_shape_for_unsqueeze(input_shape: list[int], attrs: dict[str, Any]) -
     for axis in normalized:
         shape.insert(axis, 1)
     return shape
+
+
+def _output_shape_for_gather(data_shape: list[int], indices_shape: list[int], attrs: dict[str, Any]) -> list[int]:
+    axis = _axis(int(attrs.get("axis", 0)), len(data_shape))
+    return data_shape[:axis] + list(indices_shape) + data_shape[axis + 1 :]
 
 
 def _output_shape_for_resize(input_shape: list[int], attrs: dict[str, Any]) -> list[int]:
@@ -517,6 +526,7 @@ def _expect_inputs(op: str, node_id: str, ids: list[str]) -> None:
         "Resize": 1,
         "Conv": 1,
         "Unsqueeze": 1,
+        "Gather": 2,
         "Equal": 2,
         "Greater": 2,
         "Less": 2,
@@ -727,6 +737,8 @@ def compile_graph(payload: ExportPayload) -> onnx.ModelProto:
             axes_name = f"{node_id}_axes"
             initializers.append(helper.make_tensor(axes_name, TensorProto.INT64, [len(axes)], [int(axis) for axis in axes]))
             node_inputs = [inputs[0], axes_name]
+        elif op == "Gather":
+            shape = _output_shape_for_gather(input_shapes[0], input_shapes[1], attrs)
         elif op == "Tile":
             repeats = _int_list(attrs.get("repeats"), [1 for _ in input_shapes[0]])
             shape = _output_shape_for_tile(input_shapes[0], {"repeats": repeats})

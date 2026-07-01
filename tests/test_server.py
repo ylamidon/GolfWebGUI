@@ -219,6 +219,30 @@ class ServerCompilerTests(unittest.TestCase):
         )
         compile_graph(payload)
 
+    def test_gather_looks_up_lookup_table_with_computed_indices(self):
+        payload = ExportPayload(
+            projectName="gather",
+            taskId="task010",
+            nodes=[
+                {"id": "input_1", "type": "op", "data": {"opType": "Input", "shape": "1,1,30,30"}},
+                {"id": "cast_1", "type": "op", "data": {"opType": "Cast", "shape": "1,1,30,30", "attrs": {"to": 7}}},
+                {"id": "const_1", "type": "op", "data": {"opType": "Constant", "shape": "[10]", "value": "0,1,2,3,4,5,6,7,8,9"}},
+                {"id": "gather_1", "type": "op", "data": {"opType": "Gather", "shape": "1,1,30,30", "attrs": {"axis": 0}}},
+                {"id": "output_1", "type": "op", "data": {"opType": "Output", "shape": "1,1,30,30"}},
+            ],
+            edges=[
+                {"source": "input_1", "target": "cast_1", "targetHandle": "input"},
+                {"source": "const_1", "target": "gather_1", "targetHandle": "data"},
+                {"source": "cast_1", "target": "gather_1", "targetHandle": "indices"},
+                {"source": "gather_1", "target": "output_1", "targetHandle": "input"},
+            ],
+            trainingPairs=[{"input": [[1]], "output": [[1]]}],
+        )
+        model = compile_graph(payload)
+        gather_node = next(node for node in model.graph.node if node.op_type == "Gather")
+        self.assertEqual(len(gather_node.input), 2)
+        self.assertEqual(list(model.graph.output[0].type.tensor_type.shape.dim[i].dim_value for i in range(4)), [1, 1, 30, 30])
+
     def test_compile_low_risk_extended_ops(self):
         cases = [
             single_op_payload("Relu"),
