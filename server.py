@@ -8,7 +8,7 @@ from typing import Any
 import onnx
 import onnxruntime as ort
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, File, Form, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -841,6 +841,17 @@ def _best_onnx_path(task_id: str) -> Path:
 def onnx_to_gui_graph(task_id: str) -> dict[str, Any]:
     path = _best_onnx_path(task_id)
     model = onnx.load(path)
+    return _onnx_model_to_gui_graph(
+        model,
+        project_name=f"best-{task_id}-onnx",
+        task_id=task_id,
+        source_label=str(path.relative_to(ROOT)),
+    )
+
+
+def _onnx_model_to_gui_graph(
+    model: onnx.ModelProto, *, project_name: str, task_id: str | None, source_label: str
+) -> dict[str, Any]:
     nodes: list[dict[str, Any]] = []
     edges: list[dict[str, Any]] = []
     producers: dict[str, str] = {}
@@ -970,12 +981,12 @@ def onnx_to_gui_graph(task_id: str) -> dict[str, Any]:
             )
 
     return {
-        "projectName": f"best-{task_id}-onnx",
+        "projectName": project_name,
         "taskId": task_id,
         "nodes": nodes,
         "edges": edges,
         "meta": {
-            "source": str(path.relative_to(ROOT)),
+            "source": source_label,
             "rawOnnx": True,
             "nodeCount": len(model.graph.node),
             "initializerCount": len(model.graph.initializer),
@@ -1188,6 +1199,22 @@ def best_graph(task_id: str):
         return onnx_to_gui_graph(task_id)
     except Exception as exc:
         return JSONResponse(status_code=404, content={"status": "failed", "reason": str(exc)})
+
+
+@app.post("/api/import-onnx")
+async def import_onnx(file: UploadFile = File(...), project_name: str | None = Form(None)):
+    raw = await file.read()
+    try:
+        model = onnx.load_model_from_string(raw)
+    except Exception as exc:
+        return JSONResponse(status_code=400, content={"status": "failed", "reason": f"Invalid ONNX file: {exc}"})
+    name = project_name or Path(file.filename or "uploaded").stem
+    try:
+        return _onnx_model_to_gui_graph(
+            model, project_name=name, task_id=None, source_label=f"upload:{file.filename}"
+        )
+    except Exception as exc:
+        return JSONResponse(status_code=400, content={"status": "failed", "reason": str(exc)})
 
 
 if CLIENT_DIST.exists():

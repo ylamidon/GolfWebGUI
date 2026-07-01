@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import ReactFlow, { Background, Controls, Handle, Position, addEdge, useEdgesState, useNodesState } from "reactflow";
 import axios from "axios";
-import { Play, Save, Trash2, Upload, Plus, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, Save, Trash2, Upload, FileUp, Plus, ChevronLeft, ChevronRight } from "lucide-react";
 import "reactflow/dist/style.css";
 import "./style.css";
 
@@ -551,6 +551,30 @@ function App() {
     scheduleFitView();
   };
 
+  const importInputRef = useRef(null);
+
+  const handleImportOnnxFile = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    setStatus(`Importing ${file.name}`);
+    const form = new FormData();
+    form.append("file", file);
+    try {
+      const { data } = await axios.post("/api/import-onnx", form);
+      setProjectName(data.projectName || file.name);
+      setNodes(cloneGraph(data.nodes || []));
+      setEdges(cloneGraph(data.edges || []));
+      resetTransientGraphState();
+      setStatus(`Imported ${file.name}: ${data.meta?.nodeCount || 0} raw nodes`);
+      scheduleFitView();
+    } catch (error) {
+      const response = error.response?.data;
+      const rawReason = response?.reason || response?.detail || error.message;
+      setStatus(`Import failed: ${typeof rawReason === "string" ? rawReason : JSON.stringify(rawReason)}`);
+    }
+  };
+
   const loadBestGraph = async () => {
     if (!bestTask) {
       setStatus(`No best ONNX graph for ${taskId}`);
@@ -734,6 +758,13 @@ function App() {
             {availableProjects.map((item) => <option key={item.name} value={item.name}>{item.name}{item.source === "template" ? " (template)" : ""}</option>)}
           </select>
           <button className="btn full" onClick={loadProject} disabled={availableProjects.length === 0}>Load Selected</button>
+        </section>
+        <section>
+          <h2>IMPORT ONNX</h2>
+          <input type="file" accept=".onnx" ref={importInputRef} style={{ display: "none" }} onChange={handleImportOnnxFile} />
+          <button className="btn full" onClick={() => importInputRef.current?.click()}>
+            <FileUp size={15} />Import ONNX
+          </button>
         </section>
         <section>
           <h2>BEST TEMPLATE</h2>

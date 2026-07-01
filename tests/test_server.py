@@ -281,6 +281,31 @@ class ServerCompilerTests(unittest.TestCase):
         self.assertGreater(len(data["edges"]), 0)
         self.assertIn("Slice", data["meta"]["opTypes"])
 
+    def test_import_onnx_endpoint_converts_uploaded_file_to_visual_graph(self):
+        best_path = Path(__file__).resolve().parents[1] / "client" / "public" / "best" / "onnx" / "task001.onnx"
+        if not best_path.exists():
+            self.skipTest("best ONNX assets are not present")
+        with best_path.open("rb") as handle:
+            response = client.post(
+                "/api/import-onnx",
+                files={"file": ("task001.onnx", handle, "application/octet-stream")},
+            )
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIsNone(data["taskId"])
+        self.assertEqual(data["projectName"], "task001")
+        self.assertTrue(data["meta"]["rawOnnx"])
+        self.assertGreater(len(data["nodes"]), 0)
+        self.assertGreater(len(data["edges"]), 0)
+
+    def test_import_onnx_endpoint_rejects_invalid_file(self):
+        response = client.post(
+            "/api/import-onnx",
+            files={"file": ("bad.onnx", b"not an onnx model", "application/octet-stream")},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["status"], "failed")
+
 
 if __name__ == "__main__":
     unittest.main()
