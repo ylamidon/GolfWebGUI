@@ -48,7 +48,7 @@ textarea { min-height: 72px; resize: vertical; font-family: ui-monospace, SFMono
 .palette span { display: inline-flex; align-items: center; gap: 3px; }
 .palette i { width: 11px; height: 11px; border: 1px solid #475569; display: inline-block; }
 .gridTitle { font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: 8px; }
-.arcGrid { width: min(234px, 28vw); height: min(234px, 28vw); min-width: 160px; min-height: 160px; display: grid; grid-template-columns: repeat(9, 1fr); border: 1px solid #475569; background: #1e293b; gap: 1px; }
+.arcGrid { width: min(234px, 28vw); aspect-ratio: var(--grid-cols, 1) / var(--grid-rows, 1); min-width: min(160px, 100%); max-width: 100%; display: grid; grid-template-columns: repeat(9, 1fr); border: 1px solid #475569; background: #1e293b; gap: 1px; }
 .arcCell { min-width: 0; min-height: 0; }
 .graphPanel { min-height: 0; height: 100%; overflow: hidden; background: #090b10; margin-top: 0; }
 .node { width: 132px; border: 1px solid #334155; background: #111827; border-radius: 6px; padding: 9px 10px; box-shadow: 0 1px 2px rgba(0, 0, 0, .32); color: #e5e7eb; }
@@ -86,5 +86,5 @@ textarea { min-height: 72px; resize: vertical; font-family: ui-monospace, SFMono
   .appShell { grid-template-columns: 240px minmax(520px, 1fr) 300px; }
   .actions { gap: 4px; }
   .btn { padding: 6px 7px; }
-  .arcGrid { width: min(210px, 25vw); height: min(210px, 25vw); }
+  .arcGrid { width: min(210px, 25vw); }
 }

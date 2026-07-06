@@ -251,11 +251,20 @@ function validatePayload(payload) {
 }
 
 function ArcGrid({ title, values }) {
+  const rows = values?.length || 1;
   const cols = values?.[0]?.length || 1;
   return (
     <div className="gridBlock">
       <div className="gridTitle">{title} {gridShape(values)}</div>
-      <div className="arcGrid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+      <div
+        className="arcGrid"
+        style={{
+          "--grid-cols": cols,
+          "--grid-rows": rows,
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gridTemplateRows: `repeat(${rows}, 1fr)`,
+        }}
+      >
         {(values || []).flatMap((row, rowIndex) =>
           row.map((value, colIndex) => (
             <div key={`${rowIndex}-${colIndex}`} className="arcCell" style={{ backgroundColor: arcColors[value] || "#000000" }} />
