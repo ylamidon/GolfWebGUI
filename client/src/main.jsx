@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { createRoot } from "react-dom/client";
 import ReactFlow, { Background, Controls, Handle, Position, addEdge, useEdgesState, useNodesState } from "reactflow";
 import axios from "axios";
-import { Play, Save, Trash2, Upload, FileUp, Plus, ChevronLeft, ChevronRight } from "lucide-react";
+import { Code2, Play, Save, Trash2, Upload, FileUp, Plus, ChevronLeft, ChevronRight, X } from "lucide-react";
 import "reactflow/dist/style.css";
 import "./style.css";
 
@@ -368,6 +368,31 @@ function ExportInspector({ payload, payloadJson, payloadValidation, selectedNode
   );
 }
 
+function ArcDslModal({ source, onClose }) {
+  return (
+    <div className="modalBackdrop" role="presentation" onMouseDown={onClose}>
+      <section className="sourceModal" role="dialog" aria-modal="true" aria-labelledby="arc-dsl-title" onMouseDown={(event) => event.stopPropagation()}>
+        <header className="sourceHeader">
+          <div>
+            <h2 id="arc-dsl-title">ARC DSL Python</h2>
+            <span>{source.path || "external/arc-dsl/solvers.py"}</span>
+          </div>
+          <button className="btn compact" type="button" onClick={onClose} title="Close" aria-label="Close ARC DSL source">
+            <X size={16} />
+          </button>
+        </header>
+        {source.state === "loading" ? (
+          <div className="sourceState">Loading solvers.py</div>
+        ) : source.state === "failed" ? (
+          <div className="sourceState failed">{source.error}</div>
+        ) : (
+          <textarea className="sourceTextarea" value={source.code} readOnly spellCheck="false" aria-label="ARC DSL Python source" />
+        )}
+      </section>
+    </div>
+  );
+}
+
 function App() {
   const [task, setTask] = useState(10);
   const [projectName, setProjectName] = useState("neurogolf-task010");
@@ -392,6 +417,7 @@ function App() {
   const [lastRun, setLastRun] = useState({ state: "idle" });
   const [lastExport, setLastExport] = useState({ state: "idle" });
   const [lastDownload, setLastDownload] = useState({ state: "idle" });
+  const [arcDslSource, setArcDslSource] = useState({ state: "idle", code: "", path: "" });
   const exampleSets = useMemo(() => ({
     train: currentTask?.train || [],
     test: currentTask?.test || [],
@@ -609,6 +635,26 @@ function App() {
     }
   };
 
+  const openArcDslSource = async () => {
+    if (arcDslSource.state === "loaded") {
+      setArcDslSource((current) => ({ ...current, open: true }));
+      return;
+    }
+    setArcDslSource((current) => ({ ...current, open: true, state: "loading", error: "" }));
+    setStatus("Loading ARC DSL Python source");
+    try {
+      const { data } = await axios.get("/api/arc-dsl/solvers");
+      setArcDslSource({ open: true, state: "loaded", code: data.code || "", path: data.path || "external/arc-dsl/solvers.py" });
+      setStatus("ARC DSL Python source loaded");
+    } catch (error) {
+      const response = error.response?.data;
+      const rawReason = response?.reason || response?.detail || error.message;
+      const reason = typeof rawReason === "string" ? rawReason : JSON.stringify(rawReason);
+      setArcDslSource((current) => ({ ...current, open: true, state: "failed", error: reason }));
+      setStatus(`ARC DSL source load failed: ${reason}`);
+    }
+  };
+
   const updateSelected = (patch) => {
     setNodes((current) => current.map((node) => (node.id === selectedId ? { ...node, data: { ...node.data, ...patch } } : node)));
   };
@@ -820,6 +866,7 @@ function App() {
             <button className={`btn ${exampleMode === "train" ? "activeMode" : ""}`} onClick={() => selectExampleMode("train")}>Train</button>
             <button className={`btn ${exampleMode === "test" ? "activeMode" : ""}`} onClick={() => selectExampleMode("test")}>Test</button>
             <button className={`btn ${exampleMode === "extra" ? "activeMode" : ""}`} onClick={() => selectExampleMode("extra")}>Extra 10</button>
+            <button className="btn" onClick={openArcDslSource}><Code2 size={15} />ARC DSL</button>
             <button className="btn" onClick={compileGraph} disabled={taskLoadState !== "loaded"}>Compile</button>
             <button className="btn" onClick={runGraph} disabled={taskLoadState !== "loaded"}><Play size={15} />Run</button>
             <button className="btn primary" onClick={exportOnnx} disabled={validation.state === "loading" || taskLoadState !== "loaded"}><Upload size={15} />Export ONNX</button>
@@ -898,6 +945,7 @@ function App() {
         />
         <div className="status">{status}</div>
       </aside>
+      {arcDslSource.open && <ArcDslModal source={arcDslSource} onClose={() => setArcDslSource((current) => ({ ...current, open: false }))} />}
     </div>
   );
 }

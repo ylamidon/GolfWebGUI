@@ -82,6 +82,15 @@ textarea { min-height: 72px; resize: vertical; font-family: ui-monospace, SFMono
 .validationBlock.idle { color: #cbd5e1; }
 .validationTask { font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #f8fafc; }
 .validationReason { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-word; color: inherit; }
+.modalBackdrop { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 24px; background: rgba(3, 7, 18, .76); }
+.sourceModal { width: min(1120px, 96vw); height: min(780px, 92vh); display: grid; grid-template-rows: auto 1fr; border: 1px solid #334155; border-radius: 8px; background: #0b1120; box-shadow: 0 24px 80px rgba(0, 0, 0, .55); overflow: hidden; }
+.sourceHeader { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 14px; border-bottom: 1px solid #253044; background: #111827; }
+.sourceHeader h2 { margin: 0; font-size: 12px; letter-spacing: .08em; color: #e0f2fe; }
+.sourceHeader span { display: block; margin-top: 4px; color: #94a3b8; font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.sourceTextarea { width: 100%; height: 100%; min-height: 0; border: 0; border-radius: 0; resize: none; padding: 14px 16px; background: #020617; color: #dbeafe; font-size: 12px; line-height: 1.45; tab-size: 4; white-space: pre; overflow: auto; }
+.sourceTextarea:focus { outline: 2px solid #38bdf8; outline-offset: -2px; }
+.sourceState { display: grid; place-items: center; padding: 24px; color: #cbd5e1; font-size: 13px; }
+.sourceState.failed { color: #fecaca; background: #2a1115; }
 @media (max-width: 1050px) {
   .appShell { grid-template-columns: 240px minmax(520px, 1fr) 300px; }
   .actions { gap: 4px; }
