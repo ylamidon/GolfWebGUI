@@ -1,6 +1,7 @@
 {
   "id": "task320",
   "hash": "ce9e57f2",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ce9e57f2(I):\n    x1 = objects(I, T, F, T)\n    x2 = fork(connect, ulcorner, centerofmass)\n    x3 = mapply(x2, x1)\n    x4 = fill(I, EIGHT, x3)\n    O = switch(x4, EIGHT, TWO)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [8]; existing colors may be preserved or annotated. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ce9e57f2(I):\n    x1 = objects(I, T, F, T)\n    x2 = fork(connect, ulcorner, centerofmass)\n    x3 = mapply(x2, x1)\n    x4 = fill(I, EIGHT, x3)\n    O = switch(x4, EIGHT, TWO)\n    return O\n",
+  "shape": "same size"
 }

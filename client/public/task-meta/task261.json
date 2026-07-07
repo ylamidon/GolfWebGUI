@@ -1,6 +1,7 @@
 {
   "id": "task261",
   "hash": "a79310a0",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a79310a0(I):\n    x1 = objects(I, T, F, T)\n    x2 = first(x1)\n    x3 = move(I, x2, DOWN)\n    O = replace(x3, EIGHT, TWO)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [2] and removes input color(s) [8]. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a79310a0(I):\n    x1 = objects(I, T, F, T)\n    x2 = first(x1)\n    x3 = move(I, x2, DOWN)\n    O = replace(x3, EIGHT, TWO)\n    return O\n",
+  "shape": "same size"
 }

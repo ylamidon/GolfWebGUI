@@ -1,6 +1,7 @@
 {
   "id": "task013",
   "hash": "0a938d79",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_0a938d79(I):\n    x1 = portrait(I)\n    x2 = branch(x1, dmirror, identity)\n    x3 = x2(I)\n    x4 = fgpartition(x3)\n    x5 = merge(x4)\n    x6 = chain(double, decrement, width)\n    x7 = x6(x5)\n    x8 = compose(vfrontier, tojvec)\n    x9 = lbind(mapply, x8)\n    x10 = rbind(interval, x7)\n    x11 = width(x3)\n    x12 = rbind(x10, x11)\n    x13 = chain(x9, x12, leftmost)\n    x14 = fork(recolor, color, x13)\n    x15 = mapply(x14, x4)\n    x16 = paint(x3, x15)\n    O = x2(x16)\n    return O\n"
+  "description": "Two colored marker cells define an alternating periodic stripe pattern. The output extends that pattern across the full grid, using the marker colors and spacing.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_0a938d79(I):\n    x1 = portrait(I)\n    x2 = branch(x1, dmirror, identity)\n    x3 = x2(I)\n    x4 = fgpartition(x3)\n    x5 = merge(x4)\n    x6 = chain(double, decrement, width)\n    x7 = x6(x5)\n    x8 = compose(vfrontier, tojvec)\n    x9 = lbind(mapply, x8)\n    x10 = rbind(interval, x7)\n    x11 = width(x3)\n    x12 = rbind(x10, x11)\n    x13 = chain(x9, x12, leftmost)\n    x14 = fork(recolor, color, x13)\n    x15 = mapply(x14, x4)\n    x16 = paint(x3, x15)\n    O = x2(x16)\n    return O\n",
+  "shape": "same size"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task326",
   "hash": "d10ecb37",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d10ecb37(I):\n    O = crop(I, ORIGIN, TWO_BY_TWO)\n    return O\n"
+  "description": "Likely extracts or classifies a compact property of the input rather than reproducing the whole canvas. Colors are preserved as a set, though positions may change. Primary structural cue: compact output. Inferred transformation family: extract/count/select. The rule is uncertain and needs task-specific review.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d10ecb37(I):\n    O = crop(I, ORIGIN, TWO_BY_TWO)\n    return O\n",
+  "shape": "variable shapes"
 }

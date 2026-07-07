@@ -1,6 +1,7 @@
 {
   "id": "task090",
   "hash": "3eda0437",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3eda0437(I):\n    x1 = interval(TWO, TEN, ONE)\n    x2 = prapply(astuple, x1, x1)\n    x3 = lbind(canvas, ZERO)\n    x4 = lbind(occurrences, I)\n    x5 = lbind(lbind, shift)\n    x6 = fork(apply, x5, x4)\n    x7 = chain(x6, asobject, x3)\n    x8 = mapply(x7, x2)\n    x9 = argmax(x8, size)\n    O = fill(I, SIX, x9)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [6]; existing colors may be preserved or annotated. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3eda0437(I):\n    x1 = interval(TWO, TEN, ONE)\n    x2 = prapply(astuple, x1, x1)\n    x3 = lbind(canvas, ZERO)\n    x4 = lbind(occurrences, I)\n    x5 = lbind(lbind, shift)\n    x6 = fork(apply, x5, x4)\n    x7 = chain(x6, asobject, x3)\n    x8 = mapply(x7, x2)\n    x9 = argmax(x8, size)\n    O = fill(I, SIX, x9)\n    return O\n",
+  "shape": "same size"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task152",
   "hash": "67e8384a",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_67e8384a(I):\n    x1 = vmirror(I)\n    x2 = hconcat(I, x1)\n    x3 = hmirror(x2)\n    O = vconcat(x2, x3)\n    return O\n"
+  "description": "Likely scales, tiles, or extends a visible pattern to a larger output. Colors are preserved as a set, though positions may change. Primary structural cue: size expansion. Inferred transformation family: scale/tile/extend.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_67e8384a(I):\n    x1 = vmirror(I)\n    x2 = hconcat(I, x1)\n    x3 = hmirror(x2)\n    O = vconcat(x2, x3)\n    return O\n",
+  "shape": "3x3 -> 6x6"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task143",
   "hash": "63613498",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_63613498(I):\n    x1 = crop(I, ORIGIN, THREE_BY_THREE)\n    x2 = ofcolor(x1, ZERO)\n    x3 = asindices(x1)\n    x4 = difference(x3, x2)\n    x5 = normalize(x4)\n    x6 = objects(I, T, F, T)\n    x7 = compose(toindices, normalize)\n    x8 = matcher(x7, x5)\n    x9 = mfilter(x6, x8)\n    x10 = fill(I, FIVE, x9)\n    x11 = asobject(x1)\n    O = paint(x10, x11)\n    return O\n"
+  "description": "Likely removes distractor colors or extracts/recolors the relevant structure while preserving the canvas size. Removes input color(s) [9]; output colors are a subset of input colors. Primary structural cue: color subset. Inferred transformation family: delete/extract/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_63613498(I):\n    x1 = crop(I, ORIGIN, THREE_BY_THREE)\n    x2 = ofcolor(x1, ZERO)\n    x3 = asindices(x1)\n    x4 = difference(x3, x2)\n    x5 = normalize(x4)\n    x6 = objects(I, T, F, T)\n    x7 = compose(toindices, normalize)\n    x8 = matcher(x7, x5)\n    x9 = mfilter(x6, x8)\n    x10 = fill(I, FIVE, x9)\n    x11 = asobject(x1)\n    O = paint(x10, x11)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

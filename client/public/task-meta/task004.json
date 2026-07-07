@@ -1,6 +1,7 @@
 {
   "id": "task004",
   "hash": "025d127b",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_025d127b(I):\n    x1 = objects(I, T, F, T)\n    x2 = apply(color, x1)\n    x3 = merge(x1)\n    x4 = lbind(colorfilter, x1)\n    x5 = rbind(argmax, rightmost)\n    x6 = compose(x5, x4)\n    x7 = mapply(x6, x2)\n    x8 = difference(x3, x7)\n    O = move(I, x8, RIGHT)\n    return O\n"
+  "description": "Normalize each foreground object by shifting offset left-side pixels to the right, producing a cleaner aligned shape. Colors and canvas size are preserved. Confidence is medium because the exact pixel-selection criterion is inferred from only a few shapes.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_025d127b(I):\n    x1 = objects(I, T, F, T)\n    x2 = apply(color, x1)\n    x3 = merge(x1)\n    x4 = lbind(colorfilter, x1)\n    x5 = rbind(argmax, rightmost)\n    x6 = compose(x5, x4)\n    x7 = mapply(x6, x2)\n    x8 = difference(x3, x7)\n    O = move(I, x8, RIGHT)\n    return O\n",
+  "shape": "same size"
 }

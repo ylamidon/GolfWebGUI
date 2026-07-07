@@ -1,6 +1,7 @@
 {
   "id": "task277",
   "hash": "b230c067",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_b230c067(I):\n    x1 = objects(I, T, T, T)\n    x2 = totuple(x1)\n    x3 = apply(normalize, x2)\n    x4 = leastcommon(x3)\n    x5 = matcher(normalize, x4)\n    x6 = extract(x1, x5)\n    x7 = replace(I, EIGHT, ONE)\n    O = fill(x7, TWO, x6)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [1, 2] and removes input color(s) [8]. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_b230c067(I):\n    x1 = objects(I, T, T, T)\n    x2 = totuple(x1)\n    x3 = apply(normalize, x2)\n    x4 = leastcommon(x3)\n    x5 = matcher(normalize, x4)\n    x6 = extract(x1, x5)\n    x7 = replace(I, EIGHT, ONE)\n    O = fill(x7, TWO, x6)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

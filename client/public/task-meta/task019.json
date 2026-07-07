@@ -1,6 +1,7 @@
 {
   "id": "task019",
   "hash": "10fcaaa3",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_10fcaaa3(I):\n    x1 = leastcolor(I)\n    x2 = hconcat(I, I)\n    x3 = vconcat(x2, x2)\n    x4 = ofcolor(x3, x1)\n    x5 = mapply(ineighbors, x4)\n    O = underfill(x3, EIGHT, x5)\n    return O\n"
+  "description": "Double the grid in both dimensions while preserving foreground color. Fill a derived background/checker pattern with azure around the scaled structure. Confidence is medium because azure placement is local-context dependent.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_10fcaaa3(I):\n    x1 = leastcolor(I)\n    x2 = hconcat(I, I)\n    x3 = vconcat(x2, x2)\n    x4 = ofcolor(x3, x1)\n    x5 = mapply(ineighbors, x4)\n    O = underfill(x3, EIGHT, x5)\n    return O\n",
+  "shape": "2x scale"
 }

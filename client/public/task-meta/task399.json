@@ -1,6 +1,7 @@
 {
   "id": "task399",
   "hash": "ff28f65a",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ff28f65a(I):\n    x1 = objects(I, T, F, T)\n    x2 = size(x1)\n    x3 = double(x2)\n    x4 = interval(ZERO, x3, TWO)\n    x5 = apply(tojvec, x4)\n    x6 = astuple(ONE, NINE)\n    x7 = canvas(ZERO, x6)\n    x8 = fill(x7, ONE, x5)\n    x9 = hsplit(x8, THREE)\n    O = merge(x9)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Introduces output color(s) [1] and removes input color(s) [2]. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ff28f65a(I):\n    x1 = objects(I, T, F, T)\n    x2 = size(x1)\n    x3 = double(x2)\n    x4 = interval(ZERO, x3, TWO)\n    x5 = apply(tojvec, x4)\n    x6 = astuple(ONE, NINE)\n    x7 = canvas(ZERO, x6)\n    x8 = fill(x7, ONE, x5)\n    x9 = hsplit(x8, THREE)\n    O = merge(x9)\n    return O\n",
+  "shape": "variable shapes"
 }

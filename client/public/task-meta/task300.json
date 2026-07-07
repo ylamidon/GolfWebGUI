@@ -1,6 +1,7 @@
 {
   "id": "task300",
   "hash": "be94b721",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_be94b721(I):\n    x1 = objects(I, T, F, T)\n    x2 = argmax(x1, size)\n    O = subgrid(x2, I)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Removes input color(s) [1, 3, 6, 7]; output colors are a subset of input colors. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_be94b721(I):\n    x1 = objects(I, T, F, T)\n    x2 = argmax(x1, size)\n    O = subgrid(x2, I)\n    return O\n",
+  "shape": "variable shapes"
 }

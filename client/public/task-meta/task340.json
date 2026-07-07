@@ -1,6 +1,7 @@
 {
   "id": "task340",
   "hash": "d687bc17",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d687bc17(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = difference(x1, x2)\n    x4 = apply(color, x3)\n    x5 = rbind(contained, x4)\n    x6 = compose(x5, color)\n    x7 = sfilter(x2, x6)\n    x8 = lbind(colorfilter, x3)\n    x9 = chain(first, x8, color)\n    x10 = fork(gravitate, identity, x9)\n    x11 = fork(shift, identity, x10)\n    x12 = merge(x2)\n    x13 = mapply(x11, x7)\n    x14 = cover(I, x12)\n    O = paint(x14, x13)\n    return O\n"
+  "description": "Likely preserves most of the input and edits a small set of cells based on local object or marker cues. Colors are preserved as a set, though positions may change. Primary structural cue: sparse change. Inferred transformation family: local edit. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d687bc17(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = difference(x1, x2)\n    x4 = apply(color, x3)\n    x5 = rbind(contained, x4)\n    x6 = compose(x5, color)\n    x7 = sfilter(x2, x6)\n    x8 = lbind(colorfilter, x3)\n    x9 = chain(first, x8, color)\n    x10 = fork(gravitate, identity, x9)\n    x11 = fork(shift, identity, x10)\n    x12 = merge(x2)\n    x13 = mapply(x11, x7)\n    x14 = cover(I, x12)\n    O = paint(x14, x13)\n    return O\n",
+  "shape": "same size"
 }

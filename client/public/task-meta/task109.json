@@ -1,6 +1,7 @@
 {
   "id": "task109",
   "hash": "47c1f68c",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_47c1f68c(I):\n    x1 = leastcolor(I)\n    x2 = vmirror(I)\n    x3 = objects(I, T, T, T)\n    x4 = merge(x3)\n    x5 = mostcolor(x4)\n    x6 = cellwise(I, x2, x1)\n    x7 = hmirror(x6)\n    x8 = cellwise(x6, x7, x1)\n    x9 = compress(x8)\n    O = replace(x9, x1, x5)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Removes input color(s) [1, 3]; output colors are a subset of input colors. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_47c1f68c(I):\n    x1 = leastcolor(I)\n    x2 = vmirror(I)\n    x3 = objects(I, T, T, T)\n    x4 = merge(x3)\n    x5 = mostcolor(x4)\n    x6 = cellwise(I, x2, x1)\n    x7 = hmirror(x6)\n    x8 = cellwise(x6, x7, x1)\n    x9 = compress(x8)\n    O = replace(x9, x1, x5)\n    return O\n",
+  "shape": "variable shapes"
 }

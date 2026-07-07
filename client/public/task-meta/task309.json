@@ -1,6 +1,7 @@
 {
   "id": "task309",
   "hash": "c8f0f002",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c8f0f002(I):\n    O = replace(I, SEVEN, FIVE)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Introduces output color(s) [5] and removes input color(s) [7]. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c8f0f002(I):\n    O = replace(I, SEVEN, FIVE)\n    return O\n",
+  "shape": "same size"
 }

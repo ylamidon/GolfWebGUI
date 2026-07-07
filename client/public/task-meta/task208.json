@@ -1,6 +1,7 @@
 {
   "id": "task208",
   "hash": "890034e9",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_890034e9(I):\n    x1 = leastcolor(I)\n    x2 = ofcolor(I, x1)\n    x3 = inbox(x2)\n    x4 = recolor(ZERO, x3)\n    x5 = occurrences(I, x4)\n    x6 = normalize(x2)\n    x7 = shift(x6, NEG_UNITY)\n    x8 = lbind(shift, x7)\n    x9 = mapply(x8, x5)\n    O = fill(I, x1, x9)\n    return O\n"
+  "description": "Likely preserves most of the input and edits a small set of cells based on local object or marker cues. Colors are preserved as a set, though positions may change. Primary structural cue: sparse change. Inferred transformation family: local edit. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_890034e9(I):\n    x1 = leastcolor(I)\n    x2 = ofcolor(I, x1)\n    x3 = inbox(x2)\n    x4 = recolor(ZERO, x3)\n    x5 = occurrences(I, x4)\n    x6 = normalize(x2)\n    x7 = shift(x6, NEG_UNITY)\n    x8 = lbind(shift, x7)\n    x9 = mapply(x8, x5)\n    O = fill(I, x1, x9)\n    return O\n",
+  "shape": "21x21 -> 21x21"
 }

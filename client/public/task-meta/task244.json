@@ -1,6 +1,7 @@
 {
   "id": "task244",
   "hash": "9f236235",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9f236235(I):\n    x1 = compress(I)\n    x2 = objects(I, T, F, F)\n    x3 = vmirror(x1)\n    x4 = valmin(x2, width)\n    O = downscale(x3, x4)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Colors are preserved as a set, though positions may change. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9f236235(I):\n    x1 = compress(I)\n    x2 = objects(I, T, F, F)\n    x3 = vmirror(x1)\n    x4 = valmin(x2, width)\n    O = downscale(x3, x4)\n    return O\n",
+  "shape": "variable shapes"
 }

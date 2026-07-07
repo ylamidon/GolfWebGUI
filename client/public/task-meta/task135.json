@@ -1,6 +1,7 @@
 {
   "id": "task135",
   "hash": "5bd6f4ac",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5bd6f4ac(I):\n    x1 = tojvec(SIX)\n    O = crop(I, x1, THREE_BY_THREE)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Removes input color(s) [2]; output colors are a subset of input colors. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5bd6f4ac(I):\n    x1 = tojvec(SIX)\n    O = crop(I, x1, THREE_BY_THREE)\n    return O\n",
+  "shape": "9x9 -> 3x3"
 }

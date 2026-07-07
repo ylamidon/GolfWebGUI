@@ -1,6 +1,7 @@
 {
   "id": "task314",
   "hash": "cbded52d",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_cbded52d(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = product(x2, x2)\n    x4 = fork(vmatching, first, last)\n    x5 = fork(hmatching, first, last)\n    x6 = fork(either, x4, x5)\n    x7 = sfilter(x3, x6)\n    x8 = compose(center, first)\n    x9 = compose(center, last)\n    x10 = fork(connect, x8, x9)\n    x11 = chain(initset, center, x10)\n    x12 = compose(color, first)\n    x13 = fork(recolor, x12, x11)\n    x14 = mapply(x13, x7)\n    O = paint(I, x14)\n    return O\n"
+  "description": "Likely preserves most of the input and edits a small set of cells based on local object or marker cues. Colors are preserved as a set, though positions may change. Primary structural cue: sparse change. Inferred transformation family: local edit. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_cbded52d(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = product(x2, x2)\n    x4 = fork(vmatching, first, last)\n    x5 = fork(hmatching, first, last)\n    x6 = fork(either, x4, x5)\n    x7 = sfilter(x3, x6)\n    x8 = compose(center, first)\n    x9 = compose(center, last)\n    x10 = fork(connect, x8, x9)\n    x11 = chain(initset, center, x10)\n    x12 = compose(color, first)\n    x13 = fork(recolor, x12, x11)\n    x14 = mapply(x13, x7)\n    O = paint(I, x14)\n    return O\n",
+  "shape": "8x8 -> 8x8"
 }

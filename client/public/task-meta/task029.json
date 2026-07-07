@@ -1,6 +1,7 @@
 {
   "id": "task029",
   "hash": "1c786137",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1c786137(I):\n    x1 = objects(I, T, F, F)\n    x2 = argmax(x1, height)\n    x3 = subgrid(x2, I)\n    O = trim(x3)\n    return O\n"
+  "description": "Extract a smaller target pattern from a larger noisy multicolor grid. The output is a selected subgrid with distractor colors removed. Confidence is low because the exact target-selection criterion is not obvious from the examples.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1c786137(I):\n    x1 = objects(I, T, F, F)\n    x2 = argmax(x1, height)\n    x3 = subgrid(x2, I)\n    O = trim(x3)\n    return O\n",
+  "shape": "crop"
 }

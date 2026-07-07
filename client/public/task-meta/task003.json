@@ -1,6 +1,7 @@
 {
   "id": "task003",
   "hash": "017c7c7b",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_017c7c7b(I):\n    x1 = tophalf(I)\n    x2 = bottomhalf(I)\n    x3 = equality(x1, x2)\n    x4 = crop(I, TWO_BY_ZERO, THREE_BY_THREE)\n    x5 = branch(x3, x2, x4)\n    x6 = vconcat(I, x5)\n    O = replace(x6, ONE, TWO)\n    return O\n"
+  "description": "Recolor blue foreground to red and extend the vertical repeating pattern to nine rows. Width and background are unchanged.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_017c7c7b(I):\n    x1 = tophalf(I)\n    x2 = bottomhalf(I)\n    x3 = equality(x1, x2)\n    x4 = crop(I, TWO_BY_ZERO, THREE_BY_THREE)\n    x5 = branch(x3, x2, x4)\n    x6 = vconcat(I, x5)\n    O = replace(x6, ONE, TWO)\n    return O\n",
+  "shape": "6x3 -> 9x3"
 }

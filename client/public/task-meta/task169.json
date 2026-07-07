@@ -1,6 +1,7 @@
 {
   "id": "task169",
   "hash": "6e82a1ae",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6e82a1ae(I):\n    x1 = objects(I, T, F, T)\n    x2 = lbind(sizefilter, x1)\n    x3 = compose(merge, x2)\n    x4 = x3(TWO)\n    x5 = x3(THREE)\n    x6 = x3(FOUR)\n    x7 = fill(I, THREE, x4)\n    x8 = fill(x7, TWO, x5)\n    O = fill(x8, ONE, x6)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [1, 2, 3] and removes input color(s) [5]. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6e82a1ae(I):\n    x1 = objects(I, T, F, T)\n    x2 = lbind(sizefilter, x1)\n    x3 = compose(merge, x2)\n    x4 = x3(TWO)\n    x5 = x3(THREE)\n    x6 = x3(FOUR)\n    x7 = fill(I, THREE, x4)\n    x8 = fill(x7, TWO, x5)\n    O = fill(x8, ONE, x6)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

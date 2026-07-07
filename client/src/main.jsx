@@ -432,6 +432,9 @@ function App() {
   const displayedOutput = runOutput || expectedOutput;
   const displayedOutputTitle = runOutput ? "RUN OUTPUT" : "OUTPUT";
   const trainingPairs = useMemo(() => currentTask?.train || [], [currentTask]);
+  const taskMetaLine = currentTask?.description || taskLoadError || "Loading task description";
+  const taskShapeLabel = currentTask?.shape || currentTask?.task_shape || "";
+  const taskHashLabel = currentTask?.hash || currentTask?.task_hash || "";
   const stats = taskLoadState === "loaded"
     ? `${currentTask?.train?.length || 0} train, ${currentTask?.test?.length || 0} test, ${currentTask?.["arc-gen"]?.length || 0} extra`
     : taskLoadState === "failed" ? "task load failed" : "loading task";
@@ -873,7 +876,13 @@ function App() {
       </aside>
       <main className="workspace" style={{ "--example-height": `${exampleHeight}px` }}>
         <nav className="topbar">
-          <div><strong>Task {String(task).padStart(3, "0")}</strong><span>{stats}</span></div>
+          <div className="taskHeader">
+            <div><strong>Task {String(task).padStart(3, "0")}</strong><span>{stats}</span></div>
+            <p title={taskMetaLine}>
+              {(taskShapeLabel || taskHashLabel) && <em>{[taskShapeLabel, taskHashLabel].filter(Boolean).join(" / ")}</em>}
+              {taskMetaLine}
+            </p>
+          </div>
           <div className="actions">
             <button className={`btn ${exampleMode === "train" ? "activeMode" : ""}`} onClick={() => selectExampleMode("train")}>Train</button>
             <button className={`btn ${exampleMode === "test" ? "activeMode" : ""}`} onClick={() => selectExampleMode("test")}>Test</button>

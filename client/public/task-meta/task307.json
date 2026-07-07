@@ -1,6 +1,7 @@
 {
   "id": "task307",
   "hash": "c59eb873",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c59eb873(I):\n    O = upscale(I, TWO)\n    return O\n"
+  "description": "Likely scales, tiles, or extends a visible pattern to a larger output. Colors are preserved as a set, though positions may change. Primary structural cue: size expansion. Inferred transformation family: scale/tile/extend.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c59eb873(I):\n    O = upscale(I, TWO)\n    return O\n",
+  "shape": "variable shapes"
 }

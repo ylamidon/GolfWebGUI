@@ -1,6 +1,7 @@
 {
   "id": "task129",
   "hash": "5582e5ca",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5582e5ca(I):\n    x1 = mostcolor(I)\n    O = canvas(x1, THREE_BY_THREE)\n    return O\n"
+  "description": "Likely removes distractor colors or extracts/recolors the relevant structure while preserving the canvas size. Removes input color(s) [0, 1, 3, 8]; output colors are a subset of input colors. Primary structural cue: color subset. Inferred transformation family: delete/extract/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5582e5ca(I):\n    x1 = mostcolor(I)\n    O = canvas(x1, THREE_BY_THREE)\n    return O\n",
+  "shape": "3x3 -> 3x3"
 }

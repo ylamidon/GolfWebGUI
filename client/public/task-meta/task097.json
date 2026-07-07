@@ -1,6 +1,7 @@
 {
   "id": "task097",
   "hash": "42a50994",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_42a50994(I):\n    x1 = objects(I, T, T, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = merge(x2)\n    O = cover(I, x3)\n    return O\n"
+  "description": "Likely preserves most of the input and edits a small set of cells based on local object or marker cues. Colors are preserved as a set, though positions may change. Primary structural cue: sparse change. Inferred transformation family: local edit.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_42a50994(I):\n    x1 = objects(I, T, T, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = merge(x2)\n    O = cover(I, x3)\n    return O\n",
+  "shape": "same size"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task296",
   "hash": "bc1d5164",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_bc1d5164(I):\n    x1 = leastcolor(I)\n    x2 = crop(I, ORIGIN, THREE_BY_THREE)\n    x3 = crop(I, TWO_BY_ZERO, THREE_BY_THREE)\n    x4 = tojvec(FOUR)\n    x5 = crop(I, x4, THREE_BY_THREE)\n    x6 = astuple(TWO, FOUR)\n    x7 = crop(I, x6, THREE_BY_THREE)\n    x8 = canvas(ZERO, THREE_BY_THREE)\n    x9 = rbind(ofcolor, x1)\n    x10 = astuple(x2, x3)\n    x11 = astuple(x5, x7)\n    x12 = combine(x10, x11)\n    x13 = mapply(x9, x12)\n    O = fill(x8, x1, x13)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Colors are preserved as a set, though positions may change. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_bc1d5164(I):\n    x1 = leastcolor(I)\n    x2 = crop(I, ORIGIN, THREE_BY_THREE)\n    x3 = crop(I, TWO_BY_ZERO, THREE_BY_THREE)\n    x4 = tojvec(FOUR)\n    x5 = crop(I, x4, THREE_BY_THREE)\n    x6 = astuple(TWO, FOUR)\n    x7 = crop(I, x6, THREE_BY_THREE)\n    x8 = canvas(ZERO, THREE_BY_THREE)\n    x9 = rbind(ofcolor, x1)\n    x10 = astuple(x2, x3)\n    x11 = astuple(x5, x7)\n    x12 = combine(x10, x11)\n    x13 = mapply(x9, x12)\n    O = fill(x8, x1, x13)\n    return O\n",
+  "shape": "5x7 -> 3x3"
 }

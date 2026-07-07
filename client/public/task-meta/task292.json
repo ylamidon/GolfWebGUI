@@ -1,6 +1,7 @@
 {
   "id": "task292",
   "hash": "ba26e723",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ba26e723(I):\n    x1 = rbind(divide, THREE)\n    x2 = rbind(multiply, THREE)\n    x3 = compose(x2, x1)\n    x4 = fork(equality, identity, x3)\n    x5 = compose(x4, last)\n    x6 = ofcolor(I, FOUR)\n    x7 = sfilter(x6, x5)\n    O = fill(I, SIX, x7)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [6]; existing colors may be preserved or annotated. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ba26e723(I):\n    x1 = rbind(divide, THREE)\n    x2 = rbind(multiply, THREE)\n    x3 = compose(x2, x1)\n    x4 = fork(equality, identity, x3)\n    x5 = compose(x4, last)\n    x6 = ofcolor(I, FOUR)\n    x7 = sfilter(x6, x5)\n    O = fill(I, SIX, x7)\n    return O\n",
+  "shape": "same size"
 }

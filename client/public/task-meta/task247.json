@@ -1,6 +1,7 @@
 {
   "id": "task247",
   "hash": "a3325580",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a3325580(I):\n    x1 = objects(I, T, F, T)\n    x2 = valmax(x1, size)\n    x3 = sizefilter(x1, x2)\n    x4 = order(x3, leftmost)\n    x5 = apply(color, x4)\n    x6 = astuple(ONE, x2)\n    x7 = rbind(canvas, x6)\n    x8 = apply(x7, x5)\n    x9 = merge(x8)\n    O = dmirror(x9)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Removes input color(s) [0, 7]; output colors are a subset of input colors. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a3325580(I):\n    x1 = objects(I, T, F, T)\n    x2 = valmax(x1, size)\n    x3 = sizefilter(x1, x2)\n    x4 = order(x3, leftmost)\n    x5 = apply(color, x4)\n    x6 = astuple(ONE, x2)\n    x7 = rbind(canvas, x6)\n    x8 = apply(x7, x5)\n    x9 = merge(x8)\n    O = dmirror(x9)\n    return O\n",
+  "shape": "variable shapes"
 }

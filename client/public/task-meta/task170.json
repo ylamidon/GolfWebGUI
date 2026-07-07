@@ -1,6 +1,7 @@
 {
   "id": "task170",
   "hash": "6ecd11f4",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6ecd11f4(I):\n    x1 = objects(I, F, T, T)\n    x2 = argmax(x1, size)\n    x3 = argmin(x1, size)\n    x4 = subgrid(x2, I)\n    x5 = subgrid(x3, I)\n    x6 = width(x4)\n    x7 = width(x5)\n    x8 = divide(x6, x7)\n    x9 = downscale(x4, x8)\n    x10 = ofcolor(x9, ZERO)\n    O = fill(x5, ZERO, x10)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Colors are preserved as a set, though positions may change. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6ecd11f4(I):\n    x1 = objects(I, F, T, T)\n    x2 = argmax(x1, size)\n    x3 = argmin(x1, size)\n    x4 = subgrid(x2, I)\n    x5 = subgrid(x3, I)\n    x6 = width(x4)\n    x7 = width(x5)\n    x8 = divide(x6, x7)\n    x9 = downscale(x4, x8)\n    x10 = ofcolor(x9, ZERO)\n    O = fill(x5, ZERO, x10)\n    return O\n",
+  "shape": "variable shapes"
 }

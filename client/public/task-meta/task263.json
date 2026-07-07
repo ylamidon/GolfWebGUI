@@ -1,6 +1,7 @@
 {
   "id": "task263",
   "hash": "a87f7484",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a87f7484(I):\n    x1 = numcolors(I)\n    x2 = dmirror(I)\n    x3 = portrait(I)\n    x4 = branch(x3, dmirror, identity)\n    x5 = x4(I)\n    x6 = decrement(x1)\n    x7 = hsplit(x5, x6)\n    x8 = rbind(ofcolor, ZERO)\n    x9 = apply(x8, x7)\n    x10 = leastcommon(x9)\n    x11 = matcher(x8, x10)\n    x12 = extract(x7, x11)\n    O = x4(x12)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Removes input color(s) [1, 2, 3, 6]; output colors are a subset of input colors. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a87f7484(I):\n    x1 = numcolors(I)\n    x2 = dmirror(I)\n    x3 = portrait(I)\n    x4 = branch(x3, dmirror, identity)\n    x5 = x4(I)\n    x6 = decrement(x1)\n    x7 = hsplit(x5, x6)\n    x8 = rbind(ofcolor, ZERO)\n    x9 = apply(x8, x7)\n    x10 = leastcommon(x9)\n    x11 = matcher(x8, x10)\n    x12 = extract(x7, x11)\n    O = x4(x12)\n    return O\n",
+  "shape": "variable shapes"
 }

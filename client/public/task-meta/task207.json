@@ -1,6 +1,7 @@
 {
   "id": "task207",
   "hash": "88a62173",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_88a62173(I):\n    x1 = lefthalf(I)\n    x2 = righthalf(I)\n    x3 = tophalf(x1)\n    x4 = tophalf(x2)\n    x5 = bottomhalf(x1)\n    x6 = bottomhalf(x2)\n    x7 = astuple(x3, x4)\n    x8 = astuple(x5, x6)\n    x9 = combine(x7, x8)\n    O = leastcommon(x9)\n    return O\n"
+  "description": "Likely extracts or classifies a compact property of the input rather than reproducing the whole canvas. Colors are preserved as a set, though positions may change. Primary structural cue: compact output. Inferred transformation family: extract/count/select. The rule is uncertain and needs task-specific review.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_88a62173(I):\n    x1 = lefthalf(I)\n    x2 = righthalf(I)\n    x3 = tophalf(x1)\n    x4 = tophalf(x2)\n    x5 = bottomhalf(x1)\n    x6 = bottomhalf(x2)\n    x7 = astuple(x3, x4)\n    x8 = astuple(x5, x6)\n    x9 = combine(x7, x8)\n    O = leastcommon(x9)\n    return O\n",
+  "shape": "5x5 -> 2x2"
 }

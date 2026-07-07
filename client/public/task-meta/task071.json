@@ -1,6 +1,7 @@
 {
   "id": "task071",
   "hash": "3345333e",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3345333e(I):\n    x1 = leastcolor(I)\n    x2 = ofcolor(I, x1)\n    x3 = cover(I, x2)\n    x4 = leastcolor(x3)\n    x5 = ofcolor(x3, x4)\n    x6 = neighbors(ORIGIN)\n    x7 = mapply(neighbors, x6)\n    x8 = vmirror(x5)\n    x9 = lbind(shift, x8)\n    x10 = apply(x9, x7)\n    x11 = rbind(intersection, x5)\n    x12 = compose(size, x11)\n    x13 = argmax(x10, x12)\n    O = fill(x3, x4, x13)\n    return O\n"
+  "description": "Likely removes distractor colors or extracts/recolors the relevant structure while preserving the canvas size. Removes input color(s) [1, 3]; output colors are a subset of input colors. Primary structural cue: color subset. Inferred transformation family: delete/extract/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3345333e(I):\n    x1 = leastcolor(I)\n    x2 = ofcolor(I, x1)\n    x3 = cover(I, x2)\n    x4 = leastcolor(x3)\n    x5 = ofcolor(x3, x4)\n    x6 = neighbors(ORIGIN)\n    x7 = mapply(neighbors, x6)\n    x8 = vmirror(x5)\n    x9 = lbind(shift, x8)\n    x10 = apply(x9, x7)\n    x11 = rbind(intersection, x5)\n    x12 = compose(size, x11)\n    x13 = argmax(x10, x12)\n    O = fill(x3, x4, x13)\n    return O\n",
+  "shape": "16x16 -> 16x16"
 }

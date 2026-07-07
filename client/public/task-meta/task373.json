@@ -1,6 +1,7 @@
 {
   "id": "task373",
   "hash": "e9afcf9a",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e9afcf9a(I):\n    x1 = astuple(TWO, ONE)\n    x2 = crop(I, ORIGIN, x1)\n    x3 = hmirror(x2)\n    x4 = hconcat(x2, x3)\n    x5 = hconcat(x4, x4)\n    O = hconcat(x5, x4)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e9afcf9a(I):\n    x1 = astuple(TWO, ONE)\n    x2 = crop(I, ORIGIN, x1)\n    x3 = hmirror(x2)\n    x4 = hconcat(x2, x3)\n    x5 = hconcat(x4, x4)\n    O = hconcat(x5, x4)\n    return O\n",
+  "shape": "2x6 -> 2x6"
 }

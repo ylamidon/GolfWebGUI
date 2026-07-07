@@ -1,6 +1,7 @@
 {
   "id": "task195",
   "hash": "80af3007",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_80af3007(I):\n    x1 = objects(I, T, T, T)\n    x2 = first(x1)\n    x3 = subgrid(x2, I)\n    x4 = upscale(x3, THREE)\n    x5 = hconcat(x3, x3)\n    x6 = hconcat(x5, x3)\n    x7 = vconcat(x6, x6)\n    x8 = vconcat(x7, x6)\n    x9 = cellwise(x4, x8, ZERO)\n    O = downscale(x9, THREE)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Colors are preserved as a set, though positions may change. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_80af3007(I):\n    x1 = objects(I, T, T, T)\n    x2 = first(x1)\n    x3 = subgrid(x2, I)\n    x4 = upscale(x3, THREE)\n    x5 = hconcat(x3, x3)\n    x6 = hconcat(x5, x3)\n    x7 = vconcat(x6, x6)\n    x8 = vconcat(x7, x6)\n    x9 = cellwise(x4, x8, ZERO)\n    O = downscale(x9, THREE)\n    return O\n",
+  "shape": "16x18 -> 9x9"
 }

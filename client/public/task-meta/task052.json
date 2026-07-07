@@ -1,6 +1,7 @@
 {
   "id": "task052",
   "hash": "25d8a9c8",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_25d8a9c8(I):\n    x1 = asindices(I)\n    x2 = objects(I, T, F, F)\n    x3 = sizefilter(x2, THREE)\n    x4 = mfilter(x3, hline)\n    x5 = toindices(x4)\n    x6 = difference(x1, x5)\n    x7 = fill(I, FIVE, x5)\n    O = fill(x7, ZERO, x6)\n    return O\n"
+  "description": "Likely transforms a pattern or object arrangement while preserving the canvas size. Introduces output color(s) [0, 5] and removes input color(s) [1, 2, 3, 4, 6, 7, 9]. Primary structural cue: same size. Inferred transformation family: pattern transform. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_25d8a9c8(I):\n    x1 = asindices(I)\n    x2 = objects(I, T, F, F)\n    x3 = sizefilter(x2, THREE)\n    x4 = mfilter(x3, hline)\n    x5 = toindices(x4)\n    x6 = difference(x1, x5)\n    x7 = fill(I, FIVE, x5)\n    O = fill(x7, ZERO, x6)\n    return O\n",
+  "shape": "3x3 -> 3x3"
 }

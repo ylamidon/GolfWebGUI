@@ -1,6 +1,7 @@
 {
   "id": "task238",
   "hash": "9aec4887",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9aec4887(I):\n    x1 = objects(I, F, T, T)\n    x2 = argmin(x1, numcolors)\n    x3 = other(x1, x2)\n    x4 = subgrid(x3, I)\n    x5 = normalize(x2)\n    x6 = shift(x5, UNITY)\n    x7 = toindices(x6)\n    x8 = normalize(x3)\n    x9 = lbind(argmin, x8)\n    x11 = lbind(rbind, manhattan)\n    x12 = rbind(compose, initset)\n    x13 = chain(x12, x11, initset)\n    x14 = chain(first, x9, x13)\n    x15 = fork(astuple, x14, identity)\n    x16 = apply(x15, x7)\n    x17 = paint(x4, x16)\n    x18 = fork(connect, ulcorner, lrcorner)\n    x19 = x18(x7)\n    x20 = fork(combine, identity, vmirror)\n    x21 = x20(x19)\n    x22 = intersection(x7, x21)\n    O = fill(x17, EIGHT, x22)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Colors are preserved as a set, though positions may change. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9aec4887(I):\n    x1 = objects(I, F, T, T)\n    x2 = argmin(x1, numcolors)\n    x3 = other(x1, x2)\n    x4 = subgrid(x3, I)\n    x5 = normalize(x2)\n    x6 = shift(x5, UNITY)\n    x7 = toindices(x6)\n    x8 = normalize(x3)\n    x9 = lbind(argmin, x8)\n    x11 = lbind(rbind, manhattan)\n    x12 = rbind(compose, initset)\n    x13 = chain(x12, x11, initset)\n    x14 = chain(first, x9, x13)\n    x15 = fork(astuple, x14, identity)\n    x16 = apply(x15, x7)\n    x17 = paint(x4, x16)\n    x18 = fork(connect, ulcorner, lrcorner)\n    x19 = x18(x7)\n    x20 = fork(combine, identity, vmirror)\n    x21 = x20(x19)\n    x22 = intersection(x7, x21)\n    O = fill(x17, EIGHT, x22)\n    return O\n",
+  "shape": "variable shapes"
 }

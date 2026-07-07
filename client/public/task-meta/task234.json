@@ -1,6 +1,7 @@
 {
   "id": "task234",
   "hash": "98cf29f8",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_98cf29f8(I):\n    x1 = fgpartition(I)\n    x2 = fork(multiply, height, width)\n    x3 = fork(equality, size, x2)\n    x4 = extract(x1, x3)\n    x5 = other(x1, x4)\n    x6 = color(x5)\n    x7 = rbind(greater, THREE)\n    x8 = rbind(toobject, I)\n    x9 = rbind(colorcount, x6)\n    x10 = chain(x8, ineighbors, last)\n    x11 = chain(x7, x9, x10)\n    x12 = sfilter(x5, x11)\n    x13 = outbox(x12)\n    x14 = backdrop(x13)\n    x15 = cover(I, x5)\n    x16 = gravitate(x14, x4)\n    x17 = shift(x14, x16)\n    O = fill(x15, x6, x17)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_98cf29f8(I):\n    x1 = fgpartition(I)\n    x2 = fork(multiply, height, width)\n    x3 = fork(equality, size, x2)\n    x4 = extract(x1, x3)\n    x5 = other(x1, x4)\n    x6 = color(x5)\n    x7 = rbind(greater, THREE)\n    x8 = rbind(toobject, I)\n    x9 = rbind(colorcount, x6)\n    x10 = chain(x8, ineighbors, last)\n    x11 = chain(x7, x9, x10)\n    x12 = sfilter(x5, x11)\n    x13 = outbox(x12)\n    x14 = backdrop(x13)\n    x15 = cover(I, x5)\n    x16 = gravitate(x14, x4)\n    x17 = shift(x14, x16)\n    O = fill(x15, x6, x17)\n    return O\n",
+  "shape": "same size"
 }

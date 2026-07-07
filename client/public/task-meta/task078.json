@@ -1,6 +1,7 @@
 {
   "id": "task078",
   "hash": "3906de3d",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3906de3d(I):\n    x1 = rot270(I)\n    x2 = rbind(order, identity)\n    x3 = switch(x1, ONE, TWO)\n    x4 = apply(x2, x3)\n    x5 = switch(x4, ONE, TWO)\n    O = cmirror(x5)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3906de3d(I):\n    x1 = rot270(I)\n    x2 = rbind(order, identity)\n    x3 = switch(x1, ONE, TWO)\n    x4 = apply(x2, x3)\n    x5 = switch(x4, ONE, TWO)\n    O = cmirror(x5)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

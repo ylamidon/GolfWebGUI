@@ -1,6 +1,7 @@
 {
   "id": "task226",
   "hash": "941d9a10",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_941d9a10(I):\n    x1 = shape(I)\n    x2 = objects(I, T, F, F)\n    x3 = colorfilter(x2, ZERO)\n    x4 = apply(toindices, x3)\n    x5 = lbind(lbind, contained)\n    x6 = lbind(extract, x4)\n    x7 = compose(x6, x5)\n    x8 = decrement(x1)\n    x9 = astuple(FIVE, FIVE)\n    x10 = x7(ORIGIN)\n    x11 = x7(x8)\n    x12 = x7(x9)\n    x13 = fill(I, ONE, x10)\n    x14 = fill(x13, THREE, x11)\n    O = fill(x14, TWO, x12)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [1, 2, 3]; existing colors may be preserved or annotated. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_941d9a10(I):\n    x1 = shape(I)\n    x2 = objects(I, T, F, F)\n    x3 = colorfilter(x2, ZERO)\n    x4 = apply(toindices, x3)\n    x5 = lbind(lbind, contained)\n    x6 = lbind(extract, x4)\n    x7 = compose(x6, x5)\n    x8 = decrement(x1)\n    x9 = astuple(FIVE, FIVE)\n    x10 = x7(ORIGIN)\n    x11 = x7(x8)\n    x12 = x7(x9)\n    x13 = fill(I, ONE, x10)\n    x14 = fill(x13, THREE, x11)\n    O = fill(x14, TWO, x12)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

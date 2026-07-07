@@ -1,6 +1,7 @@
 {
   "id": "task330",
   "hash": "d2abd087",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d2abd087(I):\n    x1 = objects(I, T, F, T)\n    x2 = matcher(size, SIX)\n    x3 = compose(flip, x2)\n    x4 = mfilter(x1, x2)\n    x5 = mfilter(x1, x3)\n    x6 = fill(I, TWO, x4)\n    O = fill(x6, ONE, x5)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [1, 2] and removes input color(s) [5]. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d2abd087(I):\n    x1 = objects(I, T, F, T)\n    x2 = matcher(size, SIX)\n    x3 = compose(flip, x2)\n    x4 = mfilter(x1, x2)\n    x5 = mfilter(x1, x3)\n    x6 = fill(I, TWO, x4)\n    O = fill(x6, ONE, x5)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

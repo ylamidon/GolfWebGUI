@@ -1,6 +1,7 @@
 {
   "id": "task124",
   "hash": "53b68214",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_53b68214(I):\n    x1 = width(I)\n    x2 = objects(I, T, T, T)\n    x3 = first(x2)\n    x4 = vperiod(x3)\n    x5 = toivec(x4)\n    x6 = interval(ZERO, NINE, ONE)\n    x7 = lbind(multiply, x5)\n    x8 = apply(x7, x6)\n    x9 = lbind(shift, x3)\n    x10 = mapply(x9, x8)\n    x11 = astuple(x1, x1)\n    x12 = portrait(x3)\n    x13 = shape(x3)\n    x14 = add(DOWN, x13)\n    x15 = decrement(x14)\n    x16 = shift(x3, x15)\n    x17 = branch(x12, x10, x16)\n    x18 = canvas(ZERO, x11)\n    x19 = paint(x18, x3)\n    O = paint(x19, x17)\n    return O\n"
+  "description": "The task changes size in a data-dependent way, likely through extraction, packing, or pattern construction. Colors are preserved as a set, though positions may change. Primary structural cue: data-dependent size. Inferred transformation family: reshape/extract/pack. The rule is uncertain and needs task-specific review.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_53b68214(I):\n    x1 = width(I)\n    x2 = objects(I, T, T, T)\n    x3 = first(x2)\n    x4 = vperiod(x3)\n    x5 = toivec(x4)\n    x6 = interval(ZERO, NINE, ONE)\n    x7 = lbind(multiply, x5)\n    x8 = apply(x7, x6)\n    x9 = lbind(shift, x3)\n    x10 = mapply(x9, x8)\n    x11 = astuple(x1, x1)\n    x12 = portrait(x3)\n    x13 = shape(x3)\n    x14 = add(DOWN, x13)\n    x15 = decrement(x14)\n    x16 = shift(x3, x15)\n    x17 = branch(x12, x10, x16)\n    x18 = canvas(ZERO, x11)\n    x19 = paint(x18, x3)\n    O = paint(x19, x17)\n    return O\n",
+  "shape": "variable shapes"
 }

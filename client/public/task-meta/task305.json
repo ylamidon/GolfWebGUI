@@ -1,6 +1,7 @@
 {
   "id": "task305",
   "hash": "c3f564a4",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c3f564a4(I):\n    x1 = asindices(I)\n    x2 = dmirror(I)\n    x3 = invert(NINE)\n    x4 = papply(pair, I, x2)\n    x5 = lbind(apply, maximum)\n    x6 = apply(x5, x4)\n    x7 = ofcolor(x6, ZERO)\n    x8 = difference(x1, x7)\n    x9 = toobject(x8, x6)\n    x10 = interval(x3, NINE, ONE)\n    x11 = interval(NINE, x3, NEG_ONE)\n    x12 = pair(x10, x11)\n    x13 = lbind(shift, x9)\n    x14 = mapply(x13, x12)\n    O = paint(x6, x14)\n    return O\n"
+  "description": "Likely removes distractor colors or extracts/recolors the relevant structure while preserving the canvas size. Removes input color(s) [0]; output colors are a subset of input colors. Primary structural cue: color subset. Inferred transformation family: delete/extract/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c3f564a4(I):\n    x1 = asindices(I)\n    x2 = dmirror(I)\n    x3 = invert(NINE)\n    x4 = papply(pair, I, x2)\n    x5 = lbind(apply, maximum)\n    x6 = apply(x5, x4)\n    x7 = ofcolor(x6, ZERO)\n    x8 = difference(x1, x7)\n    x9 = toobject(x8, x6)\n    x10 = interval(x3, NINE, ONE)\n    x11 = interval(NINE, x3, NEG_ONE)\n    x12 = pair(x10, x11)\n    x13 = lbind(shift, x9)\n    x14 = mapply(x13, x12)\n    O = paint(x6, x14)\n    return O\n",
+  "shape": "16x16 -> 16x16"
 }

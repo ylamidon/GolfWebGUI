@@ -1,6 +1,7 @@
 {
   "id": "task239",
   "hash": "9af7a82c",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9af7a82c(I):\n    x1 = objects(I, T, F, F)\n    x2 = order(x1, size)\n    x3 = valmax(x1, size)\n    x4 = rbind(astuple, ONE)\n    x5 = lbind(subtract, x3)\n    x6 = compose(x4, size)\n    x7 = chain(x4, x5, size)\n    x8 = fork(canvas, color, x6)\n    x9 = lbind(canvas, ZERO)\n    x10 = compose(x9, x7)\n    x11 = fork(vconcat, x8, x10)\n    x12 = compose(cmirror, x11)\n    x13 = apply(x12, x2)\n    x14 = merge(x13)\n    O = cmirror(x14)\n    return O\n"
+  "description": "The task changes size in a data-dependent way, likely through extraction, packing, or pattern construction. Introduces output color(s) [0]; existing colors may be preserved or annotated. Primary structural cue: data-dependent size. Inferred transformation family: reshape/extract/pack. The rule is uncertain and needs task-specific review.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9af7a82c(I):\n    x1 = objects(I, T, F, F)\n    x2 = order(x1, size)\n    x3 = valmax(x1, size)\n    x4 = rbind(astuple, ONE)\n    x5 = lbind(subtract, x3)\n    x6 = compose(x4, size)\n    x7 = chain(x4, x5, size)\n    x8 = fork(canvas, color, x6)\n    x9 = lbind(canvas, ZERO)\n    x10 = compose(x9, x7)\n    x11 = fork(vconcat, x8, x10)\n    x12 = compose(cmirror, x11)\n    x13 = apply(x12, x2)\n    x14 = merge(x13)\n    O = cmirror(x14)\n    return O\n",
+  "shape": "variable shapes"
 }

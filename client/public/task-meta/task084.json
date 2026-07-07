@@ -1,6 +1,7 @@
 {
   "id": "task084",
   "hash": "3bd67248",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3bd67248(I):\n    x1 = height(I)\n    x2 = decrement(x1)\n    x3 = decrement(x2)\n    x4 = astuple(x3, ONE)\n    x5 = astuple(x2, ONE)\n    x6 = shoot(x4, UP_RIGHT)\n    x7 = shoot(x5, RIGHT)\n    x8 = fill(I, TWO, x6)\n    O = fill(x8, FOUR, x7)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [2, 4]; existing colors may be preserved or annotated. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3bd67248(I):\n    x1 = height(I)\n    x2 = decrement(x1)\n    x3 = decrement(x2)\n    x4 = astuple(x3, ONE)\n    x5 = astuple(x2, ONE)\n    x6 = shoot(x4, UP_RIGHT)\n    x7 = shoot(x5, RIGHT)\n    x8 = fill(I, TWO, x6)\n    O = fill(x8, FOUR, x7)\n    return O\n",
+  "shape": "same size"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task024",
   "hash": "178fcbfb",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_178fcbfb(I):\n    x1 = objects(I, T, F, T)\n    x2 = ofcolor(I, TWO)\n    x3 = mapply(vfrontier, x2)\n    x4 = fill(I, TWO, x3)\n    x5 = colorfilter(x1, TWO)\n    x6 = difference(x1, x5)\n    x7 = compose(hfrontier, center)\n    x8 = fork(recolor, color, x7)\n    x9 = mapply(x8, x6)\n    O = paint(x4, x9)\n    return O\n"
+  "description": "Colored markers become full grid lines. Colors 1 and 3 fill their rows, while color 2 fills its column positions.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_178fcbfb(I):\n    x1 = objects(I, T, F, T)\n    x2 = ofcolor(I, TWO)\n    x3 = mapply(vfrontier, x2)\n    x4 = fill(I, TWO, x3)\n    x5 = colorfilter(x1, TWO)\n    x6 = difference(x1, x5)\n    x7 = compose(hfrontier, center)\n    x8 = fork(recolor, color, x7)\n    x9 = mapply(x8, x6)\n    O = paint(x4, x9)\n    return O\n",
+  "shape": "same size"
 }

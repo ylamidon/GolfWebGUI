@@ -1,6 +1,7 @@
 {
   "id": "task073",
   "hash": "3618c87e",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3618c87e(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = merge(x2)\n    O = move(I, x3, TWO_BY_ZERO)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3618c87e(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = merge(x2)\n    O = move(I, x3, TWO_BY_ZERO)\n    return O\n",
+  "shape": "5x5 -> 5x5"
 }

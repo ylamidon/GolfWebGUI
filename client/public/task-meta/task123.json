@@ -1,6 +1,7 @@
 {
   "id": "task123",
   "hash": "539a4f51",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_539a4f51(I):\n    x1 = shape(I)\n    x2 = index(I, ORIGIN)\n    x3 = colorcount(I, ZERO)\n    x4 = decrement(x1)\n    x5 = positive(x3)\n    x6 = branch(x5, x4, x1)\n    x7 = crop(I, ORIGIN, x6)\n    x8 = width(x7)\n    x9 = astuple(ONE, x8)\n    x10 = crop(x7, ORIGIN, x9)\n    x11 = vupscale(x10, x8)\n    x12 = dmirror(x11)\n    x13 = hconcat(x7, x11)\n    x14 = hconcat(x12, x7)\n    x15 = vconcat(x13, x14)\n    x16 = asobject(x15)\n    x17 = multiply(UNITY, TEN)\n    x18 = canvas(x2, x17)\n    O = paint(x18, x16)\n    return O\n"
+  "description": "Likely scales, tiles, or extends a visible pattern to a larger output. Removes input color(s) [0]; output colors are a subset of input colors. Primary structural cue: size expansion. Inferred transformation family: scale/tile/extend.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_539a4f51(I):\n    x1 = shape(I)\n    x2 = index(I, ORIGIN)\n    x3 = colorcount(I, ZERO)\n    x4 = decrement(x1)\n    x5 = positive(x3)\n    x6 = branch(x5, x4, x1)\n    x7 = crop(I, ORIGIN, x6)\n    x8 = width(x7)\n    x9 = astuple(ONE, x8)\n    x10 = crop(x7, ORIGIN, x9)\n    x11 = vupscale(x10, x8)\n    x12 = dmirror(x11)\n    x13 = hconcat(x7, x11)\n    x14 = hconcat(x12, x7)\n    x15 = vconcat(x13, x14)\n    x16 = asobject(x15)\n    x17 = multiply(UNITY, TEN)\n    x18 = canvas(x2, x17)\n    O = paint(x18, x16)\n    return O\n",
+  "shape": "5x5 -> 10x10"
 }

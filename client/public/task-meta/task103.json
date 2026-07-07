@@ -1,6 +1,7 @@
 {
   "id": "task103",
   "hash": "44f52bb0",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_44f52bb0(I):\n    x1 = vmirror(I)\n    x2 = equality(x1, I)\n    x3 = branch(x2, ONE, SEVEN)\n    O = canvas(x3, UNITY)\n    return O\n"
+  "description": "Likely extracts or classifies a compact property of the input rather than reproducing the whole canvas. Introduces output color(s) [1, 7] and removes input color(s) [0, 2]. Primary structural cue: compact output. Inferred transformation family: extract/count/select. The rule is uncertain and needs task-specific review.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_44f52bb0(I):\n    x1 = vmirror(I)\n    x2 = equality(x1, I)\n    x3 = branch(x2, ONE, SEVEN)\n    O = canvas(x3, UNITY)\n    return O\n",
+  "shape": "3x3 -> 1x1"
 }

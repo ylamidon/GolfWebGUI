@@ -1,6 +1,7 @@
 {
   "id": "task048",
   "hash": "239be575",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_239be575(I):\n    x1 = objects(I, F, T, T)\n    x2 = lbind(contained, TWO)\n    x3 = compose(x2, palette)\n    x4 = sfilter(x1, x3)\n    x5 = size(x4)\n    x6 = greater(x5, ONE)\n    x7 = branch(x6, ZERO, EIGHT)\n    O = canvas(x7, UNITY)\n    return O\n"
+  "description": "Reduce the red/azure pattern to a single binary label, either 8 or 0. Confidence is low because the precise classification predicate is uncertain.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_239be575(I):\n    x1 = objects(I, F, T, T)\n    x2 = lbind(contained, TWO)\n    x3 = compose(x2, palette)\n    x4 = sfilter(x1, x3)\n    x5 = size(x4)\n    x6 = greater(x5, ONE)\n    x7 = branch(x6, ZERO, EIGHT)\n    O = canvas(x7, UNITY)\n    return O\n",
+  "shape": "classification"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task246",
   "hash": "a2fd1cf0",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a2fd1cf0(I):\n    x1 = ofcolor(I, TWO)\n    x2 = ofcolor(I, THREE)\n    x3 = uppermost(x1)\n    x4 = leftmost(x1)\n    x5 = uppermost(x2)\n    x6 = leftmost(x2)\n    x7 = astuple(x3, x5)\n    x8 = minimum(x7)\n    x9 = maximum(x7)\n    x10 = astuple(x8, x6)\n    x11 = astuple(x9, x6)\n    x12 = connect(x10, x11)\n    x13 = astuple(x4, x6)\n    x14 = minimum(x13)\n    x15 = maximum(x13)\n    x16 = astuple(x3, x14)\n    x17 = astuple(x3, x15)\n    x18 = connect(x16, x17)\n    x19 = combine(x12, x18)\n    O = underfill(I, EIGHT, x19)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [8]; existing colors may be preserved or annotated. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a2fd1cf0(I):\n    x1 = ofcolor(I, TWO)\n    x2 = ofcolor(I, THREE)\n    x3 = uppermost(x1)\n    x4 = leftmost(x1)\n    x5 = uppermost(x2)\n    x6 = leftmost(x2)\n    x7 = astuple(x3, x5)\n    x8 = minimum(x7)\n    x9 = maximum(x7)\n    x10 = astuple(x8, x6)\n    x11 = astuple(x9, x6)\n    x12 = connect(x10, x11)\n    x13 = astuple(x4, x6)\n    x14 = minimum(x13)\n    x15 = maximum(x13)\n    x16 = astuple(x3, x14)\n    x17 = astuple(x3, x15)\n    x18 = connect(x16, x17)\n    x19 = combine(x12, x18)\n    O = underfill(I, EIGHT, x19)\n    return O\n",
+  "shape": "same size"
 }

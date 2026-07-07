@@ -1,6 +1,7 @@
 {
   "id": "task393",
   "hash": "f8ff0b80",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_f8ff0b80(I):\n    x1 = objects(I, T, T, T)\n    x2 = order(x1, size)\n    x3 = apply(color, x2)\n    x4 = rbind(canvas, UNITY)\n    x5 = apply(x4, x3)\n    x6 = merge(x5)\n    O = hmirror(x6)\n    return O\n"
+  "description": "Likely extracts or classifies a compact property of the input rather than reproducing the whole canvas. Removes input color(s) [0]; output colors are a subset of input colors. Primary structural cue: compact output. Inferred transformation family: extract/count/select. The rule is uncertain and needs task-specific review.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_f8ff0b80(I):\n    x1 = objects(I, T, T, T)\n    x2 = order(x1, size)\n    x3 = apply(color, x2)\n    x4 = rbind(canvas, UNITY)\n    x5 = apply(x4, x3)\n    x6 = merge(x5)\n    O = hmirror(x6)\n    return O\n",
+  "shape": "12x12 -> 3x1"
 }

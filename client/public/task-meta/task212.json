@@ -1,6 +1,7 @@
 {
   "id": "task212",
   "hash": "8d510a79",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_8d510a79(I):\n    x1 = ofcolor(I, ONE)\n    x2 = ofcolor(I, TWO)\n    x3 = ofcolor(I, FIVE)\n    x4 = uppermost(x3)\n    x5 = chain(toivec, decrement, double)\n    x6 = lbind(greater, x4)\n    x7 = compose(x6, first)\n    x8 = chain(invert, x5, x7)\n    x9 = fork(shoot, identity, x8)\n    x10 = compose(x5, x7)\n    x11 = fork(shoot, identity, x10)\n    x12 = lbind(matcher, x7)\n    x13 = compose(x12, x7)\n    x14 = fork(sfilter, x11, x13)\n    x15 = mapply(x9, x1)\n    x16 = mapply(x14, x2)\n    x17 = underfill(I, TWO, x16)\n    O = fill(x17, ONE, x15)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_8d510a79(I):\n    x1 = ofcolor(I, ONE)\n    x2 = ofcolor(I, TWO)\n    x3 = ofcolor(I, FIVE)\n    x4 = uppermost(x3)\n    x5 = chain(toivec, decrement, double)\n    x6 = lbind(greater, x4)\n    x7 = compose(x6, first)\n    x8 = chain(invert, x5, x7)\n    x9 = fork(shoot, identity, x8)\n    x10 = compose(x5, x7)\n    x11 = fork(shoot, identity, x10)\n    x12 = lbind(matcher, x7)\n    x13 = compose(x12, x7)\n    x14 = fork(sfilter, x11, x13)\n    x15 = mapply(x9, x1)\n    x16 = mapply(x14, x2)\n    x17 = underfill(I, TWO, x16)\n    O = fill(x17, ONE, x15)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task354",
   "hash": "ddf7fa4f",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ddf7fa4f(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = colorfilter(x1, FIVE)\n    x4 = product(x2, x3)\n    x5 = fork(vmatching, first, last)\n    x6 = sfilter(x4, x5)\n    x7 = compose(color, first)\n    x8 = fork(recolor, x7, last)\n    x9 = mapply(x8, x6)\n    O = paint(I, x9)\n    return O\n"
+  "description": "Likely removes distractor colors or extracts/recolors the relevant structure while preserving the canvas size. Removes input color(s) [5]; output colors are a subset of input colors. Primary structural cue: color subset. Inferred transformation family: delete/extract/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ddf7fa4f(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = colorfilter(x1, FIVE)\n    x4 = product(x2, x3)\n    x5 = fork(vmatching, first, last)\n    x6 = sfilter(x4, x5)\n    x7 = compose(color, first)\n    x8 = fork(recolor, x7, last)\n    x9 = mapply(x8, x6)\n    O = paint(I, x9)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task015",
   "hash": "0ca9ddb6",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_0ca9ddb6(I):\n    x1 = ofcolor(I, ONE)\n    x2 = ofcolor(I, TWO)\n    x3 = mapply(dneighbors, x1)\n    x4 = mapply(ineighbors, x2)\n    x5 = fill(I, SEVEN, x3)\n    O = fill(x5, FOUR, x4)\n    return O\n"
+  "description": "Decorate markers by color. Red 2 creates yellow diagonal neighbors, while blue 1 creates orange orthogonal neighbors; all original cells remain.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_0ca9ddb6(I):\n    x1 = ofcolor(I, ONE)\n    x2 = ofcolor(I, TWO)\n    x3 = mapply(dneighbors, x1)\n    x4 = mapply(ineighbors, x2)\n    x5 = fill(I, SEVEN, x3)\n    O = fill(x5, FOUR, x4)\n    return O\n",
+  "shape": "same size"
 }

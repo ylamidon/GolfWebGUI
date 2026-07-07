@@ -1,6 +1,7 @@
 {
   "id": "task229",
   "hash": "9565186b",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9565186b(I):\n    x1 = shape(I)\n    x2 = objects(I, T, F, F)\n    x3 = argmax(x2, size)\n    x4 = canvas(FIVE, x1)\n    O = paint(x4, x3)\n    return O\n"
+  "description": "Likely transforms a pattern or object arrangement while preserving the canvas size. Introduces output color(s) [5] and removes input color(s) [3, 8]. Primary structural cue: same size. Inferred transformation family: pattern transform. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9565186b(I):\n    x1 = shape(I)\n    x2 = objects(I, T, F, F)\n    x3 = argmax(x2, size)\n    x4 = canvas(FIVE, x1)\n    O = paint(x4, x3)\n    return O\n",
+  "shape": "3x3 -> 3x3"
 }

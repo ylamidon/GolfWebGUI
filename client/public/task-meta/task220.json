@@ -1,6 +1,7 @@
 {
   "id": "task220",
   "hash": "913fb3ed",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_913fb3ed(I):\n    x1 = ofcolor(I, THREE)\n    x2 = ofcolor(I, EIGHT)\n    x3 = ofcolor(I, TWO)\n    x4 = mapply(neighbors, x1)\n    x5 = mapply(neighbors, x2)\n    x6 = mapply(neighbors, x3)\n    x7 = fill(I, SIX, x4)\n    x8 = fill(x7, FOUR, x5)\n    O = fill(x8, ONE, x6)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [1, 4, 6]; existing colors may be preserved or annotated. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_913fb3ed(I):\n    x1 = ofcolor(I, THREE)\n    x2 = ofcolor(I, EIGHT)\n    x3 = ofcolor(I, TWO)\n    x4 = mapply(neighbors, x1)\n    x5 = mapply(neighbors, x2)\n    x6 = mapply(neighbors, x3)\n    x7 = fill(I, SIX, x4)\n    x8 = fill(x7, FOUR, x5)\n    O = fill(x8, ONE, x6)\n    return O\n",
+  "shape": "same size"
 }

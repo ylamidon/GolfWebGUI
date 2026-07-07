@@ -1,6 +1,7 @@
 {
   "id": "task002",
   "hash": "00d62c1b",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_00d62c1b(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, ZERO)\n    x3 = rbind(bordering, I)\n    x4 = compose(flip, x3)\n    x5 = mfilter(x2, x4)\n    O = fill(I, FOUR, x5)\n    return O\n"
+  "description": "Fill enclosed background regions inside the green shape with yellow. The boundary green pixels are preserved, and only interior holes become 4.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_00d62c1b(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, ZERO)\n    x3 = rbind(bordering, I)\n    x4 = compose(flip, x3)\n    x5 = mfilter(x2, x4)\n    O = fill(I, FOUR, x5)\n    return O\n",
+  "shape": "same size"
 }

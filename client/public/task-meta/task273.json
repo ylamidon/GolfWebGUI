@@ -1,6 +1,7 @@
 {
   "id": "task273",
   "hash": "af902bf9",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_af902bf9(I):\n    x1 = ofcolor(I, FOUR)\n    x2 = prapply(connect, x1, x1)\n    x3 = fork(either, vline, hline)\n    x4 = mfilter(x2, x3)\n    x5 = underfill(I, NEG_ONE, x4)\n    x6 = objects(x5, F, F, T)\n    x7 = compose(backdrop, inbox)\n    x8 = mapply(x7, x6)\n    x9 = fill(x5, TWO, x8)\n    O = replace(x9, NEG_ONE, ZERO)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [2]; existing colors may be preserved or annotated. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_af902bf9(I):\n    x1 = ofcolor(I, FOUR)\n    x2 = prapply(connect, x1, x1)\n    x3 = fork(either, vline, hline)\n    x4 = mfilter(x2, x3)\n    x5 = underfill(I, NEG_ONE, x4)\n    x6 = objects(x5, F, F, T)\n    x7 = compose(backdrop, inbox)\n    x8 = mapply(x7, x6)\n    x9 = fill(x5, TWO, x8)\n    O = replace(x9, NEG_ONE, ZERO)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

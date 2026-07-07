@@ -1,6 +1,7 @@
 {
   "id": "task398",
   "hash": "feca6190",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_feca6190(I):\n    x1 = objects(I, T, F, T)\n    x2 = size(x1)\n    x3 = multiply(x2, FIVE)\n    x4 = astuple(x3, x3)\n    x5 = canvas(ZERO, x4)\n    x6 = rbind(shoot, UNITY)\n    x7 = compose(x6, center)\n    x8 = fork(recolor, color, x7)\n    x9 = mapply(x8, x1)\n    x10 = paint(x5, x9)\n    O = hmirror(x10)\n    return O\n"
+  "description": "The task changes size in a data-dependent way, likely through extraction, packing, or pattern construction. Colors are preserved as a set, though positions may change. Primary structural cue: data-dependent size. Inferred transformation family: reshape/extract/pack. The rule is uncertain and needs task-specific review.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_feca6190(I):\n    x1 = objects(I, T, F, T)\n    x2 = size(x1)\n    x3 = multiply(x2, FIVE)\n    x4 = astuple(x3, x3)\n    x5 = canvas(ZERO, x4)\n    x6 = rbind(shoot, UNITY)\n    x7 = compose(x6, center)\n    x8 = fork(recolor, color, x7)\n    x9 = mapply(x8, x1)\n    x10 = paint(x5, x9)\n    O = hmirror(x10)\n    return O\n",
+  "shape": "variable shapes"
 }

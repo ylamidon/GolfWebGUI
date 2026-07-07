@@ -1,6 +1,7 @@
 {
   "id": "task045",
   "hash": "22eb0ac0",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_22eb0ac0(I):\n    x1 = fgpartition(I)\n    x2 = fork(recolor, color, backdrop)\n    x3 = apply(x2, x1)\n    x4 = mfilter(x3, hline)\n    O = paint(I, x4)\n    return O\n"
+  "description": "Rows with matching colored endpoints become solid horizontal lines of that color. Rows with different endpoint colors are unchanged.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_22eb0ac0(I):\n    x1 = fgpartition(I)\n    x2 = fork(recolor, color, backdrop)\n    x3 = apply(x2, x1)\n    x4 = mfilter(x3, hline)\n    O = paint(I, x4)\n    return O\n",
+  "shape": "same size"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task400",
   "hash": "ff805c23",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ff805c23(I):\n    x1 = hmirror(I)\n    x2 = vmirror(I)\n    x3 = ofcolor(I, ONE)\n    x4 = subgrid(x3, x1)\n    x5 = subgrid(x3, x2)\n    x6 = palette(x4)\n    x7 = contained(ONE, x6)\n    O = branch(x7, x5, x4)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Removes input color(s) [1, 2, 8]; output colors are a subset of input colors. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ff805c23(I):\n    x1 = hmirror(I)\n    x2 = vmirror(I)\n    x3 = ofcolor(I, ONE)\n    x4 = subgrid(x3, x1)\n    x5 = subgrid(x3, x2)\n    x6 = palette(x4)\n    x7 = contained(ONE, x6)\n    O = branch(x7, x5, x4)\n    return O\n",
+  "shape": "24x24 -> 5x5"
 }

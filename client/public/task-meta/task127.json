@@ -1,6 +1,7 @@
 {
   "id": "task127",
   "hash": "54d9e175",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_54d9e175(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = compose(neighbors, center)\n    x4 = fork(recolor, color, x3)\n    x5 = mapply(x4, x2)\n    x6 = paint(I, x5)\n    x7 = replace(x6, ONE, SIX)\n    x8 = replace(x7, TWO, SEVEN)\n    x9 = replace(x8, THREE, EIGHT)\n    O = replace(x9, FOUR, NINE)\n    return O\n"
+  "description": "Likely copies the input structure and adds new colored marks, fills, or annotations. Introduces output color(s) [6, 7, 8, 9] and removes input color(s) [0, 1, 2, 3, 4]. Primary structural cue: new color. Inferred transformation family: fill/annotate. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_54d9e175(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = compose(neighbors, center)\n    x4 = fork(recolor, color, x3)\n    x5 = mapply(x4, x2)\n    x6 = paint(I, x5)\n    x7 = replace(x6, ONE, SIX)\n    x8 = replace(x7, TWO, SEVEN)\n    x9 = replace(x8, THREE, EIGHT)\n    O = replace(x9, FOUR, NINE)\n    return O\n",
+  "shape": "same size"
 }

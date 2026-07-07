@@ -1,6 +1,7 @@
 {
   "id": "task325",
   "hash": "d0f5fe59",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d0f5fe59(I):\n    x1 = objects(I, T, F, T)\n    x2 = size(x1)\n    x3 = astuple(x2, x2)\n    x4 = canvas(ZERO, x3)\n    x5 = shoot(ORIGIN, UNITY)\n    O = fill(x4, EIGHT, x5)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Colors are preserved as a set, though positions may change. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d0f5fe59(I):\n    x1 = objects(I, T, F, T)\n    x2 = size(x1)\n    x3 = astuple(x2, x2)\n    x4 = canvas(ZERO, x3)\n    x5 = shoot(ORIGIN, UNITY)\n    O = fill(x4, EIGHT, x5)\n    return O\n",
+  "shape": "variable shapes"
 }

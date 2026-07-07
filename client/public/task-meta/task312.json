@@ -1,6 +1,7 @@
 {
   "id": "task312",
   "hash": "c9f8e694",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c9f8e694(I):\n    x1 = height(I)\n    x2 = width(I)\n    x3 = ofcolor(I, ZERO)\n    x4 = astuple(x1, ONE)\n    x5 = crop(I, ORIGIN, x4)\n    x6 = hupscale(x5, x2)\n    O = fill(x6, ZERO, x3)\n    return O\n"
+  "description": "Likely removes distractor colors or extracts/recolors the relevant structure while preserving the canvas size. Removes input color(s) [5]; output colors are a subset of input colors. Primary structural cue: color subset. Inferred transformation family: delete/extract/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c9f8e694(I):\n    x1 = height(I)\n    x2 = width(I)\n    x3 = ofcolor(I, ZERO)\n    x4 = astuple(x1, ONE)\n    x5 = crop(I, ORIGIN, x4)\n    x6 = hupscale(x5, x2)\n    O = fill(x6, ZERO, x3)\n    return O\n",
+  "shape": "12x12 -> 12x12"
 }

@@ -1,6 +1,7 @@
 {
   "id": "task304",
   "hash": "c3e719e8",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c3e719e8(I):\n    x1 = mostcolor(I)\n    x2 = hconcat(I, I)\n    x3 = upscale(I, THREE)\n    x4 = ofcolor(x3, x1)\n    x5 = asindices(x3)\n    x6 = difference(x5, x4)\n    x7 = hconcat(x2, I)\n    x8 = vconcat(x7, x7)\n    x9 = vconcat(x8, x7)\n    O = fill(x9, ZERO, x6)\n    return O\n"
+  "description": "Likely scales, tiles, or extends a visible pattern to a larger output. Introduces output color(s) [0]; existing colors may be preserved or annotated. Primary structural cue: size expansion. Inferred transformation family: scale/tile/extend.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c3e719e8(I):\n    x1 = mostcolor(I)\n    x2 = hconcat(I, I)\n    x3 = upscale(I, THREE)\n    x4 = ofcolor(x3, x1)\n    x5 = asindices(x3)\n    x6 = difference(x5, x4)\n    x7 = hconcat(x2, I)\n    x8 = vconcat(x7, x7)\n    x9 = vconcat(x8, x7)\n    O = fill(x9, ZERO, x6)\n    return O\n",
+  "shape": "3x3 -> 9x9"
 }

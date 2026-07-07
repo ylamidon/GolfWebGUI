@@ -1,6 +1,7 @@
 {
   "id": "task005",
   "hash": "045e512c",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_045e512c(I):\n    x1 = objects(I, T, T, T)\n    x2 = argmax(x1, size)\n    x3 = remove(x2, x1)\n    x4 = lbind(shift, x2)\n    x5 = lbind(mapply, x4)\n    x6 = double(TEN)\n    x7 = interval(FOUR, x6, FOUR)\n    x8 = rbind(apply, x7)\n    x9 = lbind(position, x2)\n    x10 = lbind(rbind, multiply)\n    x11 = chain(x8, x10, x9)\n    x12 = compose(x5, x11)\n    x13 = fork(recolor, color, x12)\n    x14 = mapply(x13, x3)\n    O = paint(I, x14)\n    return O\n"
+  "description": "Small colored motifs are used as stamps and repeated across the canvas in a straight direction. The copied motifs keep their shape and color. Confidence is medium because the spacing and stopping rule depend on relative motif placement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_045e512c(I):\n    x1 = objects(I, T, T, T)\n    x2 = argmax(x1, size)\n    x3 = remove(x2, x1)\n    x4 = lbind(shift, x2)\n    x5 = lbind(mapply, x4)\n    x6 = double(TEN)\n    x7 = interval(FOUR, x6, FOUR)\n    x8 = rbind(apply, x7)\n    x9 = lbind(position, x2)\n    x10 = lbind(rbind, multiply)\n    x11 = chain(x8, x10, x9)\n    x12 = compose(x5, x11)\n    x13 = fork(recolor, color, x12)\n    x14 = mapply(x13, x3)\n    O = paint(I, x14)\n    return O\n",
+  "shape": "same size"
 }

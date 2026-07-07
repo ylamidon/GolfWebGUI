@@ -36,6 +36,9 @@ textarea { min-height: 72px; resize: vertical; font-family: ui-monospace, SFMono
 .workspace { display: grid; grid-template-rows: auto var(--example-height, 330px) 8px minmax(420px, 1fr); min-width: 0; min-height: 0; height: 100vh; }
 .topbar { min-height: 58px; border-bottom: 1px solid #253044; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 8px 16px; background: #0d1320; min-width: 0; }
 .topbar span { color: #94a3b8; margin-left: 12px; font-size: 13px; }
+.taskHeader { min-width: 0; flex: 1 1 auto; }
+.taskHeader p { margin: 4px 0 0; max-width: 100%; color: #cbd5e1; font-size: 12px; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.taskHeader em { margin-right: 8px; color: #7dd3fc; font-style: normal; font-weight: 700; }
 .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; min-width: 0; }
 .examples { border-bottom: 1px solid #253044; display: grid; grid-template-columns: repeat(2, minmax(160px, 234px)); grid-template-rows: auto 1fr; align-items: start; justify-content: center; justify-items: center; gap: 12px 36px; background: #0b101a; padding: 14px 20px 20px; margin-top: 0; overflow: hidden; }
 .splitter { background: #162033; border-top: 1px solid #253044; border-bottom: 1px solid #253044; cursor: row-resize; position: relative; }

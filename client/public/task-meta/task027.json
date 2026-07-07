@@ -1,6 +1,7 @@
 {
   "id": "task027",
   "hash": "1b60fb0c",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1b60fb0c(I):\n    x1 = rot90(I)\n    x2 = ofcolor(I, ONE)\n    x3 = ofcolor(x1, ONE)\n    x4 = neighbors(ORIGIN)\n    x5 = mapply(neighbors, x4)\n    x6 = lbind(shift, x3)\n    x7 = apply(x6, x5)\n    x8 = lbind(intersection, x2)\n    x9 = compose(size, x8)\n    x10 = argmax(x7, x9)\n    O = underfill(I, TWO, x10)\n    return O\n"
+  "description": "Add red cells into the missing concave area beside the blue object. Existing blue cells remain unchanged. Confidence is medium because the boundary rule may vary with the object's shape.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1b60fb0c(I):\n    x1 = rot90(I)\n    x2 = ofcolor(I, ONE)\n    x3 = ofcolor(x1, ONE)\n    x4 = neighbors(ORIGIN)\n    x5 = mapply(neighbors, x4)\n    x6 = lbind(shift, x3)\n    x7 = apply(x6, x5)\n    x8 = lbind(intersection, x2)\n    x9 = compose(size, x8)\n    x10 = argmax(x7, x9)\n    O = underfill(I, TWO, x10)\n    return O\n",
+  "shape": "same size"
 }

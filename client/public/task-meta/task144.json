@@ -1,6 +1,7 @@
 {
   "id": "task144",
   "hash": "6430c8c4",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6430c8c4(I):\n    x1 = tophalf(I)\n    x2 = bottomhalf(I)\n    x3 = astuple(FOUR, FOUR)\n    x4 = ofcolor(x1, ZERO)\n    x5 = ofcolor(x2, ZERO)\n    x6 = intersection(x4, x5)\n    x7 = canvas(ZERO, x3)\n    O = fill(x7, THREE, x6)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Introduces output color(s) [3] and removes input color(s) [2, 4, 7]. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6430c8c4(I):\n    x1 = tophalf(I)\n    x2 = bottomhalf(I)\n    x3 = astuple(FOUR, FOUR)\n    x4 = ofcolor(x1, ZERO)\n    x5 = ofcolor(x2, ZERO)\n    x6 = intersection(x4, x5)\n    x7 = canvas(ZERO, x3)\n    O = fill(x7, THREE, x6)\n    return O\n",
+  "shape": "9x4 -> 4x4"
 }

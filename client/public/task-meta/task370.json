@@ -1,6 +1,7 @@
 {
   "id": "task370",
   "hash": "e8dc4411",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e8dc4411(I):\n    x1 = leastcolor(I)\n    x2 = ofcolor(I, ZERO)\n    x3 = ofcolor(I, x1)\n    x4 = position(x2, x3)\n    x5 = fork(connect, ulcorner, lrcorner)\n    x6 = x5(x2)\n    x7 = intersection(x2, x6)\n    x8 = equality(x6, x7)\n    x9 = fork(subtract, identity, crement)\n    x10 = fork(add, identity, x9)\n    x11 = branch(x8, identity, x10)\n    x12 = shape(x2)\n    x13 = multiply(x12, x4)\n    x14 = apply(x11, x13)\n    x15 = interval(ONE, FIVE, ONE)\n    x16 = lbind(multiply, x14)\n    x17 = apply(x16, x15)\n    x18 = lbind(shift, x2)\n    x19 = mapply(x18, x17)\n    O = fill(I, x1, x19)\n    return O\n"
+  "description": "Likely preserves most of the input and edits a small set of cells based on local object or marker cues. Colors are preserved as a set, though positions may change. Primary structural cue: sparse change. Inferred transformation family: local edit. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e8dc4411(I):\n    x1 = leastcolor(I)\n    x2 = ofcolor(I, ZERO)\n    x3 = ofcolor(I, x1)\n    x4 = position(x2, x3)\n    x5 = fork(connect, ulcorner, lrcorner)\n    x6 = x5(x2)\n    x7 = intersection(x2, x6)\n    x8 = equality(x6, x7)\n    x9 = fork(subtract, identity, crement)\n    x10 = fork(add, identity, x9)\n    x11 = branch(x8, identity, x10)\n    x12 = shape(x2)\n    x13 = multiply(x12, x4)\n    x14 = apply(x11, x13)\n    x15 = interval(ONE, FIVE, ONE)\n    x16 = lbind(multiply, x14)\n    x17 = apply(x16, x15)\n    x18 = lbind(shift, x2)\n    x19 = mapply(x18, x17)\n    O = fill(I, x1, x19)\n    return O\n",
+  "shape": "same size"
 }

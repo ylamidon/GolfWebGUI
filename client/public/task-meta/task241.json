@@ -1,6 +1,7 @@
 {
   "id": "task241",
   "hash": "9dfd6313",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9dfd6313(I):\n    O = dmirror(I)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9dfd6313(I):\n    O = dmirror(I)\n    return O\n",
+  "shape": "same size"
 }

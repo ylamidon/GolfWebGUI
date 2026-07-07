@@ -1,6 +1,7 @@
 {
   "id": "task353",
   "hash": "dc433765",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_dc433765(I):\n    x1 = ofcolor(I, THREE)\n    x2 = ofcolor(I, FOUR)\n    x3 = first(x1)\n    x4 = first(x2)\n    x5 = subtract(x4, x3)\n    x6 = sign(x5)\n    x7 = recolor(THREE, x1)\n    O = move(I, x7, x6)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_dc433765(I):\n    x1 = ofcolor(I, THREE)\n    x2 = ofcolor(I, FOUR)\n    x3 = first(x1)\n    x4 = first(x2)\n    x5 = subtract(x4, x3)\n    x6 = sign(x5)\n    x7 = recolor(THREE, x1)\n    O = move(I, x7, x6)\n    return O\n",
+  "shape": "same size"
 }

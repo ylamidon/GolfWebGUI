@@ -1,6 +1,7 @@
 {
   "id": "task259",
   "hash": "a740d043",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a740d043(I):\n    x1 = objects(I, T, T, T)\n    x2 = merge(x1)\n    x3 = subgrid(x2, I)\n    O = replace(x3, ONE, ZERO)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Introduces output color(s) [0] and removes input color(s) [1]. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a740d043(I):\n    x1 = objects(I, T, T, T)\n    x2 = merge(x1)\n    x3 = subgrid(x2, I)\n    O = replace(x3, ONE, ZERO)\n    return O\n",
+  "shape": "variable shapes"
 }

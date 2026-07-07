@@ -1,6 +1,7 @@
 {
   "id": "task149",
   "hash": "6773b310",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6773b310(I):\n    x1 = compress(I)\n    x2 = neighbors(ORIGIN)\n    x3 = insert(ORIGIN, x2)\n    x4 = rbind(multiply, THREE)\n    x5 = apply(x4, x3)\n    x6 = astuple(FOUR, FOUR)\n    x7 = shift(x5, x6)\n    x8 = fork(insert, identity, neighbors)\n    x9 = apply(x8, x7)\n    x10 = rbind(toobject, x1)\n    x11 = apply(x10, x9)\n    x12 = rbind(colorcount, SIX)\n    x13 = matcher(x12, TWO)\n    x14 = mfilter(x11, x13)\n    x15 = fill(x1, ONE, x14)\n    x16 = replace(x15, SIX, ZERO)\n    O = downscale(x16, THREE)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Introduces output color(s) [1] and removes input color(s) [6, 8]. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6773b310(I):\n    x1 = compress(I)\n    x2 = neighbors(ORIGIN)\n    x3 = insert(ORIGIN, x2)\n    x4 = rbind(multiply, THREE)\n    x5 = apply(x4, x3)\n    x6 = astuple(FOUR, FOUR)\n    x7 = shift(x5, x6)\n    x8 = fork(insert, identity, neighbors)\n    x9 = apply(x8, x7)\n    x10 = rbind(toobject, x1)\n    x11 = apply(x10, x9)\n    x12 = rbind(colorcount, SIX)\n    x13 = matcher(x12, TWO)\n    x14 = mfilter(x11, x13)\n    x15 = fill(x1, ONE, x14)\n    x16 = replace(x15, SIX, ZERO)\n    O = downscale(x16, THREE)\n    return O\n",
+  "shape": "11x11 -> 3x3"
 }

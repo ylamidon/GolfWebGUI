@@ -1,6 +1,7 @@
 {
   "id": "task343",
   "hash": "d8c310e9",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d8c310e9(I):\n    x1 = objects(I, F, F, T)\n    x2 = first(x1)\n    x3 = hperiod(x2)\n    x4 = multiply(x3, THREE)\n    x5 = tojvec(x3)\n    x6 = tojvec(x4)\n    x7 = shift(x2, x5)\n    x8 = shift(x2, x6)\n    x9 = paint(I, x7)\n    O = paint(x9, x8)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d8c310e9(I):\n    x1 = objects(I, F, F, T)\n    x2 = first(x1)\n    x3 = hperiod(x2)\n    x4 = multiply(x3, THREE)\n    x5 = tojvec(x3)\n    x6 = tojvec(x4)\n    x7 = shift(x2, x5)\n    x8 = shift(x2, x6)\n    x9 = paint(I, x7)\n    O = paint(x9, x8)\n    return O\n",
+  "shape": "5x15 -> 5x15"
 }

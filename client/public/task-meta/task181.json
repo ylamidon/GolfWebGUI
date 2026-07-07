@@ -1,6 +1,7 @@
 {
   "id": "task181",
   "hash": "760b3cac",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_760b3cac(I):\n    x1 = ofcolor(I, FOUR)\n    x2 = ofcolor(I, EIGHT)\n    x3 = ulcorner(x1)\n    x4 = index(I, x3)\n    x5 = equality(x4, FOUR)\n    x6 = branch(x5, NEG_ONE, ONE)\n    x7 = multiply(x6, THREE)\n    x8 = tojvec(x7)\n    x9 = vmirror(x2)\n    x10 = shift(x9, x8)\n    O = fill(I, EIGHT, x10)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_760b3cac(I):\n    x1 = ofcolor(I, FOUR)\n    x2 = ofcolor(I, EIGHT)\n    x3 = ulcorner(x1)\n    x4 = index(I, x3)\n    x5 = equality(x4, FOUR)\n    x6 = branch(x5, NEG_ONE, ONE)\n    x7 = multiply(x6, THREE)\n    x8 = tojvec(x7)\n    x9 = vmirror(x2)\n    x10 = shift(x9, x8)\n    O = fill(I, EIGHT, x10)\n    return O\n",
+  "shape": "6x9 -> 6x9"
 }

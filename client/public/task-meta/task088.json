@@ -1,6 +1,7 @@
 {
   "id": "task088",
   "hash": "3de23699",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3de23699(I):\n    x1 = fgpartition(I)\n    x2 = sizefilter(x1, FOUR)\n    x3 = first(x2)\n    x4 = difference(x1, x2)\n    x5 = first(x4)\n    x6 = color(x3)\n    x7 = color(x5)\n    x8 = subgrid(x3, I)\n    x9 = trim(x8)\n    O = replace(x9, x7, x6)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Removes input color(s) [2]; output colors are a subset of input colors. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3de23699(I):\n    x1 = fgpartition(I)\n    x2 = sizefilter(x1, FOUR)\n    x3 = first(x2)\n    x4 = difference(x1, x2)\n    x5 = first(x4)\n    x6 = color(x3)\n    x7 = color(x5)\n    x8 = subgrid(x3, I)\n    x9 = trim(x8)\n    O = replace(x9, x7, x6)\n    return O\n",
+  "shape": "variable shapes"
 }

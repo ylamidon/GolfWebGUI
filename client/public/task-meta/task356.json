@@ -1,6 +1,7 @@
 {
   "id": "task356",
   "hash": "ded97339",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ded97339(I):\n    x1 = ofcolor(I, EIGHT)\n    x2 = product(x1, x1)\n    x3 = fork(connect, first, last)\n    x4 = apply(x3, x2)\n    x5 = fork(either, vline, hline)\n    x6 = mfilter(x4, x5)\n    O = underfill(I, EIGHT, x6)\n    return O\n"
+  "description": "Likely rearranges, completes, or recolors existing objects while preserving the canvas and color set. Colors are preserved as a set, though positions may change. Primary structural cue: same colors. Inferred transformation family: move/complete/recolor. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ded97339(I):\n    x1 = ofcolor(I, EIGHT)\n    x2 = product(x1, x1)\n    x3 = fork(connect, first, last)\n    x4 = apply(x3, x2)\n    x5 = fork(either, vline, hline)\n    x6 = mfilter(x4, x5)\n    O = underfill(I, EIGHT, x6)\n    return O\n",
+  "shape": "10x10 -> 10x10"
 }

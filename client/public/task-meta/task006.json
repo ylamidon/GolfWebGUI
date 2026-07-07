@@ -1,6 +1,7 @@
 {
   "id": "task006",
   "hash": "0520fde7",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_0520fde7(I):\n    x1 = vmirror(I)\n    x2 = lefthalf(x1)\n    x3 = righthalf(x1)\n    x4 = vmirror(x3)\n    x5 = cellwise(x2, x4, ZERO)\n    O = replace(x5, ONE, TWO)\n    return O\n"
+  "description": "Compare the two 3x3 panels separated by gray. Cells where the panels differ become red; matching cells become background.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_0520fde7(I):\n    x1 = vmirror(I)\n    x2 = lefthalf(x1)\n    x3 = righthalf(x1)\n    x4 = vmirror(x3)\n    x5 = cellwise(x2, x4, ZERO)\n    O = replace(x5, ONE, TWO)\n    return O\n",
+  "shape": "3x7 -> 3x3"
 }

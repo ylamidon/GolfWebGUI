@@ -1,6 +1,7 @@
 {
   "id": "task308",
   "hash": "c8cbb738",
-  "description": "",
-  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c8cbb738(I):\n    x1 = mostcolor(I)\n    x2 = fgpartition(I)\n    x3 = valmax(x2, shape)\n    x4 = canvas(x1, x3)\n    x5 = apply(normalize, x2)\n    x6 = lbind(subtract, x3)\n    x7 = chain(halve, x6, shape)\n    x8 = fork(shift, identity, x7)\n    x9 = mapply(x8, x5)\n    O = paint(x4, x9)\n    return O\n"
+  "description": "Likely selects a target object, region, or abstracted grid and outputs a smaller crop or compressed representation. Colors are preserved as a set, though positions may change. Primary structural cue: smaller output. Inferred transformation family: crop/extract/select. The rule is likely but may need pixel-level refinement.",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c8cbb738(I):\n    x1 = mostcolor(I)\n    x2 = fgpartition(I)\n    x3 = valmax(x2, shape)\n    x4 = canvas(x1, x3)\n    x5 = apply(normalize, x2)\n    x6 = lbind(subtract, x3)\n    x7 = chain(halve, x6, shape)\n    x8 = fork(shift, identity, x7)\n    x9 = mapply(x8, x5)\n    O = paint(x4, x9)\n    return O\n",
+  "shape": "variable shapes"
 }
