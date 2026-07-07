@@ -1,0 +1,6 @@
+{
+  "id": "task249",
+  "hash": "a416b8f3",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a416b8f3(I):\n    O = hconcat(I, I)\n    return O\n"
+}

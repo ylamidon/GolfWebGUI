@@ -1,0 +1,6 @@
+{
+  "id": "task359",
+  "hash": "e26a3af2",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e26a3af2(I):\n    x1 = rot90(I)\n    x2 = apply(mostcommon, I)\n    x3 = apply(mostcommon, x1)\n    x4 = repeat(x2, ONE)\n    x5 = repeat(x3, ONE)\n    x6 = compose(size, dedupe)\n    x7 = x6(x2)\n    x8 = x6(x3)\n    x9 = greater(x8, x7)\n    x10 = branch(x9, height, width)\n    x11 = x10(I)\n    x12 = rot90(x4)\n    x13 = branch(x9, x5, x12)\n    x14 = branch(x9, vupscale, hupscale)\n    O = x14(x13, x11)\n    return O\n"
+}

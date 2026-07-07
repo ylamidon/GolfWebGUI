@@ -1,0 +1,6 @@
+{
+  "id": "task352",
+  "hash": "dc1df850",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_dc1df850(I):\n    x1 = objects(I, T, F, T)\n    x2 = colorfilter(x1, TWO)\n    x3 = mapply(outbox, x2)\n    O = fill(I, ONE, x3)\n    return O\n"
+}

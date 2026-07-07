@@ -1,0 +1,6 @@
+{
+  "id": "task001",
+  "hash": "007bbfb7",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_007bbfb7(I):\n    x1 = hupscale(I, THREE)\n    x2 = vupscale(x1, THREE)\n    x3 = hconcat(I, I)\n    x4 = hconcat(x3, I)\n    x5 = vconcat(x4, x4)\n    x6 = vconcat(x5, x4)\n    O = cellwise(x2, x6, ZERO)\n    return O\n"
+}

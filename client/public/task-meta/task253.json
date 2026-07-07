@@ -1,0 +1,6 @@
+{
+  "id": "task253",
+  "hash": "a61ba2ce",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a61ba2ce(I):\n    x1 = objects(I, T, F, T)\n    x2 = lbind(index, I)\n    x3 = matcher(x2, ZERO)\n    x4 = lbind(extract, x1)\n    x5 = rbind(subgrid, I)\n    x6 = lbind(compose, x3)\n    x7 = chain(x5, x4, x6)\n    x8 = x7(ulcorner)\n    x9 = x7(urcorner)\n    x10 = x7(llcorner)\n    x11 = x7(lrcorner)\n    x12 = hconcat(x11, x10)\n    x13 = hconcat(x9, x8)\n    O = vconcat(x12, x13)\n    return O\n"
+}

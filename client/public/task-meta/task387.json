@@ -1,0 +1,6 @@
+{
+  "id": "task387",
+  "hash": "f35d900a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_f35d900a(I):\n    x1 = objects(I, T, F, T)\n    x2 = palette(I)\n    x3 = remove(ZERO, x2)\n    x4 = lbind(other, x3)\n    x5 = compose(x4, color)\n    x6 = fork(recolor, x5, outbox)\n    x7 = mapply(x6, x1)\n    x8 = mapply(toindices, x1)\n    x9 = box(x8)\n    x10 = difference(x9, x8)\n    x11 = lbind(argmin, x8)\n    x12 = rbind(compose, initset)\n    x13 = lbind(rbind, manhattan)\n    x14 = chain(x12, x13, initset)\n    x15 = chain(initset, x11, x14)\n    x16 = fork(manhattan, initset, x15)\n    x17 = compose(even, x16)\n    x18 = sfilter(x10, x17)\n    x19 = paint(I, x7)\n    O = fill(x19, FIVE, x18)\n    return O\n"
+}

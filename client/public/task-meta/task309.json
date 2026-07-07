@@ -1,0 +1,6 @@
+{
+  "id": "task309",
+  "hash": "c8f0f002",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c8f0f002(I):\n    O = replace(I, SEVEN, FIVE)\n    return O\n"
+}

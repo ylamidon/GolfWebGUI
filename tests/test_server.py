@@ -1,3 +1,4 @@
+import json
 import unittest
 import sys
 from pathlib import Path
@@ -306,13 +307,13 @@ class ServerCompilerTests(unittest.TestCase):
         self.assertGreater(len(data["edges"]), 0)
         self.assertIn("Slice", data["meta"]["opTypes"])
 
-    def test_arc_dsl_solvers_endpoint_returns_python_source(self):
-        response = client.get("/api/arc-dsl/solvers")
-        self.assertEqual(response.status_code, 200)
-        data = response.json()
-        self.assertEqual(data["status"], "loaded")
-        self.assertEqual(data["path"], "external/arc-dsl/solvers.py")
-        self.assertIn("def solve_", data["code"])
+    def test_task_metadata_files_include_hash_description_and_arc_dsl_code(self):
+        meta_path = Path(__file__).resolve().parents[1] / "client" / "public" / "task-meta" / "task002.json"
+        data = json.loads(meta_path.read_text(encoding="utf-8"))
+        self.assertEqual(data["id"], "task002")
+        self.assertEqual(data["hash"], "00d62c1b")
+        self.assertIn("description", data)
+        self.assertIn("def solve_00d62c1b", data["arcDslCode"])
 
     def test_import_onnx_endpoint_converts_uploaded_file_to_visual_graph(self):
         best_path = Path(__file__).resolve().parents[1] / "client" / "public" / "best" / "onnx" / "task001.onnx"

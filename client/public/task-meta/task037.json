@@ -1,0 +1,6 @@
+{
+  "id": "task037",
+  "hash": "1f876c06",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1f876c06(I):\n    x1 = fgpartition(I)\n    x2 = compose(last, first)\n    x3 = power(last, TWO)\n    x4 = fork(connect, x2, x3)\n    x5 = fork(recolor, color, x4)\n    x6 = mapply(x5, x1)\n    O = paint(I, x6)\n    return O\n"
+}

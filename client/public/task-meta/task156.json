@@ -1,0 +1,6 @@
+{
+  "id": "task156",
+  "hash": "694f12f3",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_694f12f3(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, FOUR)\n    x3 = compose(backdrop, inbox)\n    x4 = argmin(x2, size)\n    x5 = argmax(x2, size)\n    x6 = x3(x4)\n    x7 = x3(x5)\n    x8 = fill(I, ONE, x6)\n    O = fill(x8, TWO, x7)\n    return O\n"
+}

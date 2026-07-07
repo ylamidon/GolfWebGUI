@@ -1,0 +1,6 @@
+{
+  "id": "task321",
+  "hash": "cf98881b",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_cf98881b(I):\n    x1 = hsplit(I, THREE)\n    x2 = first(x1)\n    x3 = remove(x2, x1)\n    x4 = first(x3)\n    x5 = last(x3)\n    x6 = ofcolor(x4, NINE)\n    x7 = ofcolor(x2, FOUR)\n    x8 = fill(x5, NINE, x6)\n    O = fill(x8, FOUR, x7)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task174",
+  "hash": "72ca375d",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_72ca375d(I):\n    x1 = objects(I, T, T, T)\n    x2 = totuple(x1)\n    x3 = rbind(subgrid, I)\n    x4 = apply(x3, x2)\n    x5 = apply(vmirror, x4)\n    x6 = papply(equality, x4, x5)\n    x7 = pair(x4, x6)\n    x8 = extract(x7, last)\n    O = first(x8)\n    return O\n"
+}

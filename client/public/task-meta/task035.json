@@ -1,0 +1,6 @@
+{
+  "id": "task035",
+  "hash": "1f642eb9",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1f642eb9(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = difference(x1, x2)\n    x4 = first(x3)\n    x5 = rbind(gravitate, x4)\n    x6 = compose(crement, x5)\n    x7 = fork(shift, identity, x6)\n    x8 = mapply(x7, x2)\n    O = paint(I, x8)\n    return O\n"
+}

@@ -369,20 +369,23 @@ function ExportInspector({ payload, payloadJson, payloadValidation, selectedNode
 }
 
 function ArcDslModal({ source, onClose }) {
+  const metaPath = source.path || (source.id ? `/task-meta/${source.id}.json` : "/task-meta/taskNNN.json");
+  const description = source.description || "No description yet";
   return (
     <div className="modalBackdrop" role="presentation" onMouseDown={onClose}>
       <section className="sourceModal" role="dialog" aria-modal="true" aria-labelledby="arc-dsl-title" onMouseDown={(event) => event.stopPropagation()}>
         <header className="sourceHeader">
           <div>
             <h2 id="arc-dsl-title">ARC DSL Python</h2>
-            <span>{source.path || "external/arc-dsl/solvers.py"}</span>
+            <span>{source.id || "task"}{source.hash ? ` / ${source.hash}` : ""} / {metaPath}</span>
+            <p>{description}</p>
           </div>
           <button className="btn compact" type="button" onClick={onClose} title="Close" aria-label="Close ARC DSL source">
             <X size={16} />
           </button>
         </header>
         {source.state === "loading" ? (
-          <div className="sourceState">Loading solvers.py</div>
+          <div className="sourceState">Loading task metadata</div>
         ) : source.state === "failed" ? (
           <div className="sourceState failed">{source.error}</div>
         ) : (
@@ -636,22 +639,31 @@ function App() {
   };
 
   const openArcDslSource = async () => {
-    if (arcDslSource.state === "loaded") {
+    if (arcDslSource.state === "loaded" && arcDslSource.id === taskId) {
       setArcDslSource((current) => ({ ...current, open: true }));
       return;
     }
-    setArcDslSource((current) => ({ ...current, open: true, state: "loading", error: "" }));
-    setStatus("Loading ARC DSL Python source");
+    const path = `/task-meta/${taskId}.json`;
+    setArcDslSource((current) => ({ ...current, open: true, state: "loading", id: taskId, path, error: "" }));
+    setStatus(`Loading ARC DSL metadata for ${taskId}`);
     try {
-      const { data } = await axios.get("/api/arc-dsl/solvers");
-      setArcDslSource({ open: true, state: "loaded", code: data.code || "", path: data.path || "external/arc-dsl/solvers.py" });
-      setStatus("ARC DSL Python source loaded");
+      const { data } = await axios.get(path, { headers: { "Cache-Control": "no-cache" } });
+      setArcDslSource({
+        open: true,
+        state: "loaded",
+        id: data.id || taskId,
+        hash: data.hash || "",
+        description: data.description || "",
+        code: data.arcDslCode || "",
+        path,
+      });
+      setStatus(`ARC DSL metadata loaded for ${taskId}`);
     } catch (error) {
       const response = error.response?.data;
       const rawReason = response?.reason || response?.detail || error.message;
       const reason = typeof rawReason === "string" ? rawReason : JSON.stringify(rawReason);
       setArcDslSource((current) => ({ ...current, open: true, state: "failed", error: reason }));
-      setStatus(`ARC DSL source load failed: ${reason}`);
+      setStatus(`ARC DSL metadata load failed: ${reason}`);
     }
   };
 

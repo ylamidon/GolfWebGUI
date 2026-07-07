@@ -1,0 +1,6 @@
+{
+  "id": "task360",
+  "hash": "e3497940",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e3497940(I):\n    x1 = lefthalf(I)\n    x2 = righthalf(I)\n    x3 = vmirror(x2)\n    x4 = objects(x3, T, F, T)\n    x5 = merge(x4)\n    O = paint(x1, x5)\n    return O\n"
+}

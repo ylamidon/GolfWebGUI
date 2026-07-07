@@ -1,0 +1,6 @@
+{
+  "id": "task166",
+  "hash": "6d75e8bb",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6d75e8bb(I):\n    x1 = objects(I, T, F, T)\n    x2 = first(x1)\n    x3 = ulcorner(x2)\n    x4 = subgrid(x2, I)\n    x5 = replace(x4, ZERO, TWO)\n    x6 = asobject(x5)\n    x7 = shift(x6, x3)\n    O = paint(I, x7)\n    return O\n"
+}

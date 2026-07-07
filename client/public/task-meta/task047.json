@@ -1,0 +1,6 @@
+{
+  "id": "task047",
+  "hash": "23581191",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_23581191(I):\n    x1 = objects(I, T, T, T)\n    x2 = fork(combine, vfrontier, hfrontier)\n    x3 = compose(x2, center)\n    x4 = fork(recolor, color, x3)\n    x5 = mapply(x4, x1)\n    x6 = paint(I, x5)\n    x7 = fork(intersection, first, last)\n    x8 = apply(x3, x1)\n    x9 = x7(x8)\n    O = fill(x6, TWO, x9)\n    return O\n"
+}

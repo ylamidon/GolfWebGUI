@@ -1,0 +1,6 @@
+{
+  "id": "task175",
+  "hash": "73251a56",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_73251a56(I):\n    x1 = dmirror(I)\n    x2 = papply(pair, I, x1)\n    x3 = lbind(apply, maximum)\n    x4 = apply(x3, x2)\n    x5 = mostcolor(x4)\n    x6 = replace(x4, ZERO, x5)\n    x7 = index(x6, ORIGIN)\n    x8 = shoot(ORIGIN, UNITY)\n    O = fill(x6, x7, x8)\n    return O\n"
+}

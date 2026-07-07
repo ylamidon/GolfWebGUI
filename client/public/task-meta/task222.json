@@ -1,0 +1,6 @@
+{
+  "id": "task222",
+  "hash": "91714a58",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_91714a58(I):\n    x1 = shape(I)\n    x2 = asindices(I)\n    x3 = objects(I, T, F, T)\n    x4 = argmax(x3, size)\n    x5 = mostcolor(x4)\n    x6 = canvas(ZERO, x1)\n    x7 = paint(x6, x4)\n    x8 = rbind(toobject, x7)\n    x9 = rbind(colorcount, x5)\n    x10 = chain(x9, x8, neighbors)\n    x11 = lbind(greater, THREE)\n    x12 = compose(x11, x10)\n    x13 = sfilter(x2, x12)\n    O = fill(x7, ZERO, x13)\n    return O\n"
+}

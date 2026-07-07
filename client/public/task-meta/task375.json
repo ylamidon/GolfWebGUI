@@ -1,0 +1,6 @@
+{
+  "id": "task375",
+  "hash": "ea786f4a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ea786f4a(I):\n    x1 = width(I)\n    x2 = shoot(ORIGIN, UNITY)\n    x3 = decrement(x1)\n    x4 = tojvec(x3)\n    x5 = shoot(x4, DOWN_LEFT)\n    x6 = combine(x2, x5)\n    O = fill(I, ZERO, x6)\n    return O\n"
+}

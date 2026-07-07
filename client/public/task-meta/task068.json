@@ -1,0 +1,6 @@
+{
+  "id": "task068",
+  "hash": "31aa019c",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_31aa019c(I):\n    x1 = leastcolor(I)\n    x2 = ofcolor(I, x1)\n    x3 = first(x2)\n    x4 = neighbors(x3)\n    x5 = astuple(TEN, TEN)\n    x6 = canvas(ZERO, x5)\n    x7 = initset(x3)\n    x8 = fill(x6, x1, x7)\n    O = fill(x8, TWO, x4)\n    return O\n"
+}

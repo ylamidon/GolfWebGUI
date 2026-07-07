@@ -1,0 +1,6 @@
+{
+  "id": "task136",
+  "hash": "5c0a986e",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5c0a986e(I):\n    x1 = ofcolor(I, TWO)\n    x2 = ofcolor(I, ONE)\n    x3 = lrcorner(x1)\n    x4 = ulcorner(x2)\n    x5 = shoot(x3, UNITY)\n    x6 = shoot(x4, NEG_UNITY)\n    x7 = fill(I, TWO, x5)\n    O = fill(x7, ONE, x6)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task121",
+  "hash": "5117e062",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5117e062(I):\n    x1 = objects(I, F, T, T)\n    x2 = matcher(numcolors, TWO)\n    x3 = extract(x1, x2)\n    x4 = subgrid(x3, I)\n    x5 = mostcolor(x3)\n    O = replace(x4, EIGHT, x5)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task065",
+  "hash": "2dc579da",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_2dc579da(I):\n    x1 = vsplit(I, TWO)\n    x2 = rbind(hsplit, TWO)\n    x3 = mapply(x2, x1)\n    O = argmax(x3, numcolors)\n    return O\n"
+}

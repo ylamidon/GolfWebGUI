@@ -1,0 +1,6 @@
+{
+  "id": "task070",
+  "hash": "32597951",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_32597951(I):\n    x1 = ofcolor(I, EIGHT)\n    x2 = delta(x1)\n    O = fill(I, THREE, x2)\n    return O\n"
+}

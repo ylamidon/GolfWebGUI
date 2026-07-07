@@ -1,0 +1,6 @@
+{
+  "id": "task299",
+  "hash": "bdad9b1f",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_bdad9b1f(I):\n    x1 = ofcolor(I, TWO)\n    x2 = ofcolor(I, EIGHT)\n    x3 = center(x1)\n    x4 = center(x2)\n    x5 = hfrontier(x3)\n    x6 = vfrontier(x4)\n    x7 = intersection(x5, x6)\n    x8 = fill(I, TWO, x5)\n    x9 = fill(x8, EIGHT, x6)\n    O = fill(x9, FOUR, x7)\n    return O\n"
+}

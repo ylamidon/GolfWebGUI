@@ -1,0 +1,6 @@
+{
+  "id": "task075",
+  "hash": "363442ee",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_363442ee(I):\n    x1 = ofcolor(I, ONE)\n    x2 = crop(I, ORIGIN, THREE_BY_THREE)\n    x3 = asobject(x2)\n    x4 = lbind(shift, x3)\n    x5 = compose(x4, decrement)\n    x6 = mapply(x5, x1)\n    O = paint(I, x6)\n    return O\n"
+}

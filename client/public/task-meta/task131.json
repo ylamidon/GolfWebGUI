@@ -1,0 +1,6 @@
+{
+  "id": "task131",
+  "hash": "56dc2b01",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_56dc2b01(I):\n    x1 = objects(I, T, F, T)\n    x2 = colorfilter(x1, THREE)\n    x3 = first(x2)\n    x4 = ofcolor(I, TWO)\n    x5 = gravitate(x3, x4)\n    x6 = first(x5)\n    x7 = equality(x6, ZERO)\n    x8 = branch(x7, width, height)\n    x9 = x8(x3)\n    x10 = gravitate(x4, x3)\n    x11 = sign(x10)\n    x12 = multiply(x11, x9)\n    x13 = crement(x12)\n    x14 = recolor(EIGHT, x4)\n    x15 = shift(x14, x13)\n    x16 = paint(I, x15)\n    O = move(x16, x3, x5)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task257",
+  "hash": "a68b268e",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a68b268e(I):\n    x1 = tophalf(I)\n    x2 = bottomhalf(I)\n    x3 = lefthalf(x1)\n    x4 = righthalf(x1)\n    x5 = lefthalf(x2)\n    x6 = righthalf(x2)\n    x7 = ofcolor(x4, FOUR)\n    x8 = ofcolor(x3, SEVEN)\n    x9 = ofcolor(x5, EIGHT)\n    x10 = fill(x6, EIGHT, x9)\n    x11 = fill(x10, FOUR, x7)\n    O = fill(x11, SEVEN, x8)\n    return O\n"
+}

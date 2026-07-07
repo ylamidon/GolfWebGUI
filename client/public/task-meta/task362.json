@@ -1,0 +1,6 @@
+{
+  "id": "task362",
+  "hash": "e48d4e1a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e48d4e1a(I):\n    x1 = shape(I)\n    x2 = ofcolor(I, FIVE)\n    x3 = fill(I, ZERO, x2)\n    x4 = leastcolor(x3)\n    x5 = size(x2)\n    x6 = ofcolor(I, x4)\n    x7 = rbind(toobject, I)\n    x8 = rbind(colorcount, x4)\n    x9 = chain(x8, x7, dneighbors)\n    x10 = matcher(x9, FOUR)\n    x11 = extract(x6, x10)\n    x12 = multiply(DOWN_LEFT, x5)\n    x13 = add(x12, x11)\n    x14 = canvas(ZERO, x1)\n    x15 = fork(combine, vfrontier, hfrontier)\n    x16 = x15(x13)\n    O = fill(x14, x4, x16)\n    return O\n"
+}

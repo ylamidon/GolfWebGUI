@@ -1,0 +1,6 @@
+{
+  "id": "task126",
+  "hash": "54d82841",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_54d82841(I):\n    x1 = height(I)\n    x2 = objects(I, T, F, T)\n    x3 = compose(last, center)\n    x4 = apply(x3, x2)\n    x5 = decrement(x1)\n    x6 = lbind(astuple, x5)\n    x7 = apply(x6, x4)\n    O = fill(I, FOUR, x7)\n    return O\n"
+}

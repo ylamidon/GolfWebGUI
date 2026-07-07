@@ -1,0 +1,6 @@
+{
+  "id": "task132",
+  "hash": "56ff96f3",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_56ff96f3(I):\n    x1 = fgpartition(I)\n    x2 = fork(recolor, color, backdrop)\n    x3 = mapply(x2, x1)\n    O = paint(I, x3)\n    return O\n"
+}

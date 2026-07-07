@@ -1,0 +1,6 @@
+{
+  "id": "task028",
+  "hash": "1bfc4729",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1bfc4729(I):\n    x1 = asindices(I)\n    x2 = tophalf(I)\n    x3 = bottomhalf(I)\n    x4 = leastcolor(x2)\n    x5 = leastcolor(x3)\n    x6 = hfrontier(TWO_BY_ZERO)\n    x7 = box(x1)\n    x8 = combine(x6, x7)\n    x9 = fill(x2, x4, x8)\n    x10 = hmirror(x9)\n    x11 = replace(x10, x4, x5)\n    O = vconcat(x9, x11)\n    return O\n"
+}

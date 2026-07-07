@@ -1,0 +1,6 @@
+{
+  "id": "task056",
+  "hash": "27a28665",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_27a28665(I):\n    x1 = objects(I, T, F, F)\n    x2 = valmax(x1, size)\n    x3 = equality(x2, ONE)\n    x4 = equality(x2, FOUR)\n    x5 = equality(x2, FIVE)\n    x6 = branch(x3, TWO, ONE)\n    x7 = branch(x4, THREE, x6)\n    x8 = branch(x5, SIX, x7)\n    O = canvas(x8, UNITY)\n    return O\n"
+}

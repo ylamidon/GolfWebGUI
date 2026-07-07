@@ -1,0 +1,6 @@
+{
+  "id": "task135",
+  "hash": "5bd6f4ac",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5bd6f4ac(I):\n    x1 = tojvec(SIX)\n    O = crop(I, x1, THREE_BY_THREE)\n    return O\n"
+}

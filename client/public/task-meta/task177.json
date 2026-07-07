@@ -1,0 +1,6 @@
+{
+  "id": "task177",
+  "hash": "7468f01a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_7468f01a(I):\n    x1 = objects(I, F, T, T)\n    x2 = first(x1)\n    x3 = subgrid(x2, I)\n    O = vmirror(x3)\n    return O\n"
+}

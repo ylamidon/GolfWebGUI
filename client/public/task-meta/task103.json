@@ -1,0 +1,6 @@
+{
+  "id": "task103",
+  "hash": "44f52bb0",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_44f52bb0(I):\n    x1 = vmirror(I)\n    x2 = equality(x1, I)\n    x3 = branch(x2, ONE, SEVEN)\n    O = canvas(x3, UNITY)\n    return O\n"
+}

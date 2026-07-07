@@ -1,0 +1,6 @@
+{
+  "id": "task351",
+  "hash": "dc0a314f",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_dc0a314f(I):\n    x1 = ofcolor(I, THREE)\n    x2 = replace(I, THREE, ZERO)\n    x3 = dmirror(x2)\n    x4 = papply(pair, x2, x3)\n    x5 = lbind(apply, maximum)\n    x6 = apply(x5, x4)\n    x7 = cmirror(x6)\n    x8 = papply(pair, x6, x7)\n    x9 = apply(x5, x8)\n    O = subgrid(x1, x9)\n    return O\n"
+}

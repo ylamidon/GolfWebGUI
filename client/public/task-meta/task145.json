@@ -1,0 +1,6 @@
+{
+  "id": "task145",
+  "hash": "6455b5f5",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6455b5f5(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, ZERO)\n    x3 = argmax(x1, size)\n    x4 = valmin(x1, size)\n    x5 = sizefilter(x2, x4)\n    x6 = recolor(ONE, x3)\n    x7 = merge(x5)\n    x8 = paint(I, x6)\n    O = fill(x8, EIGHT, x7)\n    return O\n"
+}

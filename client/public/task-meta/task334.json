@@ -1,0 +1,6 @@
+{
+  "id": "task334",
+  "hash": "d4469b4b",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d4469b4b(I):\n    x1 = palette(I)\n    x2 = other(x1, ZERO)\n    x3 = equality(x2, ONE)\n    x4 = equality(x2, TWO)\n    x5 = branch(x3, UNITY, TWO_BY_TWO)\n    x6 = branch(x4, RIGHT, x5)\n    x7 = fork(combine, vfrontier, hfrontier)\n    x8 = x7(x6)\n    x9 = canvas(ZERO, THREE_BY_THREE)\n    O = fill(x9, FIVE, x8)\n    return O\n"
+}

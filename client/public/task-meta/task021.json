@@ -1,0 +1,6 @@
+{
+  "id": "task021",
+  "hash": "1190e5a7",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1190e5a7(I):\n    x1 = mostcolor(I)\n    x2 = frontiers(I)\n    x3 = sfilter(x2, vline)\n    x4 = difference(x2, x3)\n    x5 = astuple(x4, x3)\n    x6 = apply(size, x5)\n    x7 = increment(x6)\n    O = canvas(x1, x7)\n    return O\n"
+}

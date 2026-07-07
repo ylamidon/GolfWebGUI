@@ -1,0 +1,6 @@
+{
+  "id": "task374",
+  "hash": "ea32f347",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ea32f347(I):\n    x1 = objects(I, T, F, T)\n    x2 = replace(I, FIVE, FOUR)\n    x3 = argmin(x1, size)\n    x4 = argmax(x1, size)\n    x5 = fill(x2, ONE, x4)\n    O = fill(x5, TWO, x3)\n    return O\n"
+}

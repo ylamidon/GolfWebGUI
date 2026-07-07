@@ -1,0 +1,6 @@
+{
+  "id": "task114",
+  "hash": "49d1d64f",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_49d1d64f(I):\n    x1 = shape(I)\n    x2 = add(x1, TWO)\n    x3 = canvas(ZERO, x2)\n    x4 = asobject(I)\n    x5 = shift(x4, UNITY)\n    x6 = paint(x3, x5)\n    x7 = asindices(x3)\n    x8 = fork(difference, box, corners)\n    x9 = x8(x7)\n    x10 = lbind(lbind, manhattan)\n    x11 = rbind(compose, initset)\n    x12 = chain(x11, x10, initset)\n    x13 = lbind(argmin, x5)\n    x14 = chain(first, x13, x12)\n    x15 = fork(astuple, x14, identity)\n    x16 = apply(x15, x9)\n    O = paint(x6, x16)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task189",
+  "hash": "7c008303",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_7c008303(I):\n    x1 = ofcolor(I, THREE)\n    x2 = subgrid(x1, I)\n    x3 = ofcolor(x2, ZERO)\n    x4 = replace(I, THREE, ZERO)\n    x5 = replace(x4, EIGHT, ZERO)\n    x6 = compress(x5)\n    x7 = upscale(x6, THREE)\n    O = fill(x7, ZERO, x3)\n    return O\n"
+}

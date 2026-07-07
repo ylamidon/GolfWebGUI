@@ -1,0 +1,6 @@
+{
+  "id": "task287",
+  "hash": "b8825c91",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_b8825c91(I):\n    x1 = replace(I, FOUR, ZERO)\n    x2 = dmirror(x1)\n    x3 = papply(pair, x1, x2)\n    x4 = lbind(apply, maximum)\n    x5 = apply(x4, x3)\n    x6 = cmirror(x5)\n    x7 = papply(pair, x5, x6)\n    x8 = apply(x4, x7)\n    O = cmirror(x8)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task301",
+  "hash": "beb8660c",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_beb8660c(I):\n    x1 = shape(I)\n    x2 = objects(I, T, F, T)\n    x3 = compose(invert, size)\n    x4 = order(x2, x3)\n    x5 = apply(normalize, x4)\n    x6 = size(x5)\n    x7 = interval(ZERO, x6, ONE)\n    x8 = apply(toivec, x7)\n    x9 = mpapply(shift, x5, x8)\n    x10 = canvas(ZERO, x1)\n    x11 = paint(x10, x9)\n    O = rot180(x11)\n    return O\n"
+}

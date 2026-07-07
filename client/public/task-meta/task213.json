@@ -1,0 +1,6 @@
+{
+  "id": "task213",
+  "hash": "8e1813be",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_8e1813be(I):\n    x1 = replace(I, FIVE, ZERO)\n    x2 = objects(x1, T, T, T)\n    x3 = first(x2)\n    x4 = vline(x3)\n    x5 = branch(x4, dmirror, identity)\n    x6 = x5(x1)\n    x7 = objects(x6, T, T, T)\n    x8 = order(x7, uppermost)\n    x9 = apply(color, x8)\n    x10 = dedupe(x9)\n    x11 = size(x10)\n    x12 = rbind(repeat, x11)\n    x13 = apply(x12, x10)\n    O = x5(x13)\n    return O\n"
+}

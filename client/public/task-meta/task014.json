@@ -1,0 +1,6 @@
+{
+  "id": "task014",
+  "hash": "0b148d64",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_0b148d64(I):\n    x1 = partition(I)\n    x2 = argmin(x1, size)\n    O = subgrid(x2, I)\n    return O\n"
+}

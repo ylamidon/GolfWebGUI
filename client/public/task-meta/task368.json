@@ -1,0 +1,6 @@
+{
+  "id": "task368",
+  "hash": "e76a88a6",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e76a88a6(I):\n    x1 = objects(I, F, F, T)\n    x2 = argmax(x1, numcolors)\n    x3 = normalize(x2)\n    x4 = remove(x2, x1)\n    x5 = apply(ulcorner, x4)\n    x6 = lbind(shift, x3)\n    x7 = mapply(x6, x5)\n    O = paint(I, x7)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task361",
+  "hash": "e40b9e2f",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e40b9e2f(I):\n    x1 = objects(I, F, T, T)\n    x2 = neighbors(ORIGIN)\n    x3 = mapply(neighbors, x2)\n    x4 = first(x1)\n    x5 = lbind(intersection, x4)\n    x6 = compose(hmirror, vmirror)\n    x7 = x6(x4)\n    x8 = lbind(shift, x7)\n    x9 = apply(x8, x3)\n    x10 = argmax(x9, x5)\n    x11 = paint(I, x10)\n    x12 = objects(x11, F, T, T)\n    x13 = first(x12)\n    x14 = compose(size, x5)\n    x15 = compose(vmirror, dmirror)\n    x16 = x15(x13)\n    x17 = lbind(shift, x16)\n    x18 = apply(x17, x3)\n    x19 = argmax(x18, x14)\n    O = paint(x11, x19)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task160",
+  "hash": "6c434453",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6c434453(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, EIGHT)\n    x3 = dneighbors(UNITY)\n    x4 = insert(UNITY, x3)\n    x5 = merge(x2)\n    x6 = cover(I, x5)\n    x7 = apply(ulcorner, x2)\n    x8 = lbind(shift, x4)\n    x9 = mapply(x8, x7)\n    O = fill(x6, TWO, x9)\n    return O\n"
+}

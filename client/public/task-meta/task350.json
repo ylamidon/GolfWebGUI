@@ -1,0 +1,6 @@
+{
+  "id": "task350",
+  "hash": "dbc1a6ce",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_dbc1a6ce(I):\n    x1 = ofcolor(I, ONE)\n    x2 = product(x1, x1)\n    x3 = fork(connect, first, last)\n    x4 = apply(x3, x2)\n    x5 = fork(either, vline, hline)\n    x6 = mfilter(x4, x5)\n    O = underfill(I, EIGHT, x6)\n    return O\n"
+}

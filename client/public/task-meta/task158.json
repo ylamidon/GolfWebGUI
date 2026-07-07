@@ -1,0 +1,6 @@
+{
+  "id": "task158",
+  "hash": "6aa20dc0",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6aa20dc0(I):\n    x1 = objects(I, F, T, T)\n    x2 = argmax(x1, numcolors)\n    x3 = normalize(x2)\n    x4 = lbind(matcher, first)\n    x5 = compose(x4, mostcolor)\n    x6 = fork(sfilter, identity, x5)\n    x7 = fork(difference, identity, x6)\n    x8 = lbind(rbind, upscale)\n    x9 = interval(ONE, FOUR, ONE)\n    x10 = apply(x8, x9)\n    x11 = initset(identity)\n    x12 = insert(vmirror, x11)\n    x13 = insert(hmirror, x12)\n    x14 = insert(cmirror, x13)\n    x15 = insert(dmirror, x14)\n    x16 = fork(compose, first, last)\n    x17 = lbind(occurrences, I)\n    x18 = lbind(lbind, shift)\n    x19 = compose(x17, x7)\n    x20 = product(x15, x10)\n    x21 = apply(x16, x20)\n    x22 = rapply(x21, x3)\n    x23 = fork(mapply, x18, x19)\n    x24 = mapply(x23, x22)\n    O = paint(I, x24)\n    return O\n"
+}

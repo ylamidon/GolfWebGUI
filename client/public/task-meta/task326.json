@@ -1,0 +1,6 @@
+{
+  "id": "task326",
+  "hash": "d10ecb37",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d10ecb37(I):\n    O = crop(I, ORIGIN, TWO_BY_TWO)\n    return O\n"
+}

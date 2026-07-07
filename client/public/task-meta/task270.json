@@ -1,0 +1,6 @@
+{
+  "id": "task270",
+  "hash": "ae3edfdc",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ae3edfdc(I):\n    x1 = objects(I, T, F, T)\n    x2 = replace(I, THREE, ZERO)\n    x3 = replace(x2, SEVEN, ZERO)\n    x4 = lbind(colorfilter, x1)\n    x5 = lbind(rbind, gravitate)\n    x6 = chain(x5, first, x4)\n    x7 = x6(TWO)\n    x8 = x6(ONE)\n    x9 = x4(THREE)\n    x10 = x4(SEVEN)\n    x11 = fork(shift, identity, x7)\n    x12 = fork(shift, identity, x8)\n    x13 = mapply(x11, x9)\n    x14 = mapply(x12, x10)\n    x15 = paint(x3, x13)\n    O = paint(x15, x14)\n    return O\n"
+}

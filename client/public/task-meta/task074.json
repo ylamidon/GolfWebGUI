@@ -1,0 +1,6 @@
+{
+  "id": "task074",
+  "hash": "3631a71a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3631a71a(I):\n    x1 = shape(I)\n    x2 = replace(I, NINE, ZERO)\n    x3 = lbind(apply, maximum)\n    x4 = dmirror(x2)\n    x5 = papply(pair, x2, x4)\n    x6 = apply(x3, x5)\n    x7 = subtract(x1, TWO_BY_TWO)\n    x8 = crop(x6, TWO_BY_TWO, x7)\n    x9 = vmirror(x8)\n    x10 = objects(x9, T, F, T)\n    x11 = merge(x10)\n    x12 = shift(x11, TWO_BY_TWO)\n    O = paint(x6, x12)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task197",
+  "hash": "82819916",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_82819916(I):\n    x1 = objects(I, F, T, T)\n    x2 = argmax(x1, size)\n    x3 = remove(x2, x1)\n    x4 = normalize(x2)\n    x5 = compose(last, last)\n    x6 = rbind(argmin, x5)\n    x7 = compose(first, x6)\n    x8 = fork(other, palette, x7)\n    x9 = x7(x4)\n    x10 = matcher(first, x9)\n    x11 = sfilter(x4, x10)\n    x12 = difference(x4, x11)\n    x13 = compose(toivec, uppermost)\n    x14 = lbind(shift, x11)\n    x15 = lbind(shift, x12)\n    x16 = compose(x14, x13)\n    x17 = compose(x15, x13)\n    x18 = fork(recolor, x7, x16)\n    x19 = fork(recolor, x8, x17)\n    x20 = fork(combine, x18, x19)\n    x21 = mapply(x20, x3)\n    O = paint(I, x21)\n    return O\n"
+}

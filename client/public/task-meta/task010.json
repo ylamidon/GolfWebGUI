@@ -1,0 +1,6 @@
+{
+  "id": "task010",
+  "hash": "08ed6ac7",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_08ed6ac7(I):\n    x1 = objects(I, T, F, T)\n    x2 = totuple(x1)\n    x3 = order(x1, height)\n    x4 = size(x2)\n    x5 = interval(x4, ZERO, NEG_ONE)\n    x6 = mpapply(recolor, x5, x3)\n    O = paint(I, x6)\n    return O\n"
+}

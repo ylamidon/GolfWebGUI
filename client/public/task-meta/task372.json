@@ -1,0 +1,6 @@
+{
+  "id": "task372",
+  "hash": "e98196ab",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e98196ab(I):\n    x1 = tophalf(I)\n    x2 = bottomhalf(I)\n    x3 = objects(x1, T, F, T)\n    x4 = merge(x3)\n    O = paint(x2, x4)\n    return O\n"
+}

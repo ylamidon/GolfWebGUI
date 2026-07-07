@@ -1,0 +1,6 @@
+{
+  "id": "task331",
+  "hash": "d364b489",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d364b489(I):\n    x1 = ofcolor(I, ONE)\n    x2 = shift(x1, DOWN)\n    x3 = fill(I, EIGHT, x2)\n    x4 = shift(x1, UP)\n    x5 = fill(x3, TWO, x4)\n    x6 = shift(x1, RIGHT)\n    x7 = fill(x5, SIX, x6)\n    x8 = shift(x1, LEFT)\n    O = fill(x7, SEVEN, x8)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task337",
+  "hash": "d511f180",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d511f180(I):\n    O = switch(I, FIVE, EIGHT)\n    return O\n"
+}

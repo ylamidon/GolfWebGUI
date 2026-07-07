@@ -1,0 +1,6 @@
+{
+  "id": "task186",
+  "hash": "794b24be",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_794b24be(I):\n    x1 = ofcolor(I, ONE)\n    x2 = size(x1)\n    x3 = decrement(x2)\n    x4 = canvas(ZERO, THREE_BY_THREE)\n    x5 = tojvec(x3)\n    x6 = connect(ORIGIN, x5)\n    x7 = equality(x2, FOUR)\n    x8 = insert(UNITY, x6)\n    x9 = branch(x7, x8, x6)\n    O = fill(x4, TWO, x9)\n    return O\n"
+}

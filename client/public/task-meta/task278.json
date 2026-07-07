@@ -1,0 +1,6 @@
+{
+  "id": "task278",
+  "hash": "b27ca6d3",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_b27ca6d3(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, TWO)\n    x3 = mapply(outbox, x2)\n    O = fill(I, THREE, x3)\n    return O\n"
+}

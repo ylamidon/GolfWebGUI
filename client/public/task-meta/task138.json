@@ -1,0 +1,6 @@
+{
+  "id": "task138",
+  "hash": "5daaa586",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5daaa586(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, ZERO)\n    x3 = rbind(bordering, I)\n    x4 = compose(flip, x3)\n    x5 = extract(x2, x4)\n    x6 = outbox(x5)\n    x7 = subgrid(x6, I)\n    x8 = fgpartition(x7)\n    x9 = argmax(x8, size)\n    x10 = color(x9)\n    x11 = toindices(x9)\n    x12 = prapply(connect, x11, x11)\n    x13 = mfilter(x12, vline)\n    x14 = mfilter(x12, hline)\n    x15 = size(x13)\n    x16 = size(x14)\n    x17 = greater(x15, x16)\n    x18 = branch(x17, x13, x14)\n    O = fill(x7, x10, x18)\n    return O\n"
+}

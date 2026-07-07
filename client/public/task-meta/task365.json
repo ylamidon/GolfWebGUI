@@ -1,0 +1,6 @@
+{
+  "id": "task365",
+  "hash": "e50d258f",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e50d258f(I):\n    x1 = width(I)\n    x2 = astuple(NINE, x1)\n    x3 = canvas(ZERO, x2)\n    x4 = vconcat(I, x3)\n    x5 = objects(x4, F, F, T)\n    x6 = rbind(colorcount, TWO)\n    x7 = argmax(x5, x6)\n    O = subgrid(x7, I)\n    return O\n"
+}

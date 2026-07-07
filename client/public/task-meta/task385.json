@@ -1,0 +1,6 @@
+{
+  "id": "task385",
+  "hash": "f25ffba3",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_f25ffba3(I):\n    x1 = bottomhalf(I)\n    x2 = hmirror(x1)\n    O = vconcat(x2, x1)\n    return O\n"
+}

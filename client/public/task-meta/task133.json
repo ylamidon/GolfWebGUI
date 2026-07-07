@@ -1,0 +1,6 @@
+{
+  "id": "task133",
+  "hash": "57aa92db",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_57aa92db(I):\n    x1 = objects(I, F, T, T)\n    x2 = objects(I, T, F, T)\n    x3 = lbind(lbind, colorcount)\n    x4 = fork(apply, x3, palette)\n    x5 = compose(maximum, x4)\n    x6 = compose(minimum, x4)\n    x7 = fork(subtract, x5, x6)\n    x8 = argmax(x1, x7)\n    x9 = leastcolor(x8)\n    x10 = normalize(x8)\n    x11 = matcher(first, x9)\n    x12 = sfilter(x10, x11)\n    x13 = ulcorner(x12)\n    x14 = colorfilter(x2, x9)\n    x15 = rbind(toobject, I)\n    x16 = lbind(remove, ZERO)\n    x17 = chain(first, x16, palette)\n    x18 = chain(x17, x15, outbox)\n    x19 = lbind(multiply, x13)\n    x20 = compose(x19, width)\n    x21 = fork(subtract, ulcorner, x20)\n    x22 = lbind(shift, x10)\n    x23 = compose(x22, x21)\n    x24 = fork(upscale, x23, width)\n    x25 = fork(recolor, x18, x24)\n    x26 = mapply(x25, x14)\n    x27 = paint(I, x26)\n    x28 = merge(x2)\n    O = paint(x27, x28)\n    return O\n"
+}

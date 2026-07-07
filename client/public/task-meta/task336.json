@@ -1,0 +1,6 @@
+{
+  "id": "task336",
+  "hash": "d4f3cd78",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d4f3cd78(I):\n    x1 = ofcolor(I, FIVE)\n    x2 = delta(x1)\n    x3 = fill(I, EIGHT, x2)\n    x4 = box(x1)\n    x5 = difference(x4, x1)\n    x6 = position(x4, x5)\n    x7 = first(x5)\n    x8 = shoot(x7, x6)\n    O = fill(x3, EIGHT, x8)\n    return O\n"
+}

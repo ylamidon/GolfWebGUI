@@ -1,0 +1,6 @@
+{
+  "id": "task187",
+  "hash": "7b6016b9",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_7b6016b9(I):\n    x1 = objects(I, T, F, F)\n    x2 = rbind(bordering, I)\n    x3 = compose(flip, x2)\n    x4 = mfilter(x1, x3)\n    x5 = fill(I, TWO, x4)\n    O = replace(x5, ZERO, THREE)\n    return O\n"
+}

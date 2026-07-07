@@ -1,0 +1,6 @@
+{
+  "id": "task204",
+  "hash": "868de0fa",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_868de0fa(I):\n    x1 = objects(I, T, F, F)\n    x2 = sfilter(x1, square)\n    x3 = compose(even, height)\n    x4 = sfilter(x2, x3)\n    x5 = difference(x2, x4)\n    x6 = merge(x4)\n    x7 = merge(x5)\n    x8 = fill(I, TWO, x6)\n    O = fill(x8, SEVEN, x7)\n    return O\n"
+}

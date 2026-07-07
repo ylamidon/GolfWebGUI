@@ -1,0 +1,6 @@
+{
+  "id": "task086",
+  "hash": "3befdf3e",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3befdf3e(I):\n    x1 = objects(I, F, F, T)\n    x2 = leastcolor(I)\n    x3 = palette(I)\n    x4 = remove(ZERO, x3)\n    x5 = other(x4, x2)\n    x6 = switch(I, x2, x5)\n    x7 = compose(width, inbox)\n    x8 = lbind(power, outbox)\n    x9 = compose(x8, x7)\n    x10 = initset(x9)\n    x11 = lbind(rapply, x10)\n    x12 = chain(initset, first, x11)\n    x13 = fork(rapply, x12, identity)\n    x14 = compose(first, x13)\n    x15 = compose(backdrop, x14)\n    x16 = lbind(chain, backdrop)\n    x17 = lbind(x16, inbox)\n    x18 = compose(x17, x9)\n    x19 = lbind(apply, initset)\n    x20 = chain(x19, corners, x15)\n    x21 = fork(mapply, x18, x20)\n    x22 = fork(intersection, x15, x21)\n    x23 = mapply(x15, x1)\n    x24 = mapply(x22, x1)\n    x25 = underfill(x6, x5, x23)\n    O = fill(x25, ZERO, x24)\n    return O\n"
+}

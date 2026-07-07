@@ -1,0 +1,6 @@
+{
+  "id": "task289",
+  "hash": "b91ae062",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_b91ae062(I):\n    x1 = numcolors(I)\n    x2 = decrement(x1)\n    O = upscale(I, x2)\n    return O\n"
+}

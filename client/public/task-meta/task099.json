@@ -1,0 +1,6 @@
+{
+  "id": "task099",
+  "hash": "444801d8",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_444801d8(I):\n    x1 = objects(I, T, F, T)\n    x2 = colorfilter(x1, ONE)\n    x3 = rbind(toobject, I)\n    x4 = chain(leastcolor, x3, delta)\n    x5 = rbind(shift, UP)\n    x6 = compose(x5, backdrop)\n    x7 = fork(recolor, x4, x6)\n    x8 = mapply(x7, x2)\n    O = underpaint(I, x8)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task322",
+  "hash": "d037b0a7",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d037b0a7(I):\n    x1 = objects(I, T, F, T)\n    x2 = rbind(shoot, DOWN)\n    x3 = compose(x2, center)\n    x4 = fork(recolor, color, x3)\n    x5 = mapply(x4, x1)\n    O = paint(I, x5)\n    return O\n"
+}

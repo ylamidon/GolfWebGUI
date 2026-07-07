@@ -1,0 +1,6 @@
+{
+  "id": "task153",
+  "hash": "681b3aeb",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_681b3aeb(I):\n    x1 = rot270(I)\n    x2 = objects(x1, T, F, T)\n    x3 = argmax(x2, size)\n    x4 = argmin(x2, size)\n    x5 = color(x4)\n    x6 = canvas(x5, THREE_BY_THREE)\n    x7 = normalize(x3)\n    x8 = paint(x6, x7)\n    O = rot90(x8)\n    return O\n"
+}

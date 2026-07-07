@@ -1,0 +1,6 @@
+{
+  "id": "task073",
+  "hash": "3618c87e",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3618c87e(I):\n    x1 = objects(I, T, F, T)\n    x2 = sizefilter(x1, ONE)\n    x3 = merge(x2)\n    O = move(I, x3, TWO_BY_ZERO)\n    return O\n"
+}

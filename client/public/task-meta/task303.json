@@ -1,0 +1,6 @@
+{
+  "id": "task303",
+  "hash": "c1d99e64",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c1d99e64(I):\n    x1 = frontiers(I)\n    x2 = merge(x1)\n    O = fill(I, TWO, x2)\n    return O\n"
+}

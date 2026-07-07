@@ -1,0 +1,6 @@
+{
+  "id": "task307",
+  "hash": "c59eb873",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_c59eb873(I):\n    O = upscale(I, TWO)\n    return O\n"
+}

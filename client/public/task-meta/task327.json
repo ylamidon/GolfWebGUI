@@ -1,0 +1,6 @@
+{
+  "id": "task327",
+  "hash": "d13f3404",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d13f3404(I):\n    x1 = objects(I, T, F, T)\n    x2 = rbind(shoot, UNITY)\n    x3 = compose(x2, center)\n    x4 = fork(recolor, color, x3)\n    x5 = mapply(x4, x1)\n    x6 = astuple(SIX, SIX)\n    x7 = canvas(ZERO, x6)\n    O = paint(x7, x5)\n    return O\n"
+}

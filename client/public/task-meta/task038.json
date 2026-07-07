@@ -1,0 +1,6 @@
+{
+  "id": "task038",
+  "hash": "1fad071e",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1fad071e(I):\n    x1 = objects(I, T, F, T)\n    x2 = colorfilter(x1, ONE)\n    x3 = sizefilter(x2, FOUR)\n    x4 = size(x3)\n    x5 = subtract(FIVE, x4)\n    x6 = astuple(ONE, x4)\n    x7 = canvas(ONE, x6)\n    x8 = astuple(ONE, x5)\n    x9 = canvas(ZERO, x8)\n    O = hconcat(x7, x9)\n    return O\n"
+}

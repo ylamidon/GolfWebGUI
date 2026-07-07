@@ -1,0 +1,6 @@
+{
+  "id": "task122",
+  "hash": "5168d44c",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5168d44c(I):\n    x1 = ofcolor(I, THREE)\n    x2 = height(x1)\n    x3 = equality(x2, ONE)\n    x4 = branch(x3, ZERO_BY_TWO, TWO_BY_ZERO)\n    x5 = ofcolor(I, TWO)\n    x6 = recolor(TWO, x5)\n    O = move(I, x6, x4)\n    return O\n"
+}

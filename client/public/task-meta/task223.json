@@ -1,0 +1,6 @@
+{
+  "id": "task223",
+  "hash": "9172f3a0",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9172f3a0(I):\n    O = upscale(I, THREE)\n    return O\n"
+}

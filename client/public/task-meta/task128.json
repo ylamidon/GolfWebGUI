@@ -1,0 +1,6 @@
+{
+  "id": "task128",
+  "hash": "5521c0d9",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5521c0d9(I):\n    x1 = objects(I, T, F, T)\n    x2 = merge(x1)\n    x3 = cover(I, x2)\n    x4 = chain(toivec, invert, height)\n    x5 = fork(shift, identity, x4)\n    x6 = mapply(x5, x1)\n    O = paint(x3, x6)\n    return O\n"
+}

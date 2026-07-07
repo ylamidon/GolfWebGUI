@@ -1,0 +1,6 @@
+{
+  "id": "task393",
+  "hash": "f8ff0b80",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_f8ff0b80(I):\n    x1 = objects(I, T, T, T)\n    x2 = order(x1, size)\n    x3 = apply(color, x2)\n    x4 = rbind(canvas, UNITY)\n    x5 = apply(x4, x3)\n    x6 = merge(x5)\n    O = hmirror(x6)\n    return O\n"
+}

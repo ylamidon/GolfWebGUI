@@ -1,0 +1,6 @@
+{
+  "id": "task346",
+  "hash": "d9fac9be",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d9fac9be(I):\n    x1 = palette(I)\n    x2 = objects(I, T, F, T)\n    x3 = argmax(x2, size)\n    x4 = color(x3)\n    x5 = remove(ZERO, x1)\n    x6 = other(x5, x4)\n    O = canvas(x6, UNITY)\n    return O\n"
+}

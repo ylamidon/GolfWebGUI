@@ -1,0 +1,6 @@
+{
+  "id": "task178",
+  "hash": "746b3537",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_746b3537(I):\n    x1 = chain(size, dedupe, first)\n    x2 = x1(I)\n    x3 = equality(x2, ONE)\n    x4 = branch(x3, dmirror, identity)\n    x5 = x4(I)\n    x6 = objects(x5, T, F, F)\n    x7 = order(x6, leftmost)\n    x8 = apply(color, x7)\n    x9 = repeat(x8, ONE)\n    O = x4(x9)\n    return O\n"
+}

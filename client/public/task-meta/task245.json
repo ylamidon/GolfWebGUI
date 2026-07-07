@@ -1,0 +1,6 @@
+{
+  "id": "task245",
+  "hash": "a1570a43",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a1570a43(I):\n    x1 = ofcolor(I, TWO)\n    x2 = ofcolor(I, THREE)\n    x3 = recolor(TWO, x1)\n    x4 = ulcorner(x2)\n    x5 = ulcorner(x1)\n    x6 = subtract(x4, x5)\n    x7 = increment(x6)\n    O = move(I, x3, x7)\n    return O\n"
+}

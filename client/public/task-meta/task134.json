@@ -1,0 +1,6 @@
+{
+  "id": "task134",
+  "hash": "5ad4f10b",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5ad4f10b(I):\n    x1 = objects(I, T, T, T)\n    x2 = argmax(x1, size)\n    x3 = color(x2)\n    x4 = subgrid(x2, I)\n    x5 = leastcolor(x4)\n    x6 = replace(x4, x5, ZERO)\n    x7 = replace(x6, x3, x5)\n    x8 = height(x7)\n    x9 = divide(x8, THREE)\n    O = downscale(x7, x9)\n    return O\n"
+}

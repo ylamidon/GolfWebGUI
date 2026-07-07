@@ -1,0 +1,6 @@
+{
+  "id": "task242",
+  "hash": "9ecd008a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_9ecd008a(I):\n    x1 = vmirror(I)\n    x2 = ofcolor(I, ZERO)\n    O = subgrid(x2, x1)\n    return O\n"
+}

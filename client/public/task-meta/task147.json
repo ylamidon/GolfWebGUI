@@ -1,0 +1,6 @@
+{
+  "id": "task147",
+  "hash": "67385a82",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_67385a82(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, THREE)\n    x3 = sizefilter(x2, ONE)\n    x4 = difference(x2, x3)\n    x5 = merge(x4)\n    O = fill(I, EIGHT, x5)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task376",
+  "hash": "eb281b96",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_eb281b96(I):\n    x1 = height(I)\n    x2 = width(I)\n    x3 = decrement(x1)\n    x4 = astuple(x3, x2)\n    x5 = crop(I, ORIGIN, x4)\n    x6 = hmirror(x5)\n    x7 = vconcat(I, x6)\n    x8 = double(x3)\n    x9 = astuple(x8, x2)\n    x10 = crop(x7, DOWN, x9)\n    O = vconcat(x7, x10)\n    return O\n"
+}

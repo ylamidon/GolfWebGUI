@@ -1,0 +1,6 @@
+{
+  "id": "task347",
+  "hash": "dae9d2b5",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_dae9d2b5(I):\n    x1 = lefthalf(I)\n    x2 = righthalf(I)\n    x3 = ofcolor(x1, FOUR)\n    x4 = ofcolor(x2, THREE)\n    x5 = combine(x3, x4)\n    O = fill(x1, SIX, x5)\n    return O\n"
+}

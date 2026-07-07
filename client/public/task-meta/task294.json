@@ -1,0 +1,6 @@
+{
+  "id": "task294",
+  "hash": "bb43febb",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_bb43febb(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, FIVE)\n    x3 = compose(backdrop, inbox)\n    x4 = mapply(x3, x2)\n    O = fill(I, TWO, x4)\n    return O\n"
+}

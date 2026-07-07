@@ -1,0 +1,6 @@
+{
+  "id": "task108",
+  "hash": "46f33fce",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_46f33fce(I):\n    x1 = rot180(I)\n    x2 = downscale(x1, TWO)\n    x3 = rot180(x2)\n    O = upscale(x3, FOUR)\n    return O\n"
+}

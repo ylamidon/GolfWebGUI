@@ -1,0 +1,6 @@
+{
+  "id": "task167",
+  "hash": "6e02f1e3",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6e02f1e3(I):\n    x1 = numcolors(I)\n    x2 = canvas(ZERO, THREE_BY_THREE)\n    x3 = equality(x1, THREE)\n    x4 = equality(x1, TWO)\n    x5 = branch(x3, TWO_BY_ZERO, ORIGIN)\n    x6 = branch(x4, TWO_BY_TWO, ZERO_BY_TWO)\n    x7 = connect(x5, x6)\n    O = fill(x2, FIVE, x7)\n    return O\n"
+}

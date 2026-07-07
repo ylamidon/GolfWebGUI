@@ -1,0 +1,6 @@
+{
+  "id": "task391",
+  "hash": "f8b3ba0a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_f8b3ba0a(I):\n    x1 = compress(I)\n    x2 = astuple(THREE, ONE)\n    x3 = palette(x1)\n    x4 = lbind(colorcount, x1)\n    x5 = compose(invert, x4)\n    x6 = order(x3, x5)\n    x7 = rbind(canvas, UNITY)\n    x8 = apply(x7, x6)\n    x9 = merge(x8)\n    O = crop(x9, DOWN, x2)\n    return O\n"
+}

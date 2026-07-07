@@ -1,0 +1,6 @@
+{
+  "id": "task165",
+  "hash": "6d58a25d",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6d58a25d(I):\n    x1 = objects(I, T, T, T)\n    x2 = argmax(x1, size)\n    x3 = remove(x2, x1)\n    x4 = merge(x3)\n    x5 = color(x4)\n    x6 = uppermost(x2)\n    x7 = rbind(greater, x6)\n    x8 = compose(x7, uppermost)\n    x9 = rbind(vmatching, x2)\n    x10 = fork(both, x9, x8)\n    x11 = sfilter(x3, x10)\n    x12 = increment(x6)\n    x13 = rbind(greater, x12)\n    x14 = compose(x13, first)\n    x15 = rbind(sfilter, x14)\n    x16 = chain(x15, vfrontier, center)\n    x17 = mapply(x16, x11)\n    O = underfill(I, x5, x17)\n    return O\n"
+}

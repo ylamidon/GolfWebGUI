@@ -1,0 +1,6 @@
+{
+  "id": "task042",
+  "hash": "22233c11",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_22233c11(I):\n    x1 = objects(I, T, T, T)\n    x2 = rbind(upscale, TWO)\n    x3 = chain(invert, halve, shape)\n    x4 = fork(combine, hfrontier, vfrontier)\n    x5 = compose(x2, vmirror)\n    x6 = fork(shift, x5, x3)\n    x7 = compose(toindices, x6)\n    x8 = lbind(mapply, x4)\n    x9 = compose(x8, toindices)\n    x10 = fork(difference, x7, x9)\n    x11 = mapply(x10, x1)\n    O = fill(I, EIGHT, x11)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task338",
+  "hash": "d5d6de2d",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d5d6de2d(I):\n    x1 = objects(I, T, F, T)\n    x2 = sfilter(x1, square)\n    x3 = difference(x1, x2)\n    x4 = compose(backdrop, inbox)\n    x5 = mapply(x4, x3)\n    x6 = replace(I, TWO, ZERO)\n    O = fill(x6, THREE, x5)\n    return O\n"
+}

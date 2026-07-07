@@ -1,0 +1,6 @@
+{
+  "id": "task016",
+  "hash": "0d3d703e",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_0d3d703e(I):\n    x1 = switch(I, THREE, FOUR)\n    x2 = switch(x1, EIGHT, NINE)\n    x3 = switch(x2, TWO, SIX)\n    O = switch(x3, ONE, FIVE)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task120",
+  "hash": "50cb2852",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_50cb2852(I):\n    x1 = objects(I, T, F, T)\n    x2 = compose(backdrop, inbox)\n    x3 = mapply(x2, x1)\n    O = fill(I, EIGHT, x3)\n    return O\n"
+}

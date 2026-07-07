@@ -1,0 +1,6 @@
+{
+  "id": "task183",
+  "hash": "77fdfe62",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_77fdfe62(I):\n    x1 = ofcolor(I, EIGHT)\n    x2 = subgrid(x1, I)\n    x3 = replace(I, EIGHT, ZERO)\n    x4 = replace(x3, ONE, ZERO)\n    x5 = compress(x4)\n    x6 = width(x2)\n    x7 = halve(x6)\n    x8 = upscale(x5, x7)\n    x9 = ofcolor(x2, ZERO)\n    O = fill(x8, ZERO, x9)\n    return O\n"
+}

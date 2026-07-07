@@ -1,0 +1,6 @@
+{
+  "id": "task367",
+  "hash": "e73095fd",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_e73095fd(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, ZERO)\n    x3 = fork(equality, toindices, backdrop)\n    x4 = sfilter(x2, x3)\n    x5 = lbind(mapply, dneighbors)\n    x6 = chain(x5, corners, outbox)\n    x7 = fork(difference, x6, outbox)\n    x8 = ofcolor(I, FIVE)\n    x9 = rbind(intersection, x8)\n    x10 = matcher(size, ZERO)\n    x11 = chain(x10, x9, x7)\n    x12 = mfilter(x4, x11)\n    O = fill(I, FOUR, x12)\n    return O\n"
+}

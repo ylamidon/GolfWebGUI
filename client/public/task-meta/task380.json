@@ -1,0 +1,6 @@
+{
+  "id": "task380",
+  "hash": "ed36ccf7",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ed36ccf7(I):\n    O = rot270(I)\n    return O\n"
+}

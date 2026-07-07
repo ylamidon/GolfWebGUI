@@ -1,0 +1,6 @@
+{
+  "id": "task162",
+  "hash": "6cf79266",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_6cf79266(I):\n    x1 = ofcolor(I, ZERO)\n    x2 = astuple(ZERO, ORIGIN)\n    x3 = initset(x2)\n    x4 = upscale(x3, THREE)\n    x5 = toindices(x4)\n    x6 = lbind(shift, x5)\n    x7 = rbind(difference, x1)\n    x8 = chain(size, x7, x6)\n    x9 = matcher(x8, ZERO)\n    x10 = lbind(add, NEG_UNITY)\n    x11 = chain(flip, x9, x10)\n    x12 = fork(both, x9, x11)\n    x13 = sfilter(x1, x12)\n    x14 = mapply(x6, x13)\n    O = fill(I, ONE, x14)\n    return O\n"
+}

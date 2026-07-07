@@ -1,0 +1,6 @@
+{
+  "id": "task077",
+  "hash": "36fdfd69",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_36fdfd69(I):\n    x1 = upscale(I, TWO)\n    x2 = objects(x1, T, T, T)\n    x3 = colorfilter(x2, TWO)\n    x4 = fork(manhattan, first, last)\n    x5 = lbind(greater, FIVE)\n    x6 = compose(x5, x4)\n    x7 = product(x3, x3)\n    x8 = sfilter(x7, x6)\n    x9 = apply(merge, x8)\n    x10 = mapply(delta, x9)\n    x11 = fill(x1, FOUR, x10)\n    x12 = merge(x3)\n    x13 = paint(x11, x12)\n    O = downscale(x13, TWO)\n    return O\n"
+}

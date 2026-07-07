@@ -1,0 +1,6 @@
+{
+  "id": "task176",
+  "hash": "7447852a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_7447852a(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, ZERO)\n    x3 = compose(last, center)\n    x4 = order(x2, x3)\n    x5 = size(x4)\n    x6 = interval(ZERO, x5, THREE)\n    x7 = rbind(contained, x6)\n    x8 = compose(x7, last)\n    x9 = interval(ZERO, x5, ONE)\n    x10 = pair(x4, x9)\n    x11 = sfilter(x10, x8)\n    x12 = mapply(first, x11)\n    O = fill(I, FOUR, x12)\n    return O\n"
+}

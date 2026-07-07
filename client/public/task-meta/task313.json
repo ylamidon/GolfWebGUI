@@ -1,0 +1,6 @@
+{
+  "id": "task313",
+  "hash": "caa06a1f",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_caa06a1f(I):\n    x1 = asobject(I)\n    x2 = shape(I)\n    x3 = decrement(x2)\n    x4 = index(I, x3)\n    x5 = double(x2)\n    x6 = canvas(x4, x5)\n    x7 = paint(x6, x1)\n    x8 = objects(x7, F, F, T)\n    x9 = first(x8)\n    x10 = shift(x9, LEFT)\n    x11 = vperiod(x10)\n    x12 = hperiod(x10)\n    x13 = neighbors(ORIGIN)\n    x14 = lbind(mapply, neighbors)\n    x15 = power(x14, TWO)\n    x16 = x15(x13)\n    x17 = astuple(x11, x12)\n    x18 = lbind(multiply, x17)\n    x19 = apply(x18, x16)\n    x20 = lbind(shift, x10)\n    x21 = mapply(x20, x19)\n    O = paint(I, x21)\n    return O\n"
+}

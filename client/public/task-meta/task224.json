@@ -1,0 +1,6 @@
+{
+  "id": "task224",
+  "hash": "928ad970",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_928ad970(I):\n    x1 = ofcolor(I, FIVE)\n    x2 = subgrid(x1, I)\n    x3 = trim(x2)\n    x4 = leastcolor(x3)\n    x5 = inbox(x1)\n    O = fill(I, x4, x5)\n    return O\n"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "task041",
+  "hash": "22168020",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_22168020(I):\n    x1 = palette(I)\n    x2 = remove(ZERO, x1)\n    x3 = lbind(ofcolor, I)\n    x4 = lbind(prapply, connect)\n    x5 = fork(x4, x3, x3)\n    x6 = compose(merge, x5)\n    x7 = fork(recolor, identity, x6)\n    x8 = mapply(x7, x2)\n    O = paint(I, x8)\n    return O\n"
+}

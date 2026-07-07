@@ -1,0 +1,6 @@
+{
+  "id": "task251",
+  "hash": "a5313dff",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a5313dff(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, ZERO)\n    x3 = rbind(bordering, I)\n    x4 = compose(flip, x3)\n    x5 = mfilter(x2, x4)\n    O = fill(I, ONE, x5)\n    return O\n"
+}

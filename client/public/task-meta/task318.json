@@ -1,0 +1,6 @@
+{
+  "id": "task318",
+  "hash": "ce4f8723",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_ce4f8723(I):\n    x1 = tophalf(I)\n    x2 = bottomhalf(I)\n    x3 = ofcolor(x1, ZERO)\n    x4 = ofcolor(x2, ZERO)\n    x5 = intersection(x3, x4)\n    x6 = astuple(FOUR, FOUR)\n    x7 = canvas(THREE, x6)\n    O = fill(x7, ZERO, x5)\n    return O\n"
+}

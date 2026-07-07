@@ -1236,21 +1236,6 @@ def best_graph(task_id: str):
         return JSONResponse(status_code=404, content={"status": "failed", "reason": str(exc)})
 
 
-@app.get("/api/arc-dsl/solvers")
-def arc_dsl_solvers():
-    source_path = ROOT / "external" / "arc-dsl" / "solvers.py"
-    try:
-        return {
-            "status": "loaded",
-            "path": str(source_path.relative_to(ROOT)).replace("\\", "/"),
-            "code": source_path.read_text(encoding="utf-8"),
-        }
-    except FileNotFoundError:
-        return JSONResponse(status_code=404, content={"status": "failed", "reason": "external/arc-dsl/solvers.py not found"})
-    except Exception as exc:
-        return JSONResponse(status_code=500, content={"status": "failed", "reason": str(exc)})
-
-
 @app.post("/api/import-onnx")
 async def import_onnx(file: UploadFile = File(...), project_name: str | None = Form(None)):
     raw = await file.read()

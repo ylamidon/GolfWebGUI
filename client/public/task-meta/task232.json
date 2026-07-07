@@ -1,0 +1,6 @@
+{
+  "id": "task232",
+  "hash": "97999447",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_97999447(I):\n    x1 = objects(I, T, F, T)\n    x2 = apply(toindices, x1)\n    x3 = rbind(shoot, RIGHT)\n    x4 = compose(x3, center)\n    x5 = fork(recolor, color, x4)\n    x6 = mapply(x5, x1)\n    x7 = paint(I, x6)\n    x8 = interval(ZERO, FIVE, ONE)\n    x9 = apply(double, x8)\n    x10 = apply(increment, x9)\n    x11 = apply(tojvec, x10)\n    x12 = prapply(shift, x2, x11)\n    x13 = merge(x12)\n    O = fill(x7, FIVE, x13)\n    return O\n"
+}

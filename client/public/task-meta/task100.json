@@ -1,0 +1,6 @@
+{
+  "id": "task100",
+  "hash": "445eab21",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_445eab21(I):\n    x1 = objects(I, T, F, T)\n    x2 = fork(multiply, height, width)\n    x3 = argmax(x1, x2)\n    x4 = color(x3)\n    O = canvas(x4, TWO_BY_TWO)\n    return O\n"
+}

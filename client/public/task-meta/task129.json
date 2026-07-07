@@ -1,0 +1,6 @@
+{
+  "id": "task129",
+  "hash": "5582e5ca",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5582e5ca(I):\n    x1 = mostcolor(I)\n    O = canvas(x1, THREE_BY_THREE)\n    return O\n"
+}

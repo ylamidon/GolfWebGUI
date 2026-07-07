@@ -1,0 +1,6 @@
+{
+  "id": "task210",
+  "hash": "8be77c9e",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_8be77c9e(I):\n    x1 = hmirror(I)\n    O = vconcat(I, x1)\n    return O\n"
+}

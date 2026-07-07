@@ -1,0 +1,6 @@
+{
+  "id": "task130",
+  "hash": "5614dbcf",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_5614dbcf(I):\n    x1 = replace(I, FIVE, ZERO)\n    O = downscale(x1, THREE)\n    return O\n"
+}

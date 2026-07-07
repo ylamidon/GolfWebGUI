@@ -1,0 +1,6 @@
+{
+  "id": "task081",
+  "hash": "3aa6fb7a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_3aa6fb7a(I):\n    x1 = objects(I, T, F, T)\n    x2 = mapply(corners, x1)\n    O = underfill(I, ONE, x2)\n    return O\n"
+}

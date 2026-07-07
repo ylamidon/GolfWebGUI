@@ -1,0 +1,6 @@
+{
+  "id": "task067",
+  "hash": "2dee498d",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_2dee498d(I):\n    x1 = hsplit(I, THREE)\n    O = first(x1)\n    return O\n"
+}

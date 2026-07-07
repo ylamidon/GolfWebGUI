@@ -1,0 +1,6 @@
+{
+  "id": "task339",
+  "hash": "d631b094",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_d631b094(I):\n    x1 = palette(I)\n    x2 = other(x1, ZERO)\n    x3 = ofcolor(I, x2)\n    x4 = size(x3)\n    x5 = astuple(ONE, x4)\n    O = canvas(x2, x5)\n    return O\n"
+}

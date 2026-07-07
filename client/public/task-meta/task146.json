@@ -1,0 +1,6 @@
+{
+  "id": "task146",
+  "hash": "662c240a",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_662c240a(I):\n    x1 = vsplit(I, THREE)\n    x2 = fork(equality, dmirror, identity)\n    x3 = compose(flip, x2)\n    O = extract(x1, x3)\n    return O\n"
+}

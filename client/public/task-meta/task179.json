@@ -1,0 +1,6 @@
+{
+  "id": "task179",
+  "hash": "74dd1130",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_74dd1130(I):\n    O = dmirror(I)\n    return O\n"
+}

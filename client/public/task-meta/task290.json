@@ -1,0 +1,6 @@
+{
+  "id": "task290",
+  "hash": "b94a9452",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_b94a9452(I):\n    x1 = objects(I, F, F, T)\n    x2 = first(x1)\n    x3 = subgrid(x2, I)\n    x4 = leastcolor(x3)\n    x5 = mostcolor(x3)\n    O = switch(x3, x4, x5)\n    return O\n"
+}

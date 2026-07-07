@@ -1,0 +1,6 @@
+{
+  "id": "task261",
+  "hash": "a79310a0",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_a79310a0(I):\n    x1 = objects(I, T, F, T)\n    x2 = first(x1)\n    x3 = move(I, x2, DOWN)\n    O = replace(x3, EIGHT, TWO)\n    return O\n"
+}

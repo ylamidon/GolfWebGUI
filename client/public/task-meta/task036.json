@@ -1,0 +1,6 @@
+{
+  "id": "task036",
+  "hash": "1f85a75f",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_1f85a75f(I):\n    x1 = objects(I, T, T, T)\n    x2 = argmax(x1, size)\n    O = subgrid(x2, I)\n    return O\n"
+}

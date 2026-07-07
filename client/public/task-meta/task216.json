@@ -1,0 +1,6 @@
+{
+  "id": "task216",
+  "hash": "8efcae92",
+  "description": "",
+  "arcDslCode": "from dsl import *\nfrom constants import *\n\n\ndef solve_8efcae92(I):\n    x1 = objects(I, T, F, F)\n    x2 = colorfilter(x1, ONE)\n    x3 = compose(size, delta)\n    x4 = argmax(x2, x3)\n    O = subgrid(x4, I)\n    return O\n"
+}
